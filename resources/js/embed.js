@@ -1,62 +1,169 @@
 /**
- * BPS AI Assistant — Embeddable Widget Script
+ * BPS AI Assistant — Standalone Embeddable Widget (Cloud Bubble Edition)
  *
- * Usage on any BPS Official Website:
+ * Usage on ANY website:
  * <script src="https://bps-chatbot-v2.pinnhost.my.id/embed.js" defer></script>
  */
 (function () {
-  if (window.BPS_AI_WIDGET_LOADED) return;
-  window.BPS_AI_WIDGET_LOADED = true;
+  if (window.BPS_AI_WIDGET_INITIALIZED) return;
+  window.BPS_AI_WIDGET_INITIALIZED = true;
 
-  const scriptTag = document.currentScript;
-  const serverUrl = (scriptTag && scriptTag.src) 
-    ? new URL(scriptTag.src).origin 
-    : window.location.origin;
+  const BPS_BASE_URL = 'https://bps-chatbot-v2.pinnhost.my.id';
 
-  // Create Container
-  const container = document.createElement('div');
-  container.id = 'bps-ai-widget-root';
-  container.style.position = 'fixed';
-  container.style.bottom = '20px';
-  container.style.right = '20px';
-  container.style.zIndex = '999999';
-  container.style.fontFamily = "'Inter', system-ui, -apple-system, sans-serif";
-  document.body.appendChild(container);
-
-  // Inject Iframe for Isolated CSS & Security
-  const iframe = document.createElement('iframe');
-  iframe.src = serverUrl + '/widget';
-  iframe.style.border = 'none';
-  iframe.style.width = '70px';
-  iframe.style.height = '70px';
-  iframe.style.borderRadius = '35px';
-  iframe.style.boxShadow = '0 10px 30px rgba(0,0,0,0.15)';
-  iframe.style.transition = 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)';
-  iframe.style.overflow = 'hidden';
-  iframe.style.background = 'transparent';
-  iframe.allow = 'clipboard-write';
-
-  container.appendChild(iframe);
-
-  // Listen to expand/collapse events from widget iframe
-  window.addEventListener('message', (event) => {
-    if (event.data === 'bps-widget:expand') {
-      if (window.innerWidth < 480) {
-        iframe.style.width = '100vw';
-        iframe.style.height = '100vh';
-        iframe.style.position = 'fixed';
-        iframe.style.inset = '0';
-        iframe.style.borderRadius = '0';
-      } else {
-        iframe.style.width = '400px';
-        iframe.style.height = '600px';
-        iframe.style.borderRadius = '16px';
+  // Inject Styles
+  const style = document.createElement('style');
+  style.innerHTML = `
+    #bps-ai-bubble-btn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 2147483647;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: linear-gradient(135deg, #0093DD 0%, #007bbd 100%);
+      color: #FFFFFF;
+      padding: 10px 16px 10px 12px;
+      border-radius: 9999px;
+      box-shadow: 0 10px 25px -4px rgba(0, 147, 221, 0.45), 0 4px 12px -2px rgba(0, 147, 221, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.35);
+      cursor: pointer;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+      user-select: none;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+    #bps-ai-bubble-btn:hover {
+      transform: translateY(-3px) scale(1.04);
+      box-shadow: 0 16px 32px -4px rgba(0, 147, 221, 0.55), 0 6px 16px -2px rgba(0, 147, 221, 0.35);
+    }
+    #bps-ai-bubble-btn:active {
+      transform: translateY(-1px) scale(0.98);
+    }
+    .bps-cloud-icon-wrapper {
+      width: 26px;
+      height: 26px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.15));
+      flex-shrink: 0;
+    }
+    #bps-ai-frame-container {
+      position: fixed;
+      bottom: 78px;
+      right: 20px;
+      width: 410px;
+      height: 610px;
+      max-width: calc(100vw - 32px);
+      max-height: calc(100vh - 96px);
+      background: #FFFFFF;
+      border-radius: 20px;
+      box-shadow: 0 20px 50px -10px rgba(31, 41, 55, 0.25), 0 0 0 1px rgba(0, 0, 0, 0.06);
+      z-index: 2147483646;
+      overflow: hidden;
+      display: none;
+      flex-direction: column;
+      transform-origin: bottom right;
+      box-sizing: border-box;
+      border: 1px solid #E2E8F0;
+    }
+    #bps-ai-frame-container.active {
+      display: flex;
+      animation: bps-popup 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    @keyframes bps-popup {
+      from { opacity: 0; transform: scale(0.92) translateY(18px); }
+      to { opacity: 1; transform: scale(1) translateY(0); }
+    }
+    #bps-ai-iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      background: #F8FAFC;
+    }
+    @media (max-width: 480px) {
+      #bps-ai-frame-container {
+        bottom: 72px !important;
+        right: 12px !important;
+        left: auto !important;
+        top: auto !important;
+        width: calc(100vw - 24px) !important;
+        max-width: 380px !important;
+        height: min(520px, calc(100dvh - 86px)) !important;
+        max-height: calc(100dvh - 86px) !important;
+        border-radius: 18px !important;
+        border: 1px solid #E2E8F0 !important;
+        box-shadow: 0 16px 40px -8px rgba(31, 41, 55, 0.3) !important;
       }
-    } else if (event.data === 'bps-widget:collapse') {
-      iframe.style.width = '70px';
-      iframe.style.height = '70px';
-      iframe.style.borderRadius = '35px';
-      iframe.style.position = 'static';
+      #bps-ai-bubble-btn {
+        bottom: 14px;
+        right: 12px;
+        padding: 8px 14px 8px 10px;
+        font-size: 12.5px;
+      }
+    }
+  `;
+  document.head.appendChild(style);
+
+  // 1. Create Frame Container
+  const frameContainer = document.createElement('div');
+  frameContainer.id = 'bps-ai-frame-container';
+
+  const iframe = document.createElement('iframe');
+  iframe.id = 'bps-ai-iframe';
+  iframe.src = BPS_BASE_URL + '/?embed=1';
+  iframe.allow = 'clipboard-write';
+  frameContainer.appendChild(iframe);
+  document.body.appendChild(frameContainer);
+
+  // 2. SVG Cloud Chat Icon with BPS Statistical Chart motif (Blue #0093DD, Orange #EB891B, Green #68B92E)
+  const cloudChatSvg = `
+    <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full">
+      <path d="M9.5 23.5H22C25.5899 23.5 28.5 20.5899 28.5 17C28.5 13.5683 25.8366 10.7573 22.4668 10.521C21.7248 6.78652 18.4414 4 14.5 4C10.0526 4 6.38676 7.23432 5.67978 11.5173C3.0189 12.3789 1 14.9455 1 18C1 21.3137 3.68629 24 7 24L5 28L10.5 24.5L9.5 23.5Z" 
+            fill="white" fill-opacity="0.22" stroke="white" stroke-width="1.75" stroke-linejoin="round" />
+      <rect x="9.5" y="14.5" width="2.2" height="5.5" rx="1.1" fill="#EB891B" />
+      <rect x="13.5" y="11.5" width="2.2" height="8.5" rx="1.1" fill="#FFFFFF" />
+      <rect x="17.5" y="13" width="2.2" height="7" rx="1.1" fill="#68B92E" />
+      <path d="M24 5L24.8 7.2L27 8L24.8 8.8L24 11L23.2 8.8L21 8L23.2 7.2L24 5Z" fill="#EB891B" />
+    </svg>
+  `;
+
+  const closeSvg = `
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width: 17px; height: 17px;">
+      <line x1="18" y1="6" x2="6" y2="18"></line>
+      <line x1="6" y1="6" x2="18" y2="18"></line>
+    </svg>
+  `;
+
+  // 3. Create Floating Button
+  const btn = document.createElement('div');
+  btn.id = 'bps-ai-bubble-btn';
+  btn.innerHTML = `
+    <div class="bps-cloud-icon-wrapper" id="bps-icon-box">${cloudChatSvg}</div>
+    <span id="bps-ai-btn-text">Tanya BPS</span>
+  `;
+  document.body.appendChild(btn);
+
+  let isOpen = false;
+
+  btn.addEventListener('click', function () {
+    isOpen = !isOpen;
+    const iconBox = document.getElementById('bps-icon-box');
+    const textSpan = document.getElementById('bps-ai-btn-text');
+
+    if (isOpen) {
+      frameContainer.classList.add('active');
+      iconBox.innerHTML = closeSvg;
+      textSpan.textContent = 'Tutup';
+    } else {
+      frameContainer.classList.remove('active');
+      iconBox.innerHTML = cloudChatSvg;
+      textSpan.textContent = 'Tanya BPS';
     }
   });
 })();
