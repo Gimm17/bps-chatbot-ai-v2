@@ -2,7 +2,7 @@
  * BPS AI Assistant — Standalone Embeddable Widget (Cloud Bubble Edition)
  *
  * Usage on ANY website:
- * <script src="https://bps-chatbot-v2.pinnhost.my.id/build/assets/embed.js" defer></script>
+ * <script src="https://bps-chatbot-v2.pinnhost.my.id/embed.js" defer></script>
  */
 (function () {
   if (window.BPS_AI_WIDGET_INITIALIZED) return;
@@ -21,11 +21,11 @@
       display: flex;
       align-items: center;
       gap: 8px;
-      background: linear-gradient(135deg, #0077A6 0%, #00ADEF 100%);
-      color: #ffffff;
+      background: linear-gradient(135deg, #0093DD 0%, #007bbd 100%);
+      color: #FFFFFF;
       padding: 10px 16px 10px 12px;
       border-radius: 9999px;
-      box-shadow: 0 10px 25px -4px rgba(0, 119, 166, 0.45), 0 4px 12px -2px rgba(0, 119, 166, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.35);
+      box-shadow: 0 10px 25px -4px rgba(0, 147, 221, 0.45), 0 4px 12px -2px rgba(0, 147, 221, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.35);
       cursor: pointer;
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       font-size: 14px;
@@ -39,7 +39,7 @@
     }
     #bps-ai-bubble-btn:hover {
       transform: translateY(-3px) scale(1.04);
-      box-shadow: 0 16px 32px -4px rgba(0, 119, 166, 0.55), 0 6px 16px -2px rgba(0, 119, 166, 0.35);
+      box-shadow: 0 16px 32px -4px rgba(0, 147, 221, 0.55), 0 6px 16px -2px rgba(0, 147, 221, 0.35);
     }
     #bps-ai-bubble-btn:active {
       transform: translateY(-1px) scale(0.98);
@@ -61,16 +61,16 @@
       height: 610px;
       max-width: calc(100vw - 32px);
       max-height: calc(100vh - 96px);
-      background: #ffffff;
+      background: #FFFFFF;
       border-radius: 20px;
-      box-shadow: 0 20px 50px -10px rgba(0, 15, 40, 0.3), 0 0 0 1px rgba(0, 0, 0, 0.08);
+      box-shadow: 0 20px 50px -10px rgba(31, 41, 55, 0.25), 0 0 0 1px rgba(0, 0, 0, 0.06);
       z-index: 2147483646;
       overflow: hidden;
       display: none;
       flex-direction: column;
       transform-origin: bottom right;
       box-sizing: border-box;
-      border: 1px solid rgba(226, 232, 240, 0.9);
+      border: 1px solid #E2E8F0;
     }
     #bps-ai-frame-container.active {
       display: flex;
@@ -97,8 +97,8 @@
         height: min(520px, calc(100dvh - 86px)) !important;
         max-height: calc(100dvh - 86px) !important;
         border-radius: 18px !important;
-        border: 1px solid rgba(226, 232, 240, 0.9) !important;
-        box-shadow: 0 16px 40px -8px rgba(0, 15, 40, 0.35) !important;
+        border: 1px solid #E2E8F0 !important;
+        box-shadow: 0 16px 40px -8px rgba(31, 41, 55, 0.3) !important;
       }
       #bps-ai-bubble-btn {
         bottom: 14px;
@@ -121,15 +121,15 @@
   frameContainer.appendChild(iframe);
   document.body.appendChild(frameContainer);
 
-  // 2. SVG Cloud Chat Icon with BPS Statistical Chart motif
+  // 2. SVG Cloud Chat Icon with BPS Statistical Chart motif (Blue #0093DD, Orange #EB891B, Green #68B92E)
   const cloudChatSvg = `
     <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full">
       <path d="M9.5 23.5H22C25.5899 23.5 28.5 20.5899 28.5 17C28.5 13.5683 25.8366 10.7573 22.4668 10.521C21.7248 6.78652 18.4414 4 14.5 4C10.0526 4 6.38676 7.23432 5.67978 11.5173C3.0189 12.3789 1 14.9455 1 18C1 21.3137 3.68629 24 7 24L5 28L10.5 24.5L9.5 23.5Z" 
             fill="white" fill-opacity="0.22" stroke="white" stroke-width="1.75" stroke-linejoin="round" />
-      <rect x="9.5" y="14.5" width="2.2" height="5.5" rx="1.1" fill="#F7941D" />
-      <rect x="13.5" y="11.5" width="2.2" height="8.5" rx="1.1" fill="#ffffff" />
-      <rect x="17.5" y="13" width="2.2" height="7" rx="1.1" fill="#10B981" />
-      <path d="M24 5L24.8 7.2L27 8L24.8 8.8L24 11L23.2 8.8L21 8L23.2 7.2L24 5Z" fill="#FDE047" />
+      <rect x="9.5" y="14.5" width="2.2" height="5.5" rx="1.1" fill="#EB891B" />
+      <rect x="13.5" y="11.5" width="2.2" height="8.5" rx="1.1" fill="#FFFFFF" />
+      <rect x="17.5" y="13" width="2.2" height="7" rx="1.1" fill="#68B92E" />
+      <path d="M24 5L24.8 7.2L27 8L24.8 8.8L24 11L23.2 8.8L21 8L23.2 7.2L24 5Z" fill="#EB891B" />
     </svg>
   `;
 

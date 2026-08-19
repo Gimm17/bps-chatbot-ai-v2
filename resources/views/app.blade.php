@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover, interactive-widget=resizes-content">
-    <meta name="theme-color" content="#0077A6">
+    <meta name="theme-color" content="#0093DD">
     <meta name="description" content="Asisten Cerdas Statistik Publik Resmi Badan Pusat Statistik (BPS) Republik Indonesia">
     <title>BPS AI Assistant — Asisten Statistik Publik</title>
     
@@ -28,7 +28,7 @@
     
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="bg-[#F8FAFC] text-slate-900 antialiased selection:bg-[#00ADEF]/20 selection:text-[#0077A6]">
+<body class="bg-[#F8FAFC] text-[#1F2937] antialiased selection:bg-[#0093DD]/20 selection:text-[#0093DD]">
     <div id="app"></div>
 </body>
 </html>

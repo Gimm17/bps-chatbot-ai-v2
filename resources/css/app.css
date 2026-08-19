@@ -2,36 +2,40 @@
 
 @layer base {
   :root {
-    /* Brand Colors */
-    --bps-blue: #00ADEF;
-    --bps-orange: #F7941D;
-    --bps-green: #8CC63E;
+    /* Brand Colors (New Palette) */
+    --bps-blue: #0093DD;
+    --bps-orange: #EB891B;
+    --bps-green: #68B92E;
 
-    /* Accessible Primary Theme */
-    --primary: #0077a6;
-    --primary-hover: #005f85;
-    --primary-light: #e8f8fe;
-    --primary-container: #0077a6;
-    --on-primary: #ffffff;
+    /* Semantic Primary Theme */
+    --primary: #0093DD;
+    --primary-hover: #007bbd;
+    --primary-light: #EBF7FD;
+    --primary-container: #0093DD;
+    --on-primary: #FFFFFF;
+
+    /* Secondary & Accent */
+    --secondary: #EB891B;
+    --secondary-light: #FEF6EB;
+    --accent-green: #68B92E;
+    --accent-green-light: #F0F9EA;
 
     /* Surface & Background */
-    --bg-main: #f8fafc;
-    --surface: #ffffff;
-    --surface-low: #f1f5f9;
-    --surface-ai: #ffffff;
-    --surface-user: #e8f8fe;
-    --surface-orange: #fff5e8;
-    --surface-green: #f2f9e9;
-    --surface-error: #fef3f2;
+    --bg-main: #F8FAFC;
+    --surface: #FFFFFF;
+    --surface-low: #F1F5F9;
+    --surface-ai: #FFFFFF;
+    --surface-user: #EBF7FD;
+    --surface-error: #FEF2F2;
 
     /* Text Colors */
-    --text-primary: #0f172a;
-    --text-secondary: #475569;
-    --text-muted: #64748b;
+    --text-primary: #1F2937;
+    --text-secondary: #4B5563;
+    --text-muted: #64748B;
 
     /* Borders & Outlines */
-    --border-color: #e2e8f0;
-    --border-focus: #00adef;
+    --border-color: #E2E8F0;
+    --border-focus: #0093DD;
   }
 }
 
@@ -41,8 +45,8 @@ html, body {
   width: 100%;
   min-height: 100vh;
   font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  background-color: #f8fafc;
-  color: #0f172a;
+  background-color: #F8FAFC;
+  color: #1F2937;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
 }
@@ -65,17 +69,17 @@ svg {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
+  background: #CBD5E1;
   border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
+  background: #94A3B8;
 }
 
 /* Markdown Rendering in AI responses */
 .ai-markdown {
   line-height: 1.6;
-  color: #1e293b;
+  color: #1F2937;
   font-size: 0.935rem;
 }
 @media (min-width: 640px) {
@@ -106,11 +110,11 @@ svg {
 }
 .ai-markdown strong {
   font-weight: 600;
-  color: #0f172a;
+  color: #1F2937;
 }
 .ai-markdown h1, .ai-markdown h2, .ai-markdown h3, .ai-markdown h4 {
   font-weight: 700;
-  color: #0f172a;
+  color: #1F2937;
   margin-top: 1.2rem;
   margin-bottom: 0.5rem;
 }
@@ -133,28 +137,30 @@ svg {
   }
 }
 .ai-markdown th, .ai-markdown td {
-  border: 1px solid #e2e8f0;
+  border: 1px solid #E2E8F0;
   padding: 8px 12px;
   text-align: left;
   white-space: normal;
 }
 .ai-markdown th {
-  background-color: #f8fafc;
+  background-color: #F8FAFC;
   font-weight: 600;
+  color: #1F2937;
 }
 .ai-markdown code {
-  background-color: #f1f5f9;
+  background-color: #F1F5F9;
   padding: 2px 6px;
   border-radius: 4px;
   font-family: ui-monospace, monospace;
   font-size: 0.88em;
+  color: #1F2937;
 }
 .ai-markdown a {
-  color: #0077a6;
+  color: #0093DD;
   text-decoration: underline;
   text-underline-offset: 2px;
   word-break: break-all;
 }
 .ai-markdown a:hover {
-  color: #005f85;
+  color: #007bbd;
 }
