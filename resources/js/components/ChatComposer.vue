@@ -1,9 +1,9 @@
 <template>
-  <div class="w-full bg-white sm:bg-transparent border-t border-slate-200/80 sm:border-0 pt-2 pb-2 sm:pb-3 px-3 sm:px-4 shrink-0 shadow-xs sm:shadow-none">
+  <div class="w-full bg-white/95 backdrop-blur-md border-t border-slate-200/80 pt-2 pb-2 sm:pb-3 px-3 sm:px-4 shrink-0 shadow-xs">
     <div class="max-w-3xl mx-auto flex flex-col items-center w-full">
       <!-- Main Composer Box -->
       <div 
-        class="w-full bg-slate-50 sm:bg-white border border-slate-300/90 focus-within:border-[#00ADEF] focus-within:bg-white focus-within:ring-2 focus-within:ring-[#00ADEF]/20 rounded-2xl flex items-end gap-2 shadow-2xs transition-all p-1.5 sm:p-2"
+        class="w-full bg-slate-50 border border-slate-300 focus-within:border-[#00ADEF] focus-within:bg-white focus-within:ring-2 focus-within:ring-[#00ADEF]/20 rounded-2xl flex items-end gap-2 shadow-2xs transition-all p-1.5 sm:p-2"
       >
         <!-- Textarea -->
         <textarea
@@ -13,7 +13,7 @@
           @input="autoResize"
           :disabled="loading"
           rows="1"
-          placeholder="Tanyakan data/layanan BPS..."
+          placeholder="Tanyakan data atau layanan BPS..."
           class="flex-1 max-h-28 resize-none border-0 bg-transparent text-slate-900 placeholder:text-slate-400 focus:ring-0 focus:outline-hidden py-1 px-2 text-xs sm:text-sm leading-relaxed"
         ></textarea>
 
