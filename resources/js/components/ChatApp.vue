@@ -1,18 +1,19 @@
 <template>
-  <div class="min-h-screen flex flex-col bg-[#F8FAFC]">
+  <div :class="['min-h-screen flex flex-col bg-[#F8FAFC]', { 'h-screen overflow-hidden': isEmbedded }]">
     <!-- Header -->
-    <Header :has-messages="messages.length > 0" @reset="resetChat" />
+    <Header :has-messages="messages.length > 0" :is-embedded="isEmbedded" @reset="resetChat" />
 
     <!-- Main Content Area -->
-    <main class="flex-1 flex flex-col justify-between max-w-4xl mx-auto w-full px-4 pt-4 pb-2">
+    <main :class="['flex-1 flex flex-col justify-between max-w-4xl mx-auto w-full overflow-y-auto', isEmbedded ? 'px-3 py-2' : 'px-4 pt-4 pb-2']">
       <!-- 1. Welcome Screen (When no messages) -->
       <WelcomeScreen 
         v-if="messages.length === 0" 
+        :is-embedded="isEmbedded"
         @select="handleSendMessage" 
       />
 
       <!-- 2. Active Chat Conversation -->
-      <div v-else class="flex-1 space-y-4 py-2" ref="chatAreaRef">
+      <div v-else :class="['flex-1 space-y-3', isEmbedded ? 'py-1' : 'py-2']" ref="chatAreaRef">
         <MessageItem 
           v-for="(msg, index) in messages" 
           :key="index"
@@ -22,19 +23,19 @@
         />
 
         <!-- Loading Indicator -->
-        <div v-if="loading" class="flex items-start gap-3 w-full py-2">
-          <div class="w-8 h-8 rounded-xl bg-[#00ADEF] text-white flex items-center justify-center shrink-0 shadow-2xs mt-1 animate-pulse">
-            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <div v-if="loading" class="flex items-start gap-2.5 w-full py-1.5">
+          <div class="w-7 h-7 rounded-lg bg-[#00ADEF] text-white flex items-center justify-center shrink-0 shadow-2xs mt-0.5 animate-pulse">
+            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <rect x="3" y="11" width="18" height="10" rx="2"/>
               <circle cx="12" cy="5" r="2"/>
               <path d="M12 7v4"/>
             </svg>
           </div>
-          <div class="bg-white border border-slate-200 rounded-2xl px-4 py-3 shadow-2xs flex items-center gap-2.5 text-xs text-slate-600">
+          <div class="bg-white border border-slate-200 rounded-xl px-3.5 py-2.5 shadow-2xs flex items-center gap-2 text-xs text-slate-600">
             <div class="flex space-x-1">
-              <div class="w-2 h-2 bg-[#00ADEF] rounded-full animate-bounce"></div>
-              <div class="w-2 h-2 bg-[#00ADEF] rounded-full animate-bounce [animation-delay:0.2s]"></div>
-              <div class="w-2 h-2 bg-[#00ADEF] rounded-full animate-bounce [animation-delay:0.4s]"></div>
+              <div class="w-1.5 h-1.5 bg-[#00ADEF] rounded-full animate-bounce"></div>
+              <div class="w-1.5 h-1.5 bg-[#00ADEF] rounded-full animate-bounce [animation-delay:0.2s]"></div>
+              <div class="w-1.5 h-1.5 bg-[#00ADEF] rounded-full animate-bounce [animation-delay:0.4s]"></div>
             </div>
             <span class="font-medium text-slate-700">{{ loadingStatusText }}</span>
           </div>
@@ -46,16 +47,17 @@
     <ChatComposer 
       ref="composerRef"
       :loading="loading" 
+      :is-embedded="isEmbedded"
       @send="handleSendMessage" 
     />
 
-    <!-- Floating Embed Widget Demo -->
-    <WidgetToggle />
+    <!-- Floating Embed Widget Demo (Only rendered on standalone full page) -->
+    <WidgetToggle v-if="!isEmbedded" />
   </div>
 </template>
 
 <script setup>
-import { ref, nextTick } from 'vue';
+import { ref, computed, nextTick, onMounted } from 'vue';
 import Header from './Header.vue';
 import WelcomeScreen from './WelcomeScreen.vue';
 import MessageItem from './MessageItem.vue';
@@ -68,12 +70,27 @@ const loadingStatusText = ref('Mencari sumber BPS...');
 const composerRef = ref(null);
 const chatAreaRef = ref(null);
 
+const isEmbedded = ref(false);
+
+onMounted(() => {
+  try {
+    isEmbedded.value = (window.self !== window.top) || 
+      new URLSearchParams(window.location.search).has('embed');
+  } catch (e) {
+    isEmbedded.value = true;
+  }
+});
+
 const scrollToBottom = () => {
   nextTick(() => {
-    window.scrollTo({
-      top: document.documentElement.scrollHeight,
-      behavior: 'smooth'
-    });
+    if (isEmbedded.value && chatAreaRef.value) {
+      chatAreaRef.value.scrollTop = chatAreaRef.value.scrollHeight;
+    } else {
+      window.scrollTo({
+        top: document.documentElement.scrollHeight,
+        behavior: 'smooth'
+      });
+    }
   });
 };
 
@@ -90,7 +107,6 @@ const handleSendMessage = async (userText) => {
   loadingStatusText.value = 'Mencari sumber data BPS...';
   scrollToBottom();
 
-  // Switch loading text after 1.5s
   const timer = setTimeout(() => {
     if (loading.value) {
       loadingStatusText.value = 'Menyusun jawaban resmi...';
