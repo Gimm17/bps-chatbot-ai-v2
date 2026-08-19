@@ -61,7 +61,8 @@ class BpsAgent
     public function __construct(
         private readonly BpsApiClient $apiClient,
         private readonly AiProviderInterface $aiProvider,
-        private readonly PromptBuilder $promptBuilder
+        private readonly PromptBuilder $promptBuilder,
+        private readonly PublicationIndexer $indexer
     ) {}
 
     public function getCollectedSources(): array
@@ -271,6 +272,32 @@ class BpsAgent
                     $content .= "Tautan Unduh Dokumen PDF Resmi: {$pdfUrl}\n";
                 }
                 $content .= "Abstraksi / Ringkasan Isi Publikasi:\n" . strip_tags($abstract) . "\n";
+
+                // Check if publication PDF text is already indexed locally
+                $indexed = \App\Models\PublicationIndex::find($pubId);
+                if ($indexed && $indexed->status === 'completed' && !empty($indexed->extracted_text)) {
+                    $pdfSnippets = $this->indexer->searchSnippets($question, $domainId, 1);
+                    $extractedChunk = !empty($pdfSnippets) ? $pdfSnippets[0]['snippet'] : mb_substr($indexed->extracted_text, 0, 3000);
+                    $content .= "\n=== ISI DETAIL DOKUMEN BUKU PDF (TEREKSTRAKSI RESMI) ===\n" . $extractedChunk . "\n";
+                } else {
+                    // Trigger background ingestion job so next queries have instant full-text access
+                    if ($pdfUrl) {
+                        try {
+                            \App\Jobs\IngestPublicationJob::dispatch(
+                                pubId: (string) $pubId,
+                                pdfUrl: (string) $pdfUrl,
+                                title: (string) $title,
+                                domainId: (string) $domainId,
+                                domainName: (string) $domainName,
+                                rlDate: $rlDate ? (string) $rlDate : null,
+                                portalUrl: (string) $portalUrl,
+                                abstract: $abstract ? (string) $abstract : null
+                            );
+                        } catch (\Throwable $e) {
+                            // Non-blocking queue failure fallback
+                        }
+                    }
+                }
 
                 $sourceId = (string) $pubId;
                 $this->collectedSources[$sourceId] = [

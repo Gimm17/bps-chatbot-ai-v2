@@ -61,12 +61,18 @@ class AppServiceProvider extends ServiceProvider
             );
         });
 
+        // Bind Publication Indexer
+        $this->app->singleton(\App\Bps\PublicationIndexer::class, function () {
+            return new \App\Bps\PublicationIndexer();
+        });
+
         // Bind BPS Agent
         $this->app->singleton(BpsAgent::class, function ($app) {
             return new BpsAgent(
                 apiClient: $app->make(BpsApiClient::class),
                 aiProvider: $app->make(AiProviderInterface::class),
-                promptBuilder: $app->make(PromptBuilder::class)
+                promptBuilder: $app->make(PromptBuilder::class),
+                indexer: $app->make(\App\Bps\PublicationIndexer::class)
             );
         });
 
