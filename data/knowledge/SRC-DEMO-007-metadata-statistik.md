@@ -3,7 +3,7 @@ id: SRC-DEMO-007
 title: Metadata Statistik dan Sistem Informasi Rujukan Statistik (SIRuSa)
 category: metadata
 source_url: https://sirusa.bps.go.id
-source_status: DEMO_NOT_VERIFIED
+source_status: OFFICIAL_BPS
 ---
 # Metadata Statistik dan Sistem Informasi Rujukan Statistik (SIRuSa)
 

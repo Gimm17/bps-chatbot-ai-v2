@@ -3,7 +3,7 @@ id: SRC-DEMO-006
 title: Panduan Mencari Publikasi dan Data BPS
 category: navigation
 source_url: https://www.bps.go.id/id/publication
-source_status: DEMO_NOT_VERIFIED
+source_status: OFFICIAL_BPS
 ---
 # Panduan Mencari Publikasi dan Data BPS
 

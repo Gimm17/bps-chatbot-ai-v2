@@ -3,7 +3,7 @@ id: SRC-DEMO-004
 title: Sensus Penduduk (SP)
 category: census
 source_url: https://sensus.bps.go.id
-source_status: DEMO_NOT_VERIFIED
+source_status: OFFICIAL_BPS
 ---
 # Sensus Penduduk (SP)
 

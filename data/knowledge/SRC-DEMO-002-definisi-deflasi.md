@@ -2,8 +2,8 @@
 id: SRC-DEMO-002
 title: Konsep dan Definisi Deflasi
 category: definition
-source_url: https://www.bps.go.id/id/statistics/inflation
-source_status: DEMO_NOT_VERIFIED
+source_url: https://sirusa.web.bps.go.id/metadata/indikator/45453
+source_status: OFFICIAL_BPS_SIRUSA
 ---
 # Konsep dan Definisi Deflasi
 

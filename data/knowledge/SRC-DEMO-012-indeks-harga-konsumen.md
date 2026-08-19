@@ -2,8 +2,8 @@
 id: SRC-DEMO-012
 title: Indeks Harga Konsumen (IHK) dan Tahun Dasar
 category: price
-source_url: https://www.bps.go.id/id/statistics/price
-source_status: DEMO_NOT_VERIFIED
+source_url: https://sirusa.web.bps.go.id/metadata/indikator/45453
+source_status: OFFICIAL_BPS_SIRUSA
 ---
 # Indeks Harga Konsumen (IHK) dan Tahun Dasar
 

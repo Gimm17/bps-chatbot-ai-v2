@@ -2,8 +2,8 @@
 id: SRC-DEMO-003
 title: Produk Domestik Regional Bruto (PDRB) dan PDB
 category: definition
-source_url: https://www.bps.go.id/id/statistics/economy
-source_status: DEMO_NOT_VERIFIED
+source_url: https://sirusa.web.bps.go.id/metadata/indikator/31032
+source_status: OFFICIAL_BPS_SIRUSA
 ---
 # Produk Domestik Regional Bruto (PDRB) dan PDB
 
