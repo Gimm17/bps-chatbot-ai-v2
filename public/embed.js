@@ -28,7 +28,7 @@
       box-shadow: 0 10px 25px -4px rgba(0, 119, 166, 0.45), 0 4px 12px -2px rgba(0, 119, 166, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.35);
       cursor: pointer;
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      font-size: 13.5px;
+      font-size: 14px;
       font-weight: 600;
       letter-spacing: 0.2px;
       border: 1px solid rgba(255, 255, 255, 0.25);
@@ -57,8 +57,8 @@
       position: fixed;
       bottom: 78px;
       right: 20px;
-      width: 390px;
-      height: 570px;
+      width: 410px;
+      height: 610px;
       max-width: calc(100vw - 32px);
       max-height: calc(100vh - 96px);
       background: #ffffff;
