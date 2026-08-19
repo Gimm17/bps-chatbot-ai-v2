@@ -1,11 +1,11 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
   <defs>
     <linearGradient id="bpsGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#0077A6" />
-      <stop offset="100%" stop-color="#00ADEF" />
+      <stop offset="0%" stop-color="#0093DD" />
+      <stop offset="100%" stop-color="#007bbd" />
     </linearGradient>
     <filter id="dropShadow" x="-10%" y="-10%" width="120%" height="120%">
-      <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#000" flood-opacity="0.25"/>
+      <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#1F2937" flood-opacity="0.25"/>
     </filter>
   </defs>
   
@@ -14,19 +14,19 @@
   
   <!-- Inner White Card / Cloud Symbol -->
   <g filter="url(#dropShadow)" transform="translate(64, 64)">
-    <rect x="24" y="24" width="336" height="336" rx="64" fill="#ffffff" fill-opacity="0.16" stroke="#ffffff" stroke-width="8"/>
+    <rect x="24" y="24" width="336" height="336" rx="64" fill="#FFFFFF" fill-opacity="0.18" stroke="#FFFFFF" stroke-width="8"/>
     
     <!-- BPS 3 Pillar Bars -->
-    <!-- Pillar 1: Orange (Pertanian / Sosial) -->
-    <rect x="90" y="190" width="42" height="110" rx="12" fill="#F7941D"/>
+    <!-- Pillar 1: Blue #0093DD (100) -->
+    <rect x="90" y="210" width="42" height="90" rx="12" fill="#0093DD"/>
     
-    <!-- Pillar 2: White (Produksi / Distribusi) -->
-    <rect x="171" y="130" width="42" height="170" rx="12" fill="#ffffff"/>
+    <!-- Pillar 2: Green #68B92E (140) -->
+    <rect x="171" y="160" width="42" height="140" rx="12" fill="#68B92E"/>
     
-    <!-- Pillar 3: Green (Kesejahteraan / Lingkungan) -->
-    <rect x="252" y="160" width="42" height="140" rx="12" fill="#8CC63E"/>
+    <!-- Pillar 3: Orange #EB891B (180) -->
+    <rect x="252" y="120" width="42" height="180" rx="12" fill="#EB891B"/>
     
     <!-- AI Sparkle Star -->
-    <path d="M 280 80 Q 295 95 310 95 Q 295 95 280 110 Q 265 95 250 95 Q 265 95 280 80 Z" fill="#FDE047"/>
+    <path d="M 280 60 Q 295 75 310 75 Q 295 75 280 90 Q 265 75 250 75 Q 265 75 280 60 Z" fill="#EB891B"/>
   </g>
 </svg>
