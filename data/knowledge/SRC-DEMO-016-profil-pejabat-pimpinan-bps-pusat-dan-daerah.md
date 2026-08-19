@@ -1,11 +1,11 @@
 ---
 id: SRC-DEMO-016
-title: Profil Pejabat, Pimpinan, dan Kepala BPS Pusat serta BPS Provinsi Sulawesi Tengah
+title: Profil Pejabat, Pimpinan, dan Kepala BPS Pusat, BPS Provinsi Sulawesi Tengah, dan BPS Kota Palu
 category: institutional_profile
 source_url: https://ppid.bps.go.id/app/konten/7200/Profil-BPS.html
 source_status: OFFICIAL_BPS_SIRUSA
 ---
-# Profil Pejabat dan Pimpinan BPS Pusat (RI) & Kepala BPS Provinsi Sulawesi Tengah
+# Profil Pejabat dan Pimpinan BPS Pusat, BPS Provinsi Sulawesi Tengah, dan BPS Kota Palu
 
 ## 1. Pimpinan Badan Pusat Statistik Republik Indonesia (BPS RI / BPS Pusat)
 Badan Pusat Statistik (BPS) Republik Indonesia adalah Lembaga Pemerintah Non Kementerian (LPNK) yang bertugas menyelenggarakan kegiatan statistik dasar dan bertanggung jawab langsung kepada Presiden Republik Indonesia.
@@ -24,15 +24,12 @@ Badan Pusat Statistik (BPS) Republik Indonesia adalah Lembaga Pemerintah Non Kem
 
 ---
 
-## 2. Profil Kepala BPS Provinsi Sulawesi Tengah (Ketua / Pimpinan BPS Sulteng)
+## 2. Profil Kepala BPS Provinsi Sulawesi Tengah (Tingkat Provinsi)
 * **Nama Pejabat:** **Dr. Daryanto, M.M.**
-* **Jabatan:** **Kepala Badan Pusat Statistik (BPS) Provinsi Sulawesi Tengah** (Ketua / Pimpinan BPS Sulteng)
-* **Tugas dan Wewenang:**
-  * Memimpin dan mengoordinasikan seluruh penyelenggaraan sensus, survei, diseminasi data statistik, Berita Resmi Statistik (BRS), dan pembinaan statistik sektoral di wilayah Provinsi Sulawesi Tengah.
-  * Mengawasi perumusan indikator makro ekonomi dan sosial daerah (Pertumbuhan Ekonomi/PDRB Sulteng, Inflasi Kota Palu & Luwuk, Kemiskinan, Ketenagakerjaan/TPT, Indeks Pembangunan Manusia).
-  * Mengembangkan portal data strategis daerah "Pangita" (pangita.bpssulteng.id) dan layanan Pelayanan Statistik Terpadu (PST) serta PPID BPS Sulawesi Tengah.
+* **Jabatan:** **Kepala Badan Pusat Statistik (BPS) Provinsi Sulawesi Tengah**
+* **Wilayah Tugas:** Memimpin dan mengoordinasikan kegiatan statistik di seluruh wilayah Provinsi Sulawesi Tengah (membina 13 BPS Kabupaten/Kota).
 * **Alamat Kantor BPS Provinsi Sulawesi Tengah:**
-  * **Lokasi:** Jl. Prof. Moh. Yamin No. 59, Palu 94111, Provinsi Sulawesi Tengah
+  * **Lokasi:** **Jl. Prof. Moh. Yamin No. 59, Palu 94111, Provinsi Sulawesi Tengah**
   * **Telepon:** (0451) 421253 / (0451) 422055
   * **Email Resmi:** bps7200@bps.go.id
   * **Website Resmi:** https://sulteng.bps.go.id
@@ -40,18 +37,20 @@ Badan Pusat Statistik (BPS) Republik Indonesia adalah Lembaga Pemerintah Non Kem
 
 ---
 
-## 3. Wilayah Kerja BPS Kabupaten/Kota di Sulawesi Tengah
-BPS Provinsi Sulawesi Tengah membawahi 13 satuan kerja BPS Kabupaten/Kota:
-1. BPS Kabupaten Banggai Kepulauan
-2. BPS Kabupaten Banggai (Luwuk)
-3. BPS Kabupaten Morowali
-4. BPS Kabupaten Poso
-5. BPS Kabupaten Donggala
-6. BPS Kabupaten Tolitoli
-7. BPS Kabupaten Buol
-8. BPS Kabupaten Parigi Moutong
-9. BPS Kabupaten Tojo Una-Una
-10. BPS Kabupaten Sigi
-11. BPS Kabupaten Banggai Laut
-12. BPS Kabupaten Morowali Utara
-13. BPS Kota Palu
+## 3. Profil Kepala BPS Kota Palu (Tingkat Kota)
+* **Nama Pejabat:** **Agus Santoso, S.ST., M.Si.**
+* **Jabatan:** **Kepala Badan Pusat Statistik (BPS) Kota Palu**
+* **Wilayah Tugas:** Memimpin penyelenggaraan sensus, survei statistik sektoral/daerah, dan diseminasi statistik di wilayah administrasi Kota Palu.
+* **Alamat Kantor BPS Kota Palu:**
+  * **Lokasi:** **Jl. Baruga No. 19, Kelurahan Tanamodindi, Kecamatan Mantikulore, Kota Palu, Sulawesi Tengah 94111**
+  * **Telepon:** (0451) 483321
+  * **Email Resmi:** bps7271@bps.go.id
+  * **Website Resmi:** https://palukota.bps.go.id
+  * **Portal PPID Kota Palu:** https://ppid.bps.go.id/app/konten/7271/Profil-BPS.html
+
+---
+
+## 4. Perbedaan BPS Provinsi Sulawesi Tengah dan BPS Kota Palu
+* **BPS Provinsi Sulawesi Tengah** dan **BPS Kota Palu** adalah **dua kantor dan satuan kerja yang berbeda**:
+  1. **BPS Provinsi Sulawesi Tengah (Satker 7200):** Berada di **Jl. Prof. Moh. Yamin No. 59, Palu** dan dipimpin oleh **Dr. Daryanto, M.M.** (cakupan seluruh provinsi).
+  2. **BPS Kota Palu (Satker 7271):** Berada di **Jl. Baruga No. 19, Tanamodindi, Mantikulore, Palu** dan dipimpin oleh **Agus Santoso, S.ST., M.Si.** (cakupan wilayah Kota Palu).
