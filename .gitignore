@@ -37,4 +37,5 @@ DESIGN_UI_UX/
 deploy/
 MASTER_PROMPT_CLAUDE_CODE_BPS_AI_ASSISTANT.md
 *.md
+!README.md
 !data/knowledge/*.md
