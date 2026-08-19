@@ -58,8 +58,8 @@ svg {
 
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
-  width: 5px;
-  height: 5px;
+  width: 6px;
+  height: 6px;
 }
 ::-webkit-scrollbar-track {
   background: transparent;
@@ -76,33 +76,33 @@ svg {
 .ai-markdown {
   line-height: 1.6;
   color: #1e293b;
-  font-size: 0.925rem;
+  font-size: 0.935rem;
 }
 @media (min-width: 640px) {
   .ai-markdown {
-    font-size: 0.95rem;
-    line-height: 1.65;
+    font-size: 1.05rem;
+    line-height: 1.75;
   }
 }
 
 .ai-markdown p {
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.85rem;
 }
 .ai-markdown p:last-child {
   margin-bottom: 0;
 }
 .ai-markdown ul {
   list-style-type: disc;
-  padding-left: 1.25rem;
-  margin-bottom: 0.75rem;
+  padding-left: 1.35rem;
+  margin-bottom: 0.85rem;
 }
 .ai-markdown ol {
   list-style-type: decimal;
-  padding-left: 1.25rem;
-  margin-bottom: 0.75rem;
+  padding-left: 1.35rem;
+  margin-bottom: 0.85rem;
 }
 .ai-markdown li {
-  margin-bottom: 0.25rem;
+  margin-bottom: 0.35rem;
 }
 .ai-markdown strong {
   font-weight: 600;
@@ -111,26 +111,32 @@ svg {
 .ai-markdown h1, .ai-markdown h2, .ai-markdown h3, .ai-markdown h4 {
   font-weight: 700;
   color: #0f172a;
-  margin-top: 1rem;
-  margin-bottom: 0.4rem;
+  margin-top: 1.2rem;
+  margin-bottom: 0.5rem;
 }
 .ai-markdown h3 {
-  font-size: 1.05rem;
+  font-size: 1.15rem;
 }
 .ai-markdown table {
   width: 100%;
   border-collapse: collapse;
-  margin: 0.75rem 0;
-  font-size: 0.825rem;
+  margin: 1rem 0;
+  font-size: 0.875rem;
   display: block;
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
 }
+@media (min-width: 640px) {
+  .ai-markdown table {
+    font-size: 0.95rem;
+    display: table;
+  }
+}
 .ai-markdown th, .ai-markdown td {
   border: 1px solid #e2e8f0;
-  padding: 6px 10px;
+  padding: 8px 12px;
   text-align: left;
-  white-space: nowrap;
+  white-space: normal;
 }
 .ai-markdown th {
   background-color: #f8fafc;
@@ -138,10 +144,10 @@ svg {
 }
 .ai-markdown code {
   background-color: #f1f5f9;
-  padding: 2px 5px;
+  padding: 2px 6px;
   border-radius: 4px;
   font-family: ui-monospace, monospace;
-  font-size: 0.85em;
+  font-size: 0.88em;
 }
 .ai-markdown a {
   color: #0077a6;
