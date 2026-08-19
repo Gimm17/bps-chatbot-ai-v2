@@ -3,9 +3,8 @@
     <div class="max-w-4xl mx-auto px-4 h-16 flex items-center justify-between">
       <!-- Logo & Brand -->
       <div class="flex items-center gap-3 cursor-pointer" @click="$emit('reset')">
-        <!-- BPS Logo Style Icon -->
-        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-[#00ADEF] to-[#0077A6] flex items-center justify-center shadow-xs text-white">
-          <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-[#00ADEF] to-[#0077A6] flex items-center justify-center shadow-xs text-white shrink-0 overflow-hidden">
+          <svg width="24" height="24" class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" stroke-linecap="round"/>
           </svg>
         </div>

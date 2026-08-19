@@ -1,8 +1,8 @@
 <template>
   <div class="flex flex-col items-center justify-center py-6 md:py-10 max-w-2xl mx-auto w-full px-4 text-center">
     <!-- AI Avatar -->
-    <div class="w-16 h-16 md:w-20 md:h-20 bg-blue-50/80 rounded-2xl flex items-center justify-center mb-5 shadow-sm border border-blue-100 text-[#0077A6]">
-      <svg class="w-8 h-8 md:w-10 md:h-10 text-[#0077A6]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75">
+    <div class="w-16 h-16 md:w-20 md:h-20 bg-blue-50/80 rounded-2xl flex items-center justify-center mb-5 shadow-sm border border-blue-100 text-[#0077A6] shrink-0 overflow-hidden">
+      <svg width="36" height="36" class="w-8 h-8 md:w-10 md:h-10 text-[#0077A6]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75">
         <rect x="3" y="11" width="18" height="10" rx="2" stroke-linecap="round"/>
         <circle cx="12" cy="5" r="2"/>
         <path d="M12 7v4" stroke-linecap="round"/>

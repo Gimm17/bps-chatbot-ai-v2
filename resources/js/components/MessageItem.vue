@@ -10,8 +10,8 @@
     <!-- 2. ASSISTANT MESSAGE -->
     <div v-else class="flex items-start gap-3 w-full">
       <!-- AI Avatar -->
-      <div class="w-8 h-8 rounded-xl bg-gradient-to-br from-[#00ADEF] to-[#0077A6] text-white flex items-center justify-center shrink-0 shadow-2xs mt-1">
-        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <div class="w-8 h-8 rounded-xl bg-gradient-to-br from-[#00ADEF] to-[#0077A6] text-white flex items-center justify-center shrink-0 shadow-2xs mt-1 overflow-hidden">
+        <svg width="16" height="16" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <rect x="3" y="11" width="18" height="10" rx="2"/>
           <circle cx="12" cy="5" r="2"/>
           <path d="M12 7v4"/>
