@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="bpsGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0077A6" />
+      <stop offset="100%" stop-color="#00ADEF" />
+    </linearGradient>
+    <filter id="dropShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#000" flood-opacity="0.25"/>
+    </filter>
+  </defs>
+  
+  <!-- Rounded Base Background -->
+  <rect width="512" height="512" rx="115" fill="url(#bpsGrad)"/>
+  
+  <!-- Inner White Card / Cloud Symbol -->
+  <g filter="url(#dropShadow)" transform="translate(64, 64)">
+    <rect x="24" y="24" width="336" height="336" rx="64" fill="#ffffff" fill-opacity="0.16" stroke="#ffffff" stroke-width="8"/>
+    
+    <!-- BPS 3 Pillar Bars -->
+    <!-- Pillar 1: Orange (Pertanian / Sosial) -->
+    <rect x="90" y="190" width="42" height="110" rx="12" fill="#F7941D"/>
+    
+    <!-- Pillar 2: White (Produksi / Distribusi) -->
+    <rect x="171" y="130" width="42" height="170" rx="12" fill="#ffffff"/>
+    
+    <!-- Pillar 3: Green (Kesejahteraan / Lingkungan) -->
+    <rect x="252" y="160" width="42" height="140" rx="12" fill="#8CC63E"/>
+    
+    <!-- AI Sparkle Star -->
+    <path d="M 280 80 Q 295 95 310 95 Q 295 95 280 110 Q 265 95 250 95 Q 265 95 280 80 Z" fill="#FDE047"/>
+  </g>
+</svg>
