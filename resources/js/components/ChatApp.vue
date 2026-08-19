@@ -1,19 +1,27 @@
 <template>
-  <div :class="['min-h-screen flex flex-col bg-[#F8FAFC]', { 'h-screen overflow-hidden': isEmbedded }]">
-    <!-- Header -->
-    <Header :has-messages="messages.length > 0" :is-embedded="isEmbedded" @reset="resetChat" />
+  <div class="h-[100dvh] max-h-[100dvh] w-full flex flex-col bg-[#F8FAFC] overflow-hidden select-text">
+    <!-- 1. Top Fixed Header (Shrink-0) -->
+    <Header 
+      class="shrink-0" 
+      :has-messages="messages.length > 0" 
+      :is-embedded="isEmbedded" 
+      @reset="resetChat" 
+    />
 
-    <!-- Main Content Area -->
-    <main :class="['flex-1 flex flex-col justify-between max-w-3xl mx-auto w-full overflow-y-auto', isEmbedded ? 'px-2.5 sm:px-3 py-2' : 'px-3 sm:px-4 pt-3 sm:pt-4 pb-2']">
-      <!-- 1. Welcome Screen (When no messages) -->
+    <!-- 2. Middle Scrollable Conversation Area (Flex-1) -->
+    <main 
+      ref="chatAreaRef"
+      class="flex-1 w-full max-w-3xl mx-auto overflow-y-auto overscroll-contain px-3 sm:px-4 py-2 sm:py-3 flex flex-col justify-start"
+    >
+      <!-- Welcome Screen (When no messages) -->
       <WelcomeScreen 
         v-if="messages.length === 0" 
         :is-embedded="isEmbedded"
         @select="handleSendMessage" 
       />
 
-      <!-- 2. Active Chat Conversation -->
-      <div v-else :class="['flex-1 space-y-3', isEmbedded ? 'py-1' : 'py-2']" ref="chatAreaRef">
+      <!-- Active Chat Messages List -->
+      <div v-else class="space-y-3 w-full py-1">
         <MessageItem 
           v-for="(msg, index) in messages" 
           :key="index"
@@ -24,14 +32,14 @@
 
         <!-- Loading Indicator -->
         <div v-if="loading" class="flex items-start gap-2.5 w-full py-1.5">
-          <div class="w-7 h-7 rounded-lg bg-[#00ADEF] text-white flex items-center justify-center shrink-0 shadow-2xs mt-0.5 animate-pulse">
+          <div class="w-7 h-7 rounded-xl bg-gradient-to-br from-[#00ADEF] to-[#0077A6] text-white flex items-center justify-center shrink-0 shadow-2xs mt-0.5 animate-pulse">
             <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <rect x="3" y="11" width="18" height="10" rx="2"/>
               <circle cx="12" cy="5" r="2"/>
               <path d="M12 7v4"/>
             </svg>
           </div>
-          <div class="bg-white border border-slate-200 rounded-xl px-3.5 py-2.5 shadow-2xs flex items-center gap-2 text-xs text-slate-600">
+          <div class="bg-white border border-slate-200 rounded-2xl px-3.5 py-2.5 shadow-2xs flex items-center gap-2 text-xs text-slate-600">
             <div class="flex space-x-1">
               <div class="w-1.5 h-1.5 bg-[#00ADEF] rounded-full animate-bounce"></div>
               <div class="w-1.5 h-1.5 bg-[#00ADEF] rounded-full animate-bounce [animation-delay:0.2s]"></div>
@@ -43,9 +51,10 @@
       </div>
     </main>
 
-    <!-- Bottom Sticky Chat Composer -->
+    <!-- 3. Bottom Sticky Chat Composer (Shrink-0) -->
     <ChatComposer 
       ref="composerRef"
+      class="shrink-0"
       :loading="loading" 
       :is-embedded="isEmbedded"
       @send="handleSendMessage" 
@@ -79,11 +88,9 @@ onMounted(() => {
 
 const scrollToBottom = () => {
   nextTick(() => {
-    if (isEmbedded.value && chatAreaRef.value) {
-      chatAreaRef.value.scrollTop = chatAreaRef.value.scrollHeight;
-    } else {
-      window.scrollTo({
-        top: document.documentElement.scrollHeight,
+    if (chatAreaRef.value) {
+      chatAreaRef.value.scrollTo({
+        top: chatAreaRef.value.scrollHeight,
         behavior: 'smooth'
       });
     }
