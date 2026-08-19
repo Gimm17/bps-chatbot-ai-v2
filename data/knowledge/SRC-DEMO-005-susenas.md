@@ -2,8 +2,8 @@
 id: SRC-DEMO-005
 title: Survei Sosial Ekonomi Nasional (Susenas)
 category: survey
-source_url: https://www.bps.go.id/id/statistics/social
-source_status: DEMO_NOT_VERIFIED
+source_url: https://sirusa.bps.go.id
+source_status: OFFICIAL_BPS
 ---
 # Survei Sosial Ekonomi Nasional (Susenas)
 

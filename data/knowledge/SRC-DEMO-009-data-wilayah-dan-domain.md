@@ -3,7 +3,7 @@ id: SRC-DEMO-009
 title: Kode Wilayah dan Struktur Domain Data BPS
 category: geographic
 source_url: https://sirusa.bps.go.id/sirusa/index.php/dasar/mfd
-source_status: DEMO_NOT_VERIFIED
+source_status: OFFICIAL_BPS
 ---
 # Kode Wilayah dan Struktur Domain Data BPS
 

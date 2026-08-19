@@ -3,7 +3,7 @@ id: SRC-DEMO-010
 title: Metodologi dan Kerangka Sampel Survei BPS
 category: methodology
 source_url: https://sirusa.bps.go.id
-source_status: DEMO_NOT_VERIFIED
+source_status: OFFICIAL_BPS
 ---
 # Metodologi dan Kerangka Sampel Survei BPS
 

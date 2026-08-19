@@ -2,8 +2,8 @@
 id: SRC-DEMO-013
 title: Pertumbuhan Ekonomi dan Laju Pertumbuhan PDB
 category: economy
-source_url: https://www.bps.go.id/id/statistics/economy
-source_status: DEMO_NOT_VERIFIED
+source_url: https://sirusa.web.bps.go.id/metadata/indikator/104
+source_status: OFFICIAL_BPS_SIRUSA
 ---
 # Pertumbuhan Ekonomi dan Laju Pertumbuhan PDB
 

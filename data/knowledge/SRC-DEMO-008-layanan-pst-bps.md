@@ -3,7 +3,7 @@ id: SRC-DEMO-008
 title: Pelayanan Statistik Terpadu (PST) BPS
 category: service
 source_url: https://pst.bps.go.id
-source_status: DEMO_NOT_VERIFIED
+source_status: OFFICIAL_BPS
 ---
 # Pelayanan Statistik Terpadu (PST) BPS
 

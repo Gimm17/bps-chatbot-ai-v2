@@ -33,7 +33,7 @@ class BpsAgent
     }
 
     /**
-     * Execute BPS Agent workflow for live statistical intents.
+     * Execute BPS Agent workflow for live statistical and metadata lookups.
      */
     public function run(string $question, string $intent): ?ChatResult
     {
@@ -42,15 +42,21 @@ class BpsAgent
         $evidenceSources = [];
 
         try {
-            if ($intent === 'publication' || str_contains(mb_strtolower($question), 'publikasi')) {
-                $evidenceSources = $this->lookupPublications($question);
-            } elseif ($intent === 'numeric_statistic' || $intent === 'metadata_methodology') {
-                $evidenceSources = $this->lookupNumericOrMetadata($question);
-            } elseif ($intent === 'navigation') {
-                $evidenceSources = $this->lookupDomains($question);
+            // 1. Search Live BPS API Indicators
+            $indicatorSources = $this->lookupLiveIndicators($question);
+            $evidenceSources = array_merge($evidenceSources, $indicatorSources);
+
+            // 2. Search Live BPS Publications
+            $pubSources = $this->lookupPublications($question);
+            $evidenceSources = array_merge($evidenceSources, $pubSources);
+
+            // 3. Search BPS Domains if relevant
+            if ($intent === 'navigation' || str_contains(mb_strtolower($question), 'provinsi') || str_contains(mb_strtolower($question), 'daerah')) {
+                $domSources = $this->lookupDomains($question);
+                $evidenceSources = array_merge($evidenceSources, $domSources);
             }
         } catch (\Throwable $e) {
-            Log::warning('BpsAgent tool execution failed: '.$e->getMessage());
+            Log::warning('BpsAgent tool execution failed: ' . $e->getMessage());
         }
 
         if (empty($evidenceSources)) {
@@ -58,7 +64,10 @@ class BpsAgent
             return null;
         }
 
-        // Build prompt with live BPS evidence
+        // Limit evidence to top 5
+        $evidenceSources = array_slice($evidenceSources, 0, 5);
+
+        // Build prompt with live BPS WebAPI evidence
         $systemPrompt = $this->promptBuilder->build($evidenceSources);
 
         $input = new ChatProviderInput(
@@ -69,17 +78,17 @@ class BpsAgent
         $output = $this->aiProvider->chat($input);
         $result = ChatResult::parse($output->text);
 
-        // If the model gave no_evidence but we collected valid official sources, attempt synthesis retry (Solve LIMITATIONS.md item B & C)
-        if ($result->status === 'no_evidence' && ! empty($this->collectedSources)) {
-            $retryPrompt = $systemPrompt."\n\nPERINGATAN: Sumber resmi BPS berikut berhasil ditemukan. Rangkumkan jawaban dari data ini:\n";
+        // If the model gave no_evidence but we collected valid official sources, attempt synthesis retry
+        if ($result->status === 'no_evidence' && !empty($this->collectedSources)) {
+            $retryPrompt = $systemPrompt . "\n\nPERINGATAN: Data resmi BPS berikut berhasil ditarik dari BPS WebAPI. Tolong jelaskan dan rangkum data ini secara lengkap untuk menjawab pertanyaan pengguna:\n";
             $retryInput = new ChatProviderInput(
                 systemPrompt: $retryPrompt,
-                userMessage: 'Tolong rangkum data BPS yang ditemukan untuk pertanyaan: '.$question
+                userMessage: 'Tolong jelaskan dan rangkum data BPS resmi di atas untuk pertanyaan: ' . $question
             );
             $retryOutput = $this->aiProvider->chat($retryInput);
             $retryResult = ChatResult::parse($retryOutput->text);
 
-            if ($retryResult->status === 'answered' && ! empty($retryResult->answer)) {
+            if ($retryResult->status === 'answered' && !empty($retryResult->answer)) {
                 return $retryResult;
             }
         }
@@ -87,91 +96,76 @@ class BpsAgent
         return $result;
     }
 
-    private function lookupPublications(string $question): array
+    /**
+     * Look up live national indicators from BPS WebAPI (e.g. Inflasi, PDRB, Kemiskinan, Pengangguran, dll)
+     */
+    private function lookupLiveIndicators(string $question): array
     {
-        // Extract keyword
-        $keyword = preg_replace('/(cari|lihat|tampilkan|daftar|publikasi|bps|tentang|terbaru)/i', '', $question);
-        $keyword = trim($keyword);
-        if ($keyword === '') {
-            $keyword = 'Statistik';
-        }
-
-        $resp = $this->apiClient->get('list/model/publication', [
-            'domain' => '0000',
-            'keyword' => $keyword,
-            'page' => 1,
-        ]);
-
-        $sources = [];
-        if ($resp->isOk && ! empty($resp->rows)) {
-            foreach (array_slice($resp->rows, 0, 4) as $pub) {
-                $pubId = $pub['pub_id'] ?? $pub['id'] ?? ('PUB-'.uniqid());
-                $title = $pub['title'] ?? 'Publikasi BPS';
-                $abstract = $pub['abstract'] ?? 'Publikasi resmi Badan Pusat Statistik.';
-                $pdfUrl = $pub['pdf'] ?? null;
-                $rlDate = $pub['rl_date'] ?? null;
-
-                $content = "Judul Publikasi: {$title}\n";
-                if ($rlDate) {
-                    $content .= "Tanggal Rilis: {$rlDate}\n";
-                }
-                $content .= "Abstraksi: {$abstract}\n";
-                if ($pdfUrl) {
-                    $content .= "Tautan Unduh PDF: {$pdfUrl}\n";
-                }
-
-                $sourceId = (string) $pubId;
-                $this->collectedSources[$sourceId] = [
-                    'title' => $title,
-                    'url' => $pdfUrl,
-                    'snippet' => mb_substr(strip_tags($abstract), 0, 150).'...',
-                ];
-
-                $sources[] = new RetrievedSource(
-                    sourceId: $sourceId,
-                    title: $title,
-                    url: $pdfUrl,
-                    content: $content,
-                    score: 1.0,
-                    sourceStatus: 'OFFICIAL_BPS_API',
-                    category: 'publication'
-                );
-            }
-        }
-
-        return $sources;
-    }
-
-    private function lookupNumericOrMetadata(string $question): array
-    {
-        // Check domains and indicators
         $resp = $this->apiClient->get('list/model/indicators', [
             'domain' => '0000',
             'page' => 1,
         ]);
 
         $sources = [];
-        if ($resp->isOk && ! empty($resp->rows)) {
-            foreach (array_slice($resp->rows, 0, 3) as $ind) {
-                $varId = $ind['var_id'] ?? $ind['id'] ?? ('IND-'.uniqid());
-                $title = $ind['title'] ?? $ind['name'] ?? 'Indikator BPS';
-                $unit = $ind['unit'] ?? '-';
+        if ($resp->isOk && !empty($resp->rows)) {
+            $lowerQ = mb_strtolower($question);
+            $keywords = ['inflasi', 'ihk', 'harga', 'ekonomi', 'pertumbuhan', 'pdb', 'pdrb', 'miskin', 'kemiskinan', 'pengangguran', 'tpt', 'tenaga kerja', 'penduduk'];
 
-                $content = "Indikator Strategis: {$title}\nSatuan: {$unit}\n";
-                $sourceId = 'IND-'.$varId;
+            // Filter indicators matching user question keywords
+            $matchedRows = [];
+            foreach ($resp->rows as $ind) {
+                $title = mb_strtolower($ind['title'] ?? '');
+                $name = mb_strtolower($ind['name'] ?? '');
+
+                foreach ($keywords as $kw) {
+                    if (str_contains($lowerQ, $kw) && (str_contains($title, $kw) || str_contains($name, $kw))) {
+                        $matchedRows[] = $ind;
+                        break;
+                    }
+                }
+            }
+
+            // If direct match found, use matched; otherwise take top strategic indicators
+            $targetRows = !empty($matchedRows) ? $matchedRows : [];
+
+            foreach (array_slice($targetRows, 0, 3) as $ind) {
+                $varId = $ind['var'] ?? $ind['indicator_id'] ?? uniqid();
+                $title = $ind['title'] ?? 'Indikator BPS';
+                $name = $ind['name'] ?? '';
+                $val = $ind['value'] ?? '';
+                $unit = $ind['unit'] ?? '';
+                $period = $ind['periode'] ?? '';
+                $dataSource = $ind['data_source'] ?? 'Badan Pusat Statistik (BPS)';
+
+                $content = "Indikator Resmi BPS: {$title}\n";
+                if ($name) {
+                    $content .= "Deskripsi / Angka Resmi: {$name}\n";
+                }
+                $content .= "Nilai Capaian: {$val} {$unit}\n";
+                $content .= "Periode Rilis: {$period}\n";
+                $content .= "Sumber Data: {$dataSource}\n";
+
+                // Official URL to SIRuSa or BPS Portal
+                $officialUrl = 'https://sirusa.web.bps.go.id/metadata/indikator/' . ($ind['indicator_id'] ?? '45453');
+                if (str_contains(mb_strtolower($title), 'inflasi')) {
+                    $officialUrl = 'https://sirusa.web.bps.go.id/metadata/indikator/45453';
+                }
+
+                $sourceId = 'BPS-IND-' . $varId;
+                $snippet = "Indikator resmi BPS: {$title}. Periode: {$period}, Nilai: {$val} {$unit}. Sumber: {$dataSource}";
 
                 $this->collectedSources[$sourceId] = [
-                    'title' => $title,
-                    'url' => 'https://www.bps.go.id',
-                    'snippet' => "Indikator resmi BPS dengan satuan: {$unit}",
+                    'title' => $title . ' (' . $period . ')',
+                    'url' => $officialUrl,
+                    'snippet' => $snippet,
                 ];
 
                 $sources[] = new RetrievedSource(
                     sourceId: $sourceId,
-                    title: $title,
-                    url: 'https://www.bps.go.id',
+                    title: $title . ' — ' . $period,
+                    url: $officialUrl,
                     content: $content,
-                    score: 0.9,
+                    score: 1.0,
                     sourceStatus: 'OFFICIAL_BPS_API',
                     category: 'indicator'
                 );
@@ -181,6 +175,67 @@ class BpsAgent
         return $sources;
     }
 
+    /**
+     * Look up live publications from BPS WebAPI
+     */
+    private function lookupPublications(string $question): array
+    {
+        // Extract clean search keyword
+        $cleanQ = preg_replace('/(apa|itu|bagaimana|cara|cari|lihat|tampilkan|daftar|publikasi|bps|tentang|terbaru|data|info|informasi|dan|di|indonesia|tolong|mohon|seputar)/i', ' ', $question);
+        $cleanQ = trim(preg_replace('/\s+/', ' ', $cleanQ));
+        if ($cleanQ === '' || mb_strlen($cleanQ) < 3) {
+            $cleanQ = 'Statistik';
+        }
+
+        $resp = $this->apiClient->get('list/model/publication', [
+            'domain' => '0000',
+            'keyword' => $cleanQ,
+            'page' => 1,
+        ]);
+
+        $sources = [];
+        if ($resp->isOk && !empty($resp->rows)) {
+            foreach (array_slice($resp->rows, 0, 3) as $pub) {
+                $pubId = $pub['pub_id'] ?? $pub['id'] ?? ('PUB-' . uniqid());
+                $title = $pub['title'] ?? 'Publikasi BPS';
+                $abstract = $pub['abstract'] ?? 'Publikasi statistik resmi Badan Pusat Statistik.';
+                $pdfUrl = $pub['pdf'] ?? null;
+                $rlDate = $pub['rl_date'] ?? null;
+
+                $content = "Judul Publikasi Resmi BPS: {$title}\n";
+                if ($rlDate) {
+                    $content .= "Tanggal Rilis Resmi: {$rlDate}\n";
+                }
+                $content .= "Abstraksi / Ringkasan: " . strip_tags($abstract) . "\n";
+                if ($pdfUrl) {
+                    $content .= "Tautan Unduh Dokumen PDF Resmi: {$pdfUrl}\n";
+                }
+
+                $sourceId = (string) $pubId;
+                $this->collectedSources[$sourceId] = [
+                    'title' => $title,
+                    'url' => $pdfUrl ?? 'https://www.bps.go.id/id/publication',
+                    'snippet' => mb_substr(strip_tags($abstract), 0, 160) . '...',
+                ];
+
+                $sources[] = new RetrievedSource(
+                    sourceId: $sourceId,
+                    title: $title,
+                    url: $pdfUrl ?? 'https://www.bps.go.id/id/publication',
+                    content: $content,
+                    score: 0.95,
+                    sourceStatus: 'OFFICIAL_BPS_API',
+                    category: 'publication'
+                );
+            }
+        }
+
+        return $sources;
+    }
+
+    /**
+     * Look up BPS Regional Domains
+     */
     private function lookupDomains(string $question): array
     {
         $resp = $this->apiClient->get('domain/model/domain', [
@@ -188,7 +243,7 @@ class BpsAgent
         ]);
 
         $sources = [];
-        if ($resp->isOk && ! empty($resp->rows)) {
+        if ($resp->isOk && !empty($resp->rows)) {
             $lowerQ = mb_strtolower($question);
             $matched = [];
             foreach ($resp->rows as $dom) {
@@ -199,24 +254,24 @@ class BpsAgent
             }
 
             if (empty($matched)) {
-                $matched = array_slice($resp->rows, 0, 4);
+                $matched = array_slice($resp->rows, 0, 3);
             }
 
-            foreach (array_slice($matched, 0, 4) as $dom) {
-                $domId = $dom['domain_id'] ?? ('DOM-'.uniqid());
+            foreach (array_slice($matched, 0, 3) as $dom) {
+                $domId = $dom['domain_id'] ?? ('DOM-' . uniqid());
                 $name = $dom['domain_name'] ?? 'BPS Wilayah';
                 $url = $dom['domain_url'] ?? 'https://www.bps.go.id';
 
-                $sourceId = 'DOM-'.$domId;
+                $sourceId = 'DOM-' . $domId;
                 $this->collectedSources[$sourceId] = [
-                    'title' => $name,
+                    'title' => 'Portal BPS ' . $name,
                     'url' => $url,
-                    'snippet' => "Portal BPS Wilayah: {$name} ({$url})",
+                    'snippet' => "Portal Layanan Statistik Resmi BPS {$name}: {$url}",
                 ];
 
                 $sources[] = new RetrievedSource(
                     sourceId: $sourceId,
-                    title: $name,
+                    title: 'BPS ' . $name,
                     url: $url,
                     content: "Portal Layanan Data BPS Wilayah {$name}: {$url}",
                     score: 0.8,

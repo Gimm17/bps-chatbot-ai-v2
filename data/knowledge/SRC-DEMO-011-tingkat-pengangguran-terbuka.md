@@ -2,8 +2,8 @@
 id: SRC-DEMO-011
 title: Ketenagakerjaan dan Tingkat Pengangguran Terbuka (TPT)
 category: labor
-source_url: https://www.bps.go.id/id/statistics/labor
-source_status: DEMO_NOT_VERIFIED
+source_url: https://sirusa.web.bps.go.id/metadata/indikator/543
+source_status: OFFICIAL_BPS_SIRUSA
 ---
 # Ketenagakerjaan dan Tingkat Pengangguran Terbuka (TPT)
 

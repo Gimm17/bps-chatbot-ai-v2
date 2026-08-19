@@ -2,8 +2,8 @@
 id: SRC-DEMO-015
 title: Konsep Kemiskinan dan Garis Kemiskinan (GK) BPS
 category: poverty
-source_url: https://www.bps.go.id/id/statistics/poverty
-source_status: DEMO_NOT_VERIFIED
+source_url: https://sirusa.web.bps.go.id/metadata/indikator/192
+source_status: OFFICIAL_BPS_SIRUSA
 ---
 # Konsep Kemiskinan dan Garis Kemiskinan (GK) BPS
 

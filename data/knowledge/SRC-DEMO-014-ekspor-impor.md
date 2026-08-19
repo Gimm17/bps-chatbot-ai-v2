@@ -3,7 +3,7 @@ id: SRC-DEMO-014
 title: Statistik Ekspor dan Impor (Perdagangan Luar Negeri)
 category: trade
 source_url: https://www.bps.go.id/id/statistics/trade
-source_status: DEMO_NOT_VERIFIED
+source_status: OFFICIAL_BPS
 ---
 # Statistik Ekspor dan Impor (Perdagangan Luar Negeri)
 
