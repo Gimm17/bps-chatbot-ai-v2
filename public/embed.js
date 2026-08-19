@@ -1,5 +1,5 @@
 /**
- * BPS AI Assistant — Standalone Embeddable Widget (Cloud Bubble Edition)
+ * BPS AI Assistant — Standalone Embeddable Widget (Mobile-Optimized Cloud Edition)
  *
  * Usage on ANY website:
  * <script src="https://bps-chatbot-v2.pinnhost.my.id/build/assets/embed.js" defer></script>
@@ -15,15 +15,15 @@
   style.innerHTML = `
     #bps-ai-bubble-btn {
       position: fixed;
-      bottom: 24px;
-      right: 24px;
+      bottom: 20px;
+      right: 20px;
       z-index: 2147483647;
       display: flex;
       align-items: center;
-      gap: 9px;
+      gap: 8px;
       background: linear-gradient(135deg, #0077A6 0%, #00ADEF 100%);
       color: #ffffff;
-      padding: 10px 18px 10px 14px;
+      padding: 10px 16px 10px 12px;
       border-radius: 9999px;
       box-shadow: 0 10px 25px -4px rgba(0, 119, 166, 0.45), 0 4px 12px -2px rgba(0, 119, 166, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.35);
       cursor: pointer;
@@ -35,6 +35,7 @@
       transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
       user-select: none;
       box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
     }
     #bps-ai-bubble-btn:hover {
       transform: translateY(-3px) scale(1.04);
@@ -44,8 +45,8 @@
       transform: translateY(-1px) scale(0.98);
     }
     .bps-cloud-icon-wrapper {
-      width: 28px;
-      height: 28px;
+      width: 26px;
+      height: 26px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -54,12 +55,12 @@
     }
     #bps-ai-frame-container {
       position: fixed;
-      bottom: 84px;
-      right: 24px;
+      bottom: 76px;
+      right: 20px;
       width: 390px;
       height: 590px;
-      max-width: calc(100vw - 32px);
-      max-height: calc(100vh - 104px);
+      max-width: calc(100vw - 28px);
+      max-height: calc(100vh - 96px);
       background: #ffffff;
       border-radius: 20px;
       box-shadow: 0 20px 50px -10px rgba(0, 15, 40, 0.3), 0 0 0 1px rgba(0, 0, 0, 0.08);
@@ -76,7 +77,7 @@
       animation: bps-popup 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
     @keyframes bps-popup {
-      from { opacity: 0; transform: scale(0.9) translateY(20px); }
+      from { opacity: 0; transform: scale(0.92) translateY(18px); }
       to { opacity: 1; transform: scale(1) translateY(0); }
     }
     #bps-ai-iframe {
@@ -85,22 +86,26 @@
       border: none;
       background: #F8FAFC;
     }
-    @media (max-width: 480px) {
+    @media (max-width: 640px) {
       #bps-ai-frame-container {
-        bottom: 0;
+        position: fixed;
+        top: 0;
+        left: 0;
         right: 0;
-        width: 100vw;
-        height: 100vh;
-        max-width: 100vw;
-        max-height: 100vh;
-        border-radius: 0;
-        border: none;
+        bottom: 0;
+        width: 100vw !important;
+        height: 100dvh !important;
+        max-width: 100vw !important;
+        max-height: 100dvh !important;
+        border-radius: 0 !important;
+        border: none !important;
+        box-shadow: none !important;
       }
       #bps-ai-bubble-btn {
-        bottom: 16px;
-        right: 16px;
-        padding: 9px 15px 9px 12px;
-        font-size: 13px;
+        bottom: 14px;
+        right: 14px;
+        padding: 8px 14px 8px 10px;
+        font-size: 12.5px;
       }
     }
   `;
@@ -112,7 +117,6 @@
 
   const iframe = document.createElement('iframe');
   iframe.id = 'bps-ai-iframe';
-  // Use ?embed=1 for slim compact mode inside the widget
   iframe.src = BPS_BASE_URL + '/?embed=1';
   iframe.allow = 'clipboard-write';
   frameContainer.appendChild(iframe);
@@ -121,22 +125,17 @@
   // 2. SVG Cloud Chat Icon with BPS Statistical Chart motif
   const cloudChatSvg = `
     <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full">
-      <!-- Cloud Body with Chat Tail -->
       <path d="M9.5 23.5H22C25.5899 23.5 28.5 20.5899 28.5 17C28.5 13.5683 25.8366 10.7573 22.4668 10.521C21.7248 6.78652 18.4414 4 14.5 4C10.0526 4 6.38676 7.23432 5.67978 11.5173C3.0189 12.3789 1 14.9455 1 18C1 21.3137 3.68629 24 7 24L5 28L10.5 24.5L9.5 23.5Z" 
             fill="white" fill-opacity="0.22" stroke="white" stroke-width="1.75" stroke-linejoin="round" />
-      
-      <!-- BPS Statistic Bar Chart (3 Columns) -->
       <rect x="9.5" y="14.5" width="2.2" height="5.5" rx="1.1" fill="#F7941D" />
       <rect x="13.5" y="11.5" width="2.2" height="8.5" rx="1.1" fill="#ffffff" />
       <rect x="17.5" y="13" width="2.2" height="7" rx="1.1" fill="#10B981" />
-      
-      <!-- AI Sparkle at Top Right -->
       <path d="M24 5L24.8 7.2L27 8L24.8 8.8L24 11L23.2 8.8L21 8L23.2 7.2L24 5Z" fill="#FDE047" />
     </svg>
   `;
 
   const closeSvg = `
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width: 18px; height: 18px;">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width: 17px; height: 17px;">
       <line x1="18" y1="6" x2="6" y2="18"></line>
       <line x1="6" y1="6" x2="18" y2="18"></line>
     </svg>

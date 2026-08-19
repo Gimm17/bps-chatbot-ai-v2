@@ -44,6 +44,7 @@ html, body {
   background-color: #f8fafc;
   color: #0f172a;
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
 }
 
 /* Guard against unconstrained SVGs */
@@ -57,8 +58,8 @@ svg {
 
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 5px;
+  height: 5px;
 }
 ::-webkit-scrollbar-track {
   background: transparent;
@@ -73,28 +74,35 @@ svg {
 
 /* Markdown Rendering in AI responses */
 .ai-markdown {
-  line-height: 1.65;
+  line-height: 1.6;
   color: #1e293b;
-  font-size: 0.975rem;
+  font-size: 0.925rem;
 }
+@media (min-width: 640px) {
+  .ai-markdown {
+    font-size: 0.95rem;
+    line-height: 1.65;
+  }
+}
+
 .ai-markdown p {
-  margin-bottom: 0.85rem;
+  margin-bottom: 0.75rem;
 }
 .ai-markdown p:last-child {
   margin-bottom: 0;
 }
 .ai-markdown ul {
   list-style-type: disc;
-  padding-left: 1.35rem;
-  margin-bottom: 0.85rem;
+  padding-left: 1.25rem;
+  margin-bottom: 0.75rem;
 }
 .ai-markdown ol {
   list-style-type: decimal;
-  padding-left: 1.35rem;
-  margin-bottom: 0.85rem;
+  padding-left: 1.25rem;
+  margin-bottom: 0.75rem;
 }
 .ai-markdown li {
-  margin-bottom: 0.35rem;
+  margin-bottom: 0.25rem;
 }
 .ai-markdown strong {
   font-weight: 600;
@@ -103,19 +111,26 @@ svg {
 .ai-markdown h1, .ai-markdown h2, .ai-markdown h3, .ai-markdown h4 {
   font-weight: 700;
   color: #0f172a;
-  margin-top: 1.2rem;
-  margin-bottom: 0.5rem;
+  margin-top: 1rem;
+  margin-bottom: 0.4rem;
+}
+.ai-markdown h3 {
+  font-size: 1.05rem;
 }
 .ai-markdown table {
   width: 100%;
   border-collapse: collapse;
-  margin: 1rem 0;
-  font-size: 0.875rem;
+  margin: 0.75rem 0;
+  font-size: 0.825rem;
+  display: block;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 }
 .ai-markdown th, .ai-markdown td {
   border: 1px solid #e2e8f0;
-  padding: 8px 12px;
+  padding: 6px 10px;
   text-align: left;
+  white-space: nowrap;
 }
 .ai-markdown th {
   background-color: #f8fafc;
@@ -123,8 +138,17 @@ svg {
 }
 .ai-markdown code {
   background-color: #f1f5f9;
-  padding: 2px 6px;
+  padding: 2px 5px;
   border-radius: 4px;
   font-family: ui-monospace, monospace;
   font-size: 0.85em;
+}
+.ai-markdown a {
+  color: #0077a6;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  word-break: break-all;
+}
+.ai-markdown a:hover {
+  color: #005f85;
 }
