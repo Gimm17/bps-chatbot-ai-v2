@@ -10,11 +10,14 @@
     <!-- 2. ASSISTANT MESSAGE -->
     <div v-else class="flex items-start gap-2.5 sm:gap-3.5 w-full">
       <!-- AI Avatar -->
-      <div class="w-7 h-7 sm:w-9 sm:h-9 rounded-xl bg-gradient-to-br from-[#0093DD] to-[#007bbd] text-white flex items-center justify-center shrink-0 shadow-2xs mt-1 overflow-hidden">
-        <svg width="14" height="14" class="w-3.5 h-3.5 sm:w-5 sm:h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <rect x="3" y="11" width="18" height="10" rx="2"/>
-          <circle cx="12" cy="5" r="2"/>
-          <path d="M12 7v4"/>
+      <div class="w-7 h-7 sm:w-8.5 sm:h-8.5 rounded-xl bg-gradient-to-br from-[#0093DD] to-[#007bbd] text-white flex items-center justify-center shrink-0 shadow-2xs mt-1 overflow-hidden p-1">
+        <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full">
+          <path d="M9.5 23.5H22C25.5899 23.5 28.5 20.5899 28.5 17C28.5 13.5683 25.8366 10.7573 22.4668 10.521C21.7248 6.78652 18.4414 4 14.5 4C10.0526 4 6.38676 7.23432 5.67978 11.5173C3.0189 12.3789 1 14.9455 1 18C1 21.3137 3.68629 24 7 24L5 28L10.5 24.5L9.5 23.5Z" 
+                fill="white" fill-opacity="0.25" stroke="white" stroke-width="1.75" stroke-linejoin="round" />
+          <rect x="9.5" y="14.5" width="2.2" height="5.5" rx="1.1" fill="#EB891B" />
+          <rect x="13.5" y="11.5" width="2.2" height="8.5" rx="1.1" fill="#FFFFFF" />
+          <rect x="17.5" y="13" width="2.2" height="7" rx="1.1" fill="#68B92E" />
+          <path d="M24 5L24.8 7.2L27 8L24.8 8.8L24 11L23.2 8.8L21 8L23.2 7.2L24 5Z" fill="#FDE047" />
         </svg>
       </div>
 

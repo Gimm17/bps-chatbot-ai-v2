@@ -3,9 +3,14 @@
     <div class="max-w-3xl mx-auto flex items-center justify-between h-full w-full gap-2">
       <!-- Logo & Brand Title -->
       <div class="flex items-center gap-2 sm:gap-2.5 cursor-pointer select-none shrink-0" @click="$emit('reset')">
-        <div class="w-7.5 h-7.5 sm:w-8.5 sm:h-8.5 rounded-xl bg-gradient-to-br from-[#0093DD] to-[#007bbd] flex items-center justify-center shadow-2xs text-white shrink-0 overflow-hidden">
-          <svg width="18" height="18" class="w-4 h-4 sm:w-4.5 sm:h-4.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
-            <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" stroke-linecap="round"/>
+        <div class="w-7.5 h-7.5 sm:w-8.5 sm:h-8.5 rounded-xl bg-gradient-to-br from-[#0093DD] to-[#007bbd] flex items-center justify-center shadow-2xs text-white shrink-0 overflow-hidden p-1">
+          <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full">
+            <path d="M9.5 23.5H22C25.5899 23.5 28.5 20.5899 28.5 17C28.5 13.5683 25.8366 10.7573 22.4668 10.521C21.7248 6.78652 18.4414 4 14.5 4C10.0526 4 6.38676 7.23432 5.67978 11.5173C3.0189 12.3789 1 14.9455 1 18C1 21.3137 3.68629 24 7 24L5 28L10.5 24.5L9.5 23.5Z" 
+                  fill="white" fill-opacity="0.25" stroke="white" stroke-width="1.75" stroke-linejoin="round" />
+            <rect x="9.5" y="14.5" width="2.2" height="5.5" rx="1.1" fill="#EB891B" />
+            <rect x="13.5" y="11.5" width="2.2" height="8.5" rx="1.1" fill="#FFFFFF" />
+            <rect x="17.5" y="13" width="2.2" height="7" rx="1.1" fill="#68B92E" />
+            <path d="M24 5L24.8 7.2L27 8L24.8 8.8L24 11L23.2 8.8L21 8L23.2 7.2L24 5Z" fill="#FDE047" />
           </svg>
         </div>
         <div class="flex items-center gap-1.5 shrink-0">
