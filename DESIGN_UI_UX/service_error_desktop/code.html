@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+
+<html lang="id"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Service Error - BPS AI Assistant</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Plus+Jakarta+Sans:wght@650;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-fixed-dim": "#9cd84e",
+                        "on-tertiary-fixed": "#102000",
+                        "tertiary-fixed": "#b7f567",
+                        "on-tertiary-container": "#e0ffb4",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-green": "#F2F9E9",
+                        "surface-orange": "#FFF5E8",
+                        "tertiary": "#3c6100",
+                        "brand-blue-vibrant": "#00ADEF",
+                        "on-tertiary-fixed-variant": "#304f00",
+                        "on-primary": "#ffffff",
+                        "inverse-primary": "#83cfff",
+                        "on-background": "#0d1c2e",
+                        "error-container": "#ffdad6",
+                        "on-primary-fixed-variant": "#004c6c",
+                        "on-surface": "#0d1c2e",
+                        "on-secondary-container": "#663800",
+                        "on-secondary": "#ffffff",
+                        "surface-container-high": "#dce9ff",
+                        "background": "#f8f9ff",
+                        "primary-fixed-dim": "#83cfff",
+                        "border-default": "#E2E8F0",
+                        "primary": "#005d83",
+                        "outline": "#6f787f",
+                        "primary-container": "#0077a6",
+                        "secondary": "#8c4f00",
+                        "brand-blue-deep": "#005F85",
+                        "surface-variant": "#d5e3fc",
+                        "on-surface-variant": "#3f484f",
+                        "on-tertiary": "#ffffff",
+                        "surface-container-low": "#eff4ff",
+                        "on-primary-fixed": "#001e2e",
+                        "on-primary-container": "#ebf5ff",
+                        "error": "#ba1a1a",
+                        "secondary-fixed-dim": "#ffb874",
+                        "surface-dim": "#ccdbf3",
+                        "secondary-container": "#fd9923",
+                        "on-error-container": "#93000a",
+                        "on-secondary-fixed-variant": "#6b3b00",
+                        "primary-fixed": "#c7e7ff",
+                        "inverse-surface": "#233144",
+                        "secondary-fixed": "#ffdcbf",
+                        "tertiary-container": "#4e7c00",
+                        "surface-tint": "#00658e",
+                        "surface-blue": "#E8F8FE",
+                        "surface-bright": "#f8f9ff",
+                        "surface-error": "#FEF3F2",
+                        "surface-container-highest": "#d5e3fc",
+                        "brand-orange-deep": "#9A5600",
+                        "surface-container": "#e6eeff",
+                        "bg-main": "#F8FAFC",
+                        "brand-green-deep": "#527D17",
+                        "on-error": "#ffffff",
+                        "outline-variant": "#bfc8d0",
+                        "inverse-on-surface": "#eaf1ff",
+                        "surface": "#f8f9ff",
+                        "on-secondary-fixed": "#2d1600"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "lg": "24px",
+                        "md": "16px",
+                        "reading-max": "820px",
+                        "xs": "8px",
+                        "container-max": "1000px",
+                        "base": "4px",
+                        "sm": "12px",
+                        "xl": "32px"
+                    },
+                    "fontFamily": {
+                        "body-main": ["Inter"],
+                        "label-bold": ["Inter"],
+                        "metadata": ["Inter"],
+                        "headline-lg": ["Plus Jakarta Sans"],
+                        "label-medium": ["Inter"],
+                        "headline-lg-mobile": ["Plus Jakarta Sans"],
+                        "section-title": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "body-main": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "label-bold": ["14px", { "lineHeight": "1.4", "fontWeight": "600" }],
+                        "metadata": ["12px", { "lineHeight": "1.5", "letterSpacing": "0.01em", "fontWeight": "400" }],
+                        "headline-lg": ["32px", { "lineHeight": "1.25", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "label-medium": ["14px", { "lineHeight": "1.4", "fontWeight": "500" }],
+                        "headline-lg-mobile": ["26px", { "lineHeight": "1.25", "fontWeight": "700" }],
+                        "section-title": ["22px", { "lineHeight": "1.4", "fontWeight": "650" }]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-bg-main min-h-screen flex flex-col font-body-main text-body-main text-on-surface">
+<!-- TopNavBar -->
+<header class="bg-surface dark:bg-surface-dim border-b border-border-default dark:border-outline-variant w-full fixed top-0 z-50">
+<div class="flex justify-between items-center h-16 px-lg w-full max-w-container-max mx-auto">
+<!-- Brand -->
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-primary dark:text-primary-fixed-dim" style="font-variation-settings: 'FILL' 1;">dataset</span>
+<h1 class="font-headline-lg text-headline-lg text-primary dark:text-primary-fixed-dim hidden md:block">BPS AI Assistant</h1>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-primary dark:text-primary-fixed-dim block md:hidden">BPS AI Assistant</h1>
+</div>
+<!-- Navigation Links (Hidden on Mobile) -->
+<nav class="hidden md:flex gap-lg h-full">
+<a class="flex items-center h-full text-on-surface-variant font-label-medium pb-1 border-b-2 border-transparent hover:text-primary transition-colors duration-200 pt-1" href="#">Dashboard</a>
+<a class="flex items-center h-full text-on-surface-variant font-label-medium pb-1 border-b-2 border-transparent hover:text-primary transition-colors duration-200 pt-1" href="#">Databases</a>
+<a class="flex items-center h-full text-on-surface-variant font-label-medium pb-1 border-b-2 border-transparent hover:text-primary transition-colors duration-200 pt-1" href="#">Publications</a>
+</nav>
+<!-- Trailing Actions -->
+<div class="flex items-center gap-sm">
+<button aria-label="notifications" class="p-2 rounded-full text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-colors duration-200">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button aria-label="settings" class="p-2 rounded-full text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-colors duration-200">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<div class="w-8 h-8 rounded-full overflow-hidden border border-border-default ml-xs">
+<img alt="User profile" class="w-full h-full object-cover" data-alt="A small, professional avatar image of a user in a well-lit office setting. The style is modern and clean, fitting a professional government application context. The lighting is soft and neutral, conveying trust and reliability." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDFtscmifFP9Cx5CP49lfUp6m5lHtdcWxCrDY0MOsw4KD5CP6732v5GYdXO6a6bp1ajv6wx44HldEH_MPHVC-2To5_c5gAYAGxr8LH-LDSQcOe_Wm68zYuleOXkBt-oNgSqxUUEj4m_yKwuFJlw9lcv4RS6QLRNGFknI4X577KKnR_nHNEndyQhc15x4Wf97IHju4uihAe4vd46A1xYRFQu_TFuf-02d3fYZZztsKuAqdsJrb55QCDjZQ"/>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-grow flex items-center justify-center pt-24 pb-16 px-md w-full max-w-container-max mx-auto">
+<!-- Error State Card -->
+<div class="bg-surface-container-lowest border border-border-default rounded-xl p-xl shadow-sm max-w-[500px] w-full text-center flex flex-col items-center gap-lg">
+<!-- Friendly/Official Illustration Area -->
+<div class="w-32 h-32 rounded-full bg-surface-container-low flex items-center justify-center mb-xs border border-surface-container-high">
+<span class="material-symbols-outlined text-outline text-[64px]" style="font-variation-settings: 'FILL' 0;">cloud_off</span>
+</div>
+<!-- Text Content -->
+<div class="flex flex-col gap-sm">
+<h2 class="font-section-title text-section-title text-on-surface">Layanan AI sedang tidak tersedia</h2>
+<p class="text-on-surface-variant max-w-[400px] mx-auto">
+                    Silakan coba kembali beberapa saat lagi atau akses layanan statistik kami melalui website resmi BPS.
+                </p>
+</div>
+<!-- Actions -->
+<div class="flex flex-col sm:flex-row gap-sm w-full mt-md justify-center">
+<button class="bg-primary-container text-on-primary font-label-bold py-3 px-6 rounded-lg hover:bg-brand-blue-deep transition-colors duration-200 flex items-center justify-center gap-xs">
+<span class="material-symbols-outlined text-[20px]">refresh</span>
+                    Coba lagi
+                </button>
+<button class="bg-transparent border border-border-default text-primary font-label-bold py-3 px-6 rounded-lg hover:bg-surface-container-low transition-colors duration-200 flex items-center justify-center">
+                    Ke Beranda
+                </button>
+</div>
+<!-- Contextual Link (Optional but helpful) -->
+<div class="mt-xs">
+<a class="font-metadata text-metadata text-primary underline hover:text-brand-blue-deep transition-colors duration-200" href="#">
+                    Kunjungi BPS.go.id
+                </a>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-transparent w-full py-md text-center max-w-reading-max mx-auto mt-auto px-md">
+<div class="flex flex-col gap-sm items-center">
+<p class="font-metadata text-metadata text-on-surface-variant opacity-70">
+                © 2024 Badan Pusat Statistik Indonesia. Data-driven governance.
+            </p>
+<div class="flex gap-md font-metadata text-metadata">
+<a class="text-on-surface-variant opacity-70 hover:opacity-100 transition-opacity duration-200" href="#">Privacy Policy</a>
+<a class="text-on-surface-variant opacity-70 hover:opacity-100 transition-opacity duration-200" href="#">Terms of Service</a>
+<a class="text-on-surface-variant opacity-70 hover:opacity-100 transition-opacity duration-200" href="#">Contact Support</a>
+</div>
+</div>
+</footer>
+</body></html>

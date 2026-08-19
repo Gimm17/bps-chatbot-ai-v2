@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+
+<html lang="id"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>BPS AI Assistant - Active Conversation</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Plus+Jakarta+Sans:wght@650;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-dim": "#ccdbf3",
+                      "on-secondary-fixed": "#2d1600",
+                      "inverse-on-surface": "#eaf1ff",
+                      "on-error": "#ffffff",
+                      "brand-blue-vibrant": "#00ADEF",
+                      "secondary-fixed-dim": "#ffb874",
+                      "surface-error": "#FEF3F2",
+                      "surface-blue": "#E8F8FE",
+                      "error": "#ba1a1a",
+                      "primary-fixed": "#c7e7ff",
+                      "on-error-container": "#93000a",
+                      "inverse-primary": "#83cfff",
+                      "brand-blue-deep": "#005F85",
+                      "on-primary-fixed": "#001e2e",
+                      "tertiary-fixed-dim": "#9cd84e",
+                      "on-secondary-container": "#663800",
+                      "on-tertiary-fixed": "#102000",
+                      "tertiary-fixed": "#b7f567",
+                      "primary-fixed-dim": "#83cfff",
+                      "surface-container": "#e6eeff",
+                      "surface-bright": "#f8f9ff",
+                      "on-tertiary-fixed-variant": "#304f00",
+                      "brand-orange-deep": "#9A5600",
+                      "on-secondary-fixed-variant": "#6b3b00",
+                      "surface-variant": "#d5e3fc",
+                      "secondary": "#8c4f00",
+                      "primary-container": "#0077a6",
+                      "tertiary": "#3c6100",
+                      "surface-green": "#F2F9E9",
+                      "surface": "#f8f9ff",
+                      "on-background": "#0d1c2e",
+                      "outline-variant": "#bfc8d0",
+                      "on-primary": "#ffffff",
+                      "surface-container-highest": "#d5e3fc",
+                      "on-surface": "#0d1c2e",
+                      "on-tertiary": "#ffffff",
+                      "on-tertiary-container": "#e0ffb4",
+                      "on-secondary": "#ffffff",
+                      "surface-container-low": "#eff4ff",
+                      "outline": "#6f787f",
+                      "on-primary-fixed-variant": "#004c6c",
+                      "error-container": "#ffdad6",
+                      "secondary-container": "#fd9923",
+                      "surface-orange": "#FFF5E8",
+                      "background": "#f8f9ff",
+                      "tertiary-container": "#4e7c00",
+                      "bg-main": "#F8FAFC",
+                      "surface-container-lowest": "#ffffff",
+                      "on-primary-container": "#ebf5ff",
+                      "border-default": "#E2E8F0",
+                      "surface-container-high": "#dce9ff",
+                      "primary": "#005d83",
+                      "brand-green-deep": "#527D17",
+                      "secondary-fixed": "#ffdcbf",
+                      "surface-tint": "#00658e",
+                      "inverse-surface": "#233144",
+                      "on-surface-variant": "#3f484f"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "base": "4px",
+                      "reading-max": "820px",
+                      "container-max": "1000px",
+                      "sm": "12px",
+                      "lg": "24px",
+                      "xl": "32px",
+                      "md": "16px",
+                      "xs": "8px"
+              },
+              "fontFamily": {
+                      "headline-lg": [
+                              "Plus Jakarta Sans"
+                      ],
+                      "label-medium": [
+                              "Inter"
+                      ],
+                      "label-bold": [
+                              "Inter"
+                      ],
+                      "body-main": [
+                              "Inter"
+                      ],
+                      "section-title": [
+                              "Plus Jakarta Sans"
+                      ],
+                      "headline-lg-mobile": [
+                              "Plus Jakarta Sans"
+                      ],
+                      "metadata": [
+                              "Inter"
+                      ]
+              },
+              "fontSize": {
+                      "headline-lg": [
+                              "32px",
+                              {
+                                      "lineHeight": "1.25",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "label-medium": [
+                              "14px",
+                              {
+                                      "lineHeight": "1.4",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "label-bold": [
+                              "14px",
+                              {
+                                      "lineHeight": "1.4",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-main": [
+                              "16px",
+                              {
+                                      "lineHeight": "1.6",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "section-title": [
+                              "22px",
+                              {
+                                      "lineHeight": "1.4",
+                                      "fontWeight": "650"
+                              }
+                      ],
+                      "headline-lg-mobile": [
+                              "26px",
+                              {
+                                      "lineHeight": "1.25",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "metadata": [
+                              "12px",
+                              {
+                                      "lineHeight": "1.5",
+                                      "letterSpacing": "0.01em",
+                                      "fontWeight": "400"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+    </script>
+</head>
+<body class="bg-bg-main text-on-surface font-body-main text-body-main min-h-screen flex flex-col">
+<!-- TopNavBar component translated from JSON -->
+<nav class="bg-surface dark:bg-surface-dim font-body-main text-body-main w-full border-b border-border-default dark:border-outline-variant flex justify-between items-center h-16 px-lg max-w-container-max mx-auto shrink-0 z-50 sticky top-0 relative">
+<div class="flex items-center gap-md">
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-brand-blue-vibrant text-3xl">insights</span>
+<div class="flex flex-col">
+<span class="font-headline-lg text-section-title text-primary dark:text-primary-fixed-dim leading-none">BPS AI Assistant</span>
+<span class="font-metadata text-metadata text-on-surface-variant">Asisten Statistik Publik</span>
+</div>
+</div>
+</div>
+<div class="hidden md:flex gap-lg h-full items-end">
+<a class="text-primary font-label-bold border-b-2 border-primary pb-1 flex items-center justify-center" href="#">Dashboard</a>
+<a class="text-on-surface-variant font-label-medium pb-1 hover:text-primary transition-colors duration-200 flex items-center justify-center" href="#">Databases</a>
+<a class="text-on-surface-variant font-label-medium pb-1 hover:text-primary transition-colors duration-200 flex items-center justify-center" href="#">Publications</a>
+</div>
+<div class="flex items-center gap-sm">
+<button class="p-2 text-on-surface-variant hover:text-primary hover:bg-surface-container-low rounded-full transition-colors duration-200 flex items-center justify-center">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:text-primary hover:bg-surface-container-low rounded-full transition-colors duration-200 flex items-center justify-center">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+<img alt="User profile" class="w-8 h-8 rounded-full object-cover border border-border-default" data-alt="A small circular user profile picture featuring a professional headshot of a person looking forward against a neutral light grey background. Clean modern corporate styling." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBRoS6ZVKc6InsxhMibzrfhv2Wm5kKWlz2I-lxtRjNctlJFsMeX5V9GKErGsjy4zO_dKB08IqrWSrsrg805iTiHbytw7RM65EKGTmmjLw22zm3eeMaklTqY8pTkHsi9XzpO7dg6RCk7iAbmc6DjKg5cgYKa_9o2zAOvHvJN5lxpAZpTRzHqgOgWBQaxldm-AGE3dsW3d2Jpv_0PQnebLWTq85s4vHgKIfySNH38KpbBr3cNNu925917sg"/>
+</div>
+</nav>
+<!-- Main Content Area -->
+<main class="flex-grow flex flex-col items-center w-full max-w-container-max mx-auto px-md md:px-xl py-lg pb-[180px]">
+<div class="w-full max-w-reading-max flex flex-col gap-lg">
+<!-- User Message -->
+<div class="flex w-full justify-end">
+<div class="bg-surface-container-low text-on-surface border border-border-default rounded-xl rounded-tr-sm p-md max-w-[85%] shadow-[0_1px_2px_rgba(15,23,42,0.05)]">
+<p>Apa itu inflasi dan bagaimana trennya di Indonesia?</p>
+</div>
+</div>
+<!-- Assistant Message -->
+<div class="flex w-full justify-start gap-md">
+<div class="flex-shrink-0">
+<div class="w-10 h-10 rounded-full bg-surface-container-high border border-outline-variant flex items-center justify-center relative overflow-hidden">
+<!-- Simulated Avatar accents -->
+<div class="absolute inset-0 bg-gradient-to-tr from-brand-blue-vibrant via-brand-orange-deep to-brand-green-deep opacity-20"></div>
+<span class="material-symbols-outlined text-primary-container z-10" style="font-variation-settings: 'FILL' 1;">robot_2</span>
+</div>
+</div>
+<div class="flex flex-col gap-md max-w-[85%]">
+<div class="flex items-center gap-sm">
+<span class="font-label-bold text-label-bold text-on-surface">BPS AI Assistant</span>
+</div>
+<div class="bg-surface-container-lowest text-on-surface rounded-xl rounded-tl-sm p-lg border border-border-default shadow-[0_1px_2px_rgba(15,23,42,0.05)] flex flex-col gap-md">
+<p class="leading-relaxed">
+                            Inflasi adalah kecenderungan naiknya harga barang dan jasa pada umumnya yang berlangsung secara terus menerus. Jika harga barang dan jasa di dalam negeri meningkat, maka inflasi mengalami kenaikan 
+                            <button class="inline-flex items-center justify-center bg-surface-blue text-brand-blue-deep font-label-medium text-[10px] px-1 py-0.5 rounded ml-1 border border-primary-fixed-dim hover:bg-primary-fixed transition-colors align-text-top leading-none">[1]</button>.
+                        </p>
+<div class="flex flex-col gap-xs mt-sm">
+<span class="font-label-bold text-label-bold">Tren Inflasi di Indonesia (Terkini):</span>
+<ul class="list-none flex flex-col gap-sm pl-0">
+<li class="flex items-start gap-sm">
+<span class="material-symbols-outlined text-brand-blue-vibrant text-sm mt-1 shrink-0">fiber_manual_record</span>
+<span><strong>Tingkat Inflasi Tahunan Terkendali:</strong> Pada bulan terakhir laporan, inflasi Indonesia menunjukkan tren yang relatif stabil dan terkendali dalam rentang sasaran Bank Indonesia, didukung oleh kebijakan moneter yang konsisten.</span>
+</li>
+<li class="flex items-start gap-sm">
+<span class="material-symbols-outlined text-brand-blue-vibrant text-sm mt-1 shrink-0">fiber_manual_record</span>
+<span><strong>Volatile Food (Harga Pangan Bergejolak):</strong> Kelompok pengeluaran makanan, minuman, dan tembakau seringkali menjadi kontributor utama, terutama dipengaruhi oleh faktor musim panen dan distribusi.</span>
+</li>
+<li class="flex items-start gap-sm">
+<span class="material-symbols-outlined text-brand-blue-vibrant text-sm mt-1 shrink-0">fiber_manual_record</span>
+<span><strong>Inflasi Inti Tetap Terjaga:</strong> Inflasi inti (core inflation) yang mencerminkan faktor fundamental ekonomi menunjukkan daya beli masyarakat yang mulai pulih pasca-pandemi, meski tetap diawasi secara ketat.</span>
+</li>
+</ul>
+</div>
+<!-- Sources Section -->
+<div class="mt-md flex flex-col gap-sm pt-md border-t border-border-default">
+<span class="font-label-bold text-label-bold text-on-surface-variant flex items-center gap-xs">
+<span class="material-symbols-outlined text-sm">menu_book</span> Sumber
+                            </span>
+<!-- Source Card -->
+<div class="flex items-center justify-between bg-surface-green border border-brand-green-deep rounded-lg p-sm hover:shadow-sm transition-shadow">
+<div class="flex items-center gap-sm">
+<div class="w-8 h-8 rounded bg-surface-container-lowest flex items-center justify-center shrink-0 border border-outline-variant">
+<span class="material-symbols-outlined text-brand-green-deep text-lg" style="font-variation-settings: 'FILL' 1;">verified</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-bold text-label-bold text-on-surface">Metadata Statistik — Inflasi</span>
+<span class="font-metadata text-metadata text-on-surface-variant">Badan Pusat Statistik Indonesia</span>
+</div>
+</div>
+<button class="flex items-center gap-xs text-brand-blue-deep hover:text-brand-blue-vibrant font-label-bold text-label-bold transition-colors shrink-0">
+                                    Buka sumber <span class="material-symbols-outlined text-sm">open_in_new</span>
+</button>
+</div>
+</div>
+<!-- Feedback Actions -->
+<div class="flex items-center gap-sm mt-sm pt-sm">
+<button aria-label="Helpful" class="p-1.5 text-outline hover:text-brand-blue-vibrant hover:bg-surface-blue rounded transition-colors flex items-center justify-center">
+<span class="material-symbols-outlined text-[20px]">thumb_up</span>
+</button>
+<button aria-label="Not helpful" class="p-1.5 text-outline hover:text-error hover:bg-surface-error rounded transition-colors flex items-center justify-center">
+<span class="material-symbols-outlined text-[20px]">thumb_down</span>
+</button>
+<button aria-label="Copy" class="p-1.5 text-outline hover:text-on-surface hover:bg-surface-container-high rounded transition-colors flex items-center justify-center ml-auto">
+<span class="material-symbols-outlined text-[20px]">content_copy</span>
+</button>
+<button aria-label="Report" class="p-1.5 text-outline hover:text-on-surface hover:bg-surface-container-high rounded transition-colors flex items-center justify-center">
+<span class="material-symbols-outlined text-[20px]">flag</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Sticky Chat Composer Container -->
+<div class="fixed bottom-0 w-full bg-gradient-to-t from-bg-main via-bg-main to-transparent pt-xl pb-lg px-md z-40">
+<div class="w-full max-w-reading-max mx-auto flex flex-col items-center gap-xs">
+<!-- Input Area -->
+<div class="w-full bg-surface-container-lowest rounded-xl shadow-[0_8px_24px_rgba(15,23,42,0.08)] border border-border-default flex items-center p-2 transition-shadow focus-within:shadow-[0_8px_24px_rgba(15,23,42,0.12)] focus-within:border-brand-blue-vibrant">
+<button class="p-3 text-outline hover:text-on-surface transition-colors flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined">attach_file</span>
+</button>
+<textarea class="flex-grow bg-transparent border-none focus:ring-0 resize-none font-body-main text-body-main text-on-surface py-3 px-2 placeholder-on-surface-variant max-h-32" placeholder="Tanyakan sesuatu tentang BPS..." rows="1"></textarea>
+<button class="p-3 bg-primary-container hover:bg-primary text-on-primary rounded-lg transition-colors flex items-center justify-center shrink-0 shadow-sm ml-2">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">send</span>
+</button>
+</div>
+<!-- Disclaimer -->
+<span class="font-metadata text-metadata text-outline text-center mt-2 max-w-[80%]">
+                BPS AI dapat melakukan kesalahan. Verifikasi informasi melalui sumber yang ditampilkan.
+            </span>
+</div>
+</div>
+</body></html>
