@@ -28,4 +28,13 @@ _ide_helper.php
 Homestead.json
 Homestead.yaml
 Thumbs.db
-deploy/pwsupersecretcpanel.txt
+
+# ==========================================
+# Private Documentation, Design & Deploy
+# ==========================================
+DOCS/
+DESIGN_UI_UX/
+deploy/
+MASTER_PROMPT_CLAUDE_CODE_BPS_AI_ASSISTANT.md
+*.md
+!data/knowledge/*.md
