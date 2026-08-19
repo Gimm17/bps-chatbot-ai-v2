@@ -5,28 +5,29 @@
       <stop offset="100%" stop-color="#007bbd" />
     </linearGradient>
     <filter id="dropShadow" x="-10%" y="-10%" width="120%" height="120%">
-      <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#1F2937" flood-opacity="0.25"/>
+      <feDropShadow dx="0" dy="16" stdDeviation="20" flood-color="#002D4A" flood-opacity="0.35"/>
     </filter>
   </defs>
   
   <!-- Rounded Base Background -->
-  <rect width="512" height="512" rx="115" fill="url(#bpsGrad)"/>
+  <rect width="512" height="512" rx="118" fill="url(#bpsGrad)"/>
   
-  <!-- Inner White Card / Cloud Symbol -->
-  <g filter="url(#dropShadow)" transform="translate(64, 64)">
-    <rect x="24" y="24" width="336" height="336" rx="64" fill="#FFFFFF" fill-opacity="0.18" stroke="#FFFFFF" stroke-width="8"/>
+  <!-- Cloud Bubble Symbol (Scaled from 32x32 to 512x512) -->
+  <g filter="url(#dropShadow)" transform="matrix(12.5 0 0 12.5 56 56)">
+    <!-- Cloud Bubble Outline & Translucent Fill -->
+    <path d="M9.5 23.5H22C25.5899 23.5 28.5 20.5899 28.5 17C28.5 13.5683 25.8366 10.7573 22.4668 10.521C21.7248 6.78652 18.4414 4 14.5 4C10.0526 4 6.38676 7.23432 5.67978 11.5173C3.0189 12.3789 1 14.9455 1 18C1 21.3137 3.68629 24 7 24L5 28L10.5 24.5L9.5 23.5Z" 
+          fill="#FFFFFF" fill-opacity="0.22" stroke="#FFFFFF" stroke-width="1.8" stroke-linejoin="round" />
     
-    <!-- BPS 3 Pillar Bars -->
-    <!-- Pillar 1: Blue #0093DD (100) -->
-    <rect x="90" y="210" width="42" height="90" rx="12" fill="#0093DD"/>
+    <!-- Pillar 1: Orange #EB891B -->
+    <rect x="9.5" y="14.5" width="2.4" height="5.5" rx="1.2" fill="#EB891B" />
     
-    <!-- Pillar 2: Green #68B92E (140) -->
-    <rect x="171" y="160" width="42" height="140" rx="12" fill="#68B92E"/>
+    <!-- Pillar 2: White #FFFFFF -->
+    <rect x="13.5" y="11.5" width="2.4" height="8.5" rx="1.2" fill="#FFFFFF" />
     
-    <!-- Pillar 3: Orange #EB891B (180) -->
-    <rect x="252" y="120" width="42" height="180" rx="12" fill="#EB891B"/>
+    <!-- Pillar 3: Green #68B92E -->
+    <rect x="17.5" y="13" width="2.4" height="7" rx="1.2" fill="#68B92E" />
     
-    <!-- AI Sparkle Star -->
-    <path d="M 280 60 Q 295 75 310 75 Q 295 75 280 90 Q 265 75 250 75 Q 265 75 280 60 Z" fill="#EB891B"/>
+    <!-- AI Sparkle Star: Yellow/Orange -->
+    <path d="M24 5L24.8 7.2L27 8L24.8 8.8L24 11L23.2 8.8L21 8L23.2 7.2L24 5Z" fill="#FDE047" stroke="#EB891B" stroke-width="0.3"/>
   </g>
 </svg>

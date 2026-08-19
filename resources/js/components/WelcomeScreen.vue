@@ -1,13 +1,14 @@
 <template>
   <div :class="['flex flex-col items-center justify-center max-w-xl mx-auto w-full text-center my-auto', isEmbedded ? 'py-2 px-1' : 'py-3 sm:py-6']">
     <!-- AI Bot Avatar -->
-    <div :class="['rounded-2xl bg-gradient-to-br from-[#EBF7FD] to-[#d8f0fb] flex items-center justify-center shadow-2xs border border-[#0093DD]/20 text-[#0093DD] shrink-0 overflow-hidden', isEmbedded ? 'w-11 h-11 mb-2' : 'w-11 h-11 sm:w-16 sm:h-16 mb-2 sm:mb-4']">
-      <svg :class="isEmbedded ? 'w-6 h-6 text-[#0093DD]' : 'w-6 h-6 sm:w-9 sm:h-9 text-[#0093DD]'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-        <rect x="3" y="11" width="18" height="10" rx="2" stroke-linecap="round"/>
-        <circle cx="12" cy="5" r="2"/>
-        <path d="M12 7v4" stroke-linecap="round"/>
-        <line x1="8" y1="16" x2="8.01" y2="16" stroke-width="2.5" stroke-linecap="round"/>
-        <line x1="16" y1="16" x2="16.01" y2="16" stroke-width="2.5" stroke-linecap="round"/>
+    <div :class="['rounded-2xl bg-gradient-to-br from-[#0093DD] to-[#007bbd] flex items-center justify-center shadow-xs border border-[#0093DD]/20 text-white shrink-0 overflow-hidden p-2', isEmbedded ? 'w-11 h-11 mb-2' : 'w-12 h-12 sm:w-16 sm:h-16 mb-2 sm:mb-4']">
+      <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full">
+        <path d="M9.5 23.5H22C25.5899 23.5 28.5 20.5899 28.5 17C28.5 13.5683 25.8366 10.7573 22.4668 10.521C21.7248 6.78652 18.4414 4 14.5 4C10.0526 4 6.38676 7.23432 5.67978 11.5173C3.0189 12.3789 1 14.9455 1 18C1 21.3137 3.68629 24 7 24L5 28L10.5 24.5L9.5 23.5Z" 
+              fill="white" fill-opacity="0.25" stroke="white" stroke-width="1.75" stroke-linejoin="round" />
+        <rect x="9.5" y="14.5" width="2.2" height="5.5" rx="1.1" fill="#EB891B" />
+        <rect x="13.5" y="11.5" width="2.2" height="8.5" rx="1.1" fill="#FFFFFF" />
+        <rect x="17.5" y="13" width="2.2" height="7" rx="1.1" fill="#68B92E" />
+        <path d="M24 5L24.8 7.2L27 8L24.8 8.8L24 11L23.2 8.8L21 8L23.2 7.2L24 5Z" fill="#FDE047" />
       </svg>
     </div>
 
