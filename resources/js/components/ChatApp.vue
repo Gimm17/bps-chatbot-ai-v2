@@ -4,7 +4,7 @@
     <Header :has-messages="messages.length > 0" :is-embedded="isEmbedded" @reset="resetChat" />
 
     <!-- Main Content Area -->
-    <main :class="['flex-1 flex flex-col justify-between max-w-4xl mx-auto w-full overflow-y-auto', isEmbedded ? 'px-3 py-2' : 'px-4 pt-4 pb-2']">
+    <main :class="['flex-1 flex flex-col justify-between max-w-3xl mx-auto w-full overflow-y-auto', isEmbedded ? 'px-2.5 sm:px-3 py-2' : 'px-3 sm:px-4 pt-3 sm:pt-4 pb-2']">
       <!-- 1. Welcome Screen (When no messages) -->
       <WelcomeScreen 
         v-if="messages.length === 0" 
@@ -50,19 +50,15 @@
       :is-embedded="isEmbedded"
       @send="handleSendMessage" 
     />
-
-    <!-- Floating Embed Widget Demo (Only rendered on standalone full page) -->
-    <WidgetToggle v-if="!isEmbedded" />
   </div>
 </template>
 
 <script setup>
-import { ref, computed, nextTick, onMounted } from 'vue';
+import { ref, nextTick, onMounted } from 'vue';
 import Header from './Header.vue';
 import WelcomeScreen from './WelcomeScreen.vue';
 import MessageItem from './MessageItem.vue';
 import ChatComposer from './ChatComposer.vue';
-import WidgetToggle from './WidgetToggle.vue';
 
 const messages = ref([]);
 const loading = ref(false);
