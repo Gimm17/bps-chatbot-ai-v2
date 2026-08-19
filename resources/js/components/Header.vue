@@ -1,16 +1,16 @@
 <template>
-  <header class="w-full bg-white/95 backdrop-blur-md border-b border-slate-200/80 sticky top-0 z-30 shadow-2xs h-13 sm:h-15 px-3 sm:px-4">
-    <div class="max-w-3xl mx-auto flex items-center justify-between h-full w-full gap-2">
+  <header class="w-full bg-white/95 backdrop-blur-md border-b border-slate-200/80 sticky top-0 z-30 shadow-2xs h-13 sm:h-15 px-2.5 sm:px-4">
+    <div class="max-w-3xl mx-auto flex items-center justify-between h-full w-full gap-1.5 sm:gap-3">
       <!-- Logo & Brand Title -->
-      <div class="flex items-center gap-2 sm:gap-2.5 cursor-pointer select-none shrink-0" @click="$emit('reset')">
-        <div class="w-7.5 h-7.5 sm:w-9 sm:h-9 rounded-xl bg-gradient-to-br from-[#00ADEF] to-[#0077A6] flex items-center justify-center shadow-2xs text-white shrink-0 overflow-hidden">
-          <svg width="18" height="18" class="w-4 h-4 sm:w-5 sm:h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+      <div class="flex items-center gap-1.5 sm:gap-2.5 cursor-pointer select-none shrink-0" @click="$emit('reset')">
+        <div class="w-7 h-7 sm:w-8.5 sm:h-8.5 rounded-xl bg-gradient-to-br from-[#00ADEF] to-[#0077A6] flex items-center justify-center shadow-2xs text-white shrink-0 overflow-hidden">
+          <svg width="18" height="18" class="w-3.5 h-3.5 sm:w-4.5 sm:h-4.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
             <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" stroke-linecap="round"/>
           </svg>
         </div>
-        <div class="flex items-center gap-1.5">
-          <h1 class="text-[13.5px] sm:text-base font-bold text-slate-900 tracking-tight whitespace-nowrap leading-none">BPS AI Assistant</h1>
-          <span class="text-[9px] sm:text-[10px] font-bold uppercase tracking-wider bg-blue-50 text-[#0077A6] px-1.5 py-0.5 rounded border border-blue-200/80 shrink-0">Demo</span>
+        <div class="flex items-center gap-1.5 shrink-0">
+          <h1 class="text-[13px] sm:text-base font-bold text-slate-900 tracking-tight whitespace-nowrap leading-none">BPS AI Assistant</h1>
+          <span class="text-[9px] sm:text-[10px] font-bold uppercase tracking-wider bg-blue-50 text-[#0077A6] px-1.5 py-0.5 rounded border border-blue-200/80 shrink-0 hidden sm:inline-block">Demo</span>
         </div>
       </div>
 
@@ -20,23 +20,23 @@
         <button 
           v-if="isInstallable && !isEmbedded"
           @click="installApp"
-          class="text-xs font-semibold bg-blue-50 hover:bg-blue-100 text-[#0077A6] border border-blue-200/80 flex items-center gap-1 p-1.5 sm:px-2.5 sm:py-1.5 rounded-lg transition-colors cursor-pointer"
-          title="Install Aplikasi BPS AI"
+          class="text-xs font-semibold bg-blue-50 hover:bg-blue-100 text-[#0077A6] border border-blue-200/80 flex items-center justify-center gap-1 p-1.5 sm:px-2.5 sm:py-1.5 rounded-lg transition-colors cursor-pointer shrink-0"
+          title="Install Aplikasi BPS AI ke Perangkat"
         >
-          <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#0077A6]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+          <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#0077A6] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
           </svg>
-          <span class="hidden sm:inline text-xs">Install App</span>
+          <span class="hidden sm:inline text-xs font-semibold">Install App</span>
         </button>
 
         <!-- New Chat Button -->
         <button 
           v-if="hasMessages"
           @click="$emit('reset')"
-          class="text-xs font-semibold text-slate-700 hover:text-[#0077A6] flex items-center gap-1 p-1.5 sm:px-2.5 sm:py-1.5 rounded-lg hover:bg-slate-100 transition-colors cursor-pointer"
+          class="text-xs font-semibold text-slate-700 hover:text-[#0077A6] flex items-center justify-center gap-1 p-1.5 sm:px-2.5 sm:py-1.5 rounded-lg hover:bg-slate-100 transition-colors cursor-pointer shrink-0"
           title="Mulai percakapan baru"
         >
-          <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M12 4v16m8-8H4"/>
           </svg>
           <span class="hidden sm:inline text-xs">Chat Baru</span>
@@ -45,7 +45,7 @@
         <!-- About Button -->
         <button 
           @click="showAboutModal = true"
-          class="text-[11px] sm:text-xs font-medium text-slate-600 hover:text-[#0077A6] px-1.5 sm:px-2.5 py-1.5 rounded-lg hover:bg-slate-100 transition-colors cursor-pointer"
+          class="text-[11px] sm:text-xs font-medium text-slate-600 hover:text-[#0077A6] px-1.5 sm:px-2 py-1.5 rounded-lg hover:bg-slate-100 transition-colors cursor-pointer shrink-0"
         >
           Tentang
         </button>
@@ -53,7 +53,7 @@
         <!-- Help Button -->
         <button 
           @click="showHelpModal = true"
-          class="text-[11px] sm:text-xs font-medium text-slate-600 hover:text-[#0077A6] px-1.5 sm:px-2.5 py-1.5 rounded-lg hover:bg-slate-100 transition-colors cursor-pointer"
+          class="text-[11px] sm:text-xs font-medium text-slate-600 hover:text-[#0077A6] px-1.5 sm:px-2 py-1.5 rounded-lg hover:bg-slate-100 transition-colors cursor-pointer shrink-0"
         >
           Bantuan
         </button>

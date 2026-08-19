@@ -1,4 +1,4 @@
-const CACHE_NAME = 'bps-ai-cache-v1';
+const CACHE_NAME = 'bps-ai-cache-v2';
 const STATIC_ASSETS = [
   '/',
   '/manifest.webmanifest',
@@ -37,7 +37,7 @@ self.addEventListener('fetch', (event) => {
   const { request } = event;
   const url = new URL(request.url);
 
-  // Ignore non-GET and cross-origin requests (except Google Fonts / CDN)
+  // Ignore non-GET and cross-origin requests
   if (request.method !== 'GET') {
     return;
   }
