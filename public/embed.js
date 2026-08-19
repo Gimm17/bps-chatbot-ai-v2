@@ -1,5 +1,5 @@
 /**
- * BPS AI Assistant — Standalone Embeddable Widget (Mobile-Optimized Cloud Edition)
+ * BPS AI Assistant — Standalone Embeddable Widget (Cloud Bubble Edition)
  *
  * Usage on ANY website:
  * <script src="https://bps-chatbot-v2.pinnhost.my.id/build/assets/embed.js" defer></script>
@@ -55,11 +55,11 @@
     }
     #bps-ai-frame-container {
       position: fixed;
-      bottom: 76px;
+      bottom: 78px;
       right: 20px;
       width: 390px;
-      height: 590px;
-      max-width: calc(100vw - 28px);
+      height: 570px;
+      max-width: calc(100vw - 32px);
       max-height: calc(100vh - 96px);
       background: #ffffff;
       border-radius: 20px;
@@ -86,24 +86,23 @@
       border: none;
       background: #F8FAFC;
     }
-    @media (max-width: 640px) {
+    @media (max-width: 480px) {
       #bps-ai-frame-container {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        width: 100vw !important;
-        height: 100dvh !important;
-        max-width: 100vw !important;
-        max-height: 100dvh !important;
-        border-radius: 0 !important;
-        border: none !important;
-        box-shadow: none !important;
+        bottom: 72px !important;
+        right: 12px !important;
+        left: auto !important;
+        top: auto !important;
+        width: calc(100vw - 24px) !important;
+        max-width: 380px !important;
+        height: min(520px, calc(100dvh - 86px)) !important;
+        max-height: calc(100dvh - 86px) !important;
+        border-radius: 18px !important;
+        border: 1px solid rgba(226, 232, 240, 0.9) !important;
+        box-shadow: 0 16px 40px -8px rgba(0, 15, 40, 0.35) !important;
       }
       #bps-ai-bubble-btn {
         bottom: 14px;
-        right: 14px;
+        right: 12px;
         padding: 8px 14px 8px 10px;
         font-size: 12.5px;
       }
