@@ -16,6 +16,47 @@ class BpsAgent
      */
     private array $collectedSources = [];
 
+    /**
+     * Common regional abbreviation and alias mapping.
+     */
+    private const REGION_ALIASES = [
+        'sulteng' => 'Sulawesi Tengah',
+        'sulsel' => 'Sulawesi Selatan',
+        'sulut' => 'Sulawesi Utara',
+        'sultra' => 'Sulawesi Tenggara',
+        'sulbar' => 'Sulawesi Barat',
+        'gorontalo' => 'Gorontalo',
+        'jabar' => 'Jawa Barat',
+        'jateng' => 'Jawa Tengah',
+        'jatim' => 'Jawa Timur',
+        'dki' => 'DKI Jakarta',
+        'jakarta' => 'DKI Jakarta',
+        'diy' => 'DI Yogyakarta',
+        'jogja' => 'DI Yogyakarta',
+        'yogyakarta' => 'DI Yogyakarta',
+        'banten' => 'Banten',
+        'bali' => 'Bali',
+        'ntb' => 'Nusa Tenggara Barat',
+        'ntt' => 'Nusa Tenggara Timur',
+        'sumut' => 'Sumatera Utara',
+        'sumbar' => 'Sumatera Barat',
+        'sumsel' => 'Sumatera Selatan',
+        'riau' => 'Riau',
+        'kepri' => 'Kepulauan Riau',
+        'jambi' => 'Jambi',
+        'bengkulu' => 'Bengkulu',
+        'lampung' => 'Lampung',
+        'babel' => 'Kepulauan Bangka Belitung',
+        'kalbar' => 'Kalimantan Barat',
+        'kalteng' => 'Kalimantan Tengah',
+        'kalsel' => 'Kalimantan Selatan',
+        'kaltim' => 'Kalimantan Timur',
+        'kaltara' => 'Kalimantan Utara',
+        'maluku' => 'Maluku',
+        'malut' => 'Maluku Utara',
+        'papua' => 'Papua',
+    ];
+
     public function __construct(
         private readonly BpsApiClient $apiClient,
         private readonly AiProviderInterface $aiProvider,
@@ -42,15 +83,27 @@ class BpsAgent
         $evidenceSources = [];
 
         try {
-            // 1. Search Live BPS API Indicators
-            $indicatorSources = $this->lookupLiveIndicators($question);
+            // 0. Detect target domain (Provinsi / Kabupaten / Pusat)
+            $resolvedDomain = $this->resolveDomainFromQuestion($question);
+            $domainId = $resolvedDomain['domain_id'] ?? '0000';
+            $domainName = $resolvedDomain['domain_name'] ?? 'Indonesia (Pusat)';
+            $domainUrl = $resolvedDomain['domain_url'] ?? 'https://www.bps.go.id';
+
+            // 1. Search Live BPS API Indicators for target domain
+            $indicatorSources = $this->lookupLiveIndicators($question, $domainId, $domainName, $domainUrl);
             $evidenceSources = array_merge($evidenceSources, $indicatorSources);
 
-            // 2. Search Live BPS Publications
-            $pubSources = $this->lookupPublications($question);
+            // If domain is specific province, also pull national indicators for context if needed
+            if ($domainId !== '0000' && count($evidenceSources) < 2) {
+                $natSources = $this->lookupLiveIndicators($question, '0000', 'Nasional', 'https://www.bps.go.id');
+                $evidenceSources = array_merge($evidenceSources, $natSources);
+            }
+
+            // 2. Search Live BPS Publications for target domain
+            $pubSources = $this->lookupPublications($question, $domainId, $domainName, $domainUrl);
             $evidenceSources = array_merge($evidenceSources, $pubSources);
 
-            // 3. Search BPS Domains if relevant
+            // 3. Search BPS Domains if navigation intent
             if ($intent === 'navigation' || str_contains(mb_strtolower($question), 'provinsi') || str_contains(mb_strtolower($question), 'daerah')) {
                 $domSources = $this->lookupDomains($question);
                 $evidenceSources = array_merge($evidenceSources, $domSources);
@@ -97,19 +150,61 @@ class BpsAgent
     }
 
     /**
-     * Look up live national indicators from BPS WebAPI (e.g. Inflasi, PDRB, Kemiskinan, Pengangguran, dll)
+     * Resolve BPS Domain ID from user question.
      */
-    private function lookupLiveIndicators(string $question): array
+    private function resolveDomainFromQuestion(string $question): array
+    {
+        $lowerQ = mb_strtolower($question);
+
+        // Check alias mapping first
+        foreach (self::REGION_ALIASES as $alias => $fullName) {
+            if (preg_match('/\b' . preg_quote($alias, '/') . '\b/i', $lowerQ)) {
+                $lowerQ .= ' ' . mb_strtolower($fullName);
+            }
+        }
+
+        $resp = $this->apiClient->get('domain/model/domain', ['type' => 'all']);
+        if ($resp->isOk && !empty($resp->rows)) {
+            // Prioritize province domains (ending with 00) or exact city/regency match
+            $matched = null;
+            $longestMatchLen = 0;
+
+            foreach ($resp->rows as $dom) {
+                $name = mb_strtolower($dom['domain_name'] ?? '');
+                if ($name !== '' && str_contains($lowerQ, $name)) {
+                    if (mb_strlen($name) > $longestMatchLen) {
+                        $longestMatchLen = mb_strlen($name);
+                        $matched = $dom;
+                    }
+                }
+            }
+
+            if ($matched !== null) {
+                return $matched;
+            }
+        }
+
+        return [
+            'domain_id' => '0000',
+            'domain_name' => 'Pusat / Nasional',
+            'domain_url' => 'https://www.bps.go.id',
+        ];
+    }
+
+    /**
+     * Look up live indicators from BPS WebAPI for specific domain.
+     */
+    private function lookupLiveIndicators(string $question, string $domainId, string $domainName, string $domainUrl): array
     {
         $resp = $this->apiClient->get('list/model/indicators', [
-            'domain' => '0000',
+            'domain' => $domainId,
             'page' => 1,
         ]);
 
         $sources = [];
         if ($resp->isOk && !empty($resp->rows)) {
             $lowerQ = mb_strtolower($question);
-            $keywords = ['inflasi', 'ihk', 'harga', 'ekonomi', 'pertumbuhan', 'pdb', 'pdrb', 'miskin', 'kemiskinan', 'pengangguran', 'tpt', 'tenaga kerja', 'penduduk'];
+            $keywords = ['penduduk', 'kependudukan', 'inflasi', 'ihk', 'harga', 'ekonomi', 'pertumbuhan', 'pdb', 'pdrb', 'miskin', 'kemiskinan', 'pengangguran', 'tpt', 'tenaga kerja', 'upah', 'gaji', 'ekspor', 'impor'];
 
             // Filter indicators matching user question keywords
             $matchedRows = [];
@@ -135,34 +230,35 @@ class BpsAgent
                 $val = $ind['value'] ?? '';
                 $unit = $ind['unit'] ?? '';
                 $period = $ind['periode'] ?? '';
-                $dataSource = $ind['data_source'] ?? 'Badan Pusat Statistik (BPS)';
+                $dataSource = $ind['data_source'] ?? ("Badan Pusat Statistik (BPS) " . $domainName);
 
-                $content = "Indikator Resmi BPS: {$title}\n";
+                $content = "Indikator Resmi BPS Wilayah {$domainName}: {$title}\n";
                 if ($name) {
                     $content .= "Deskripsi / Angka Resmi: {$name}\n";
                 }
                 $content .= "Nilai Capaian: {$val} {$unit}\n";
                 $content .= "Periode Rilis: {$period}\n";
+                $content .= "Wilayah: {$domainName} (Domain ID: {$domainId})\n";
                 $content .= "Sumber Data: {$dataSource}\n";
 
-                // Official URL to SIRuSa or BPS Portal
-                $officialUrl = 'https://sirusa.web.bps.go.id/metadata/indikator/' . ($ind['indicator_id'] ?? '45453');
-                if (str_contains(mb_strtolower($title), 'inflasi')) {
+                // Official URL
+                $officialUrl = $domainUrl ?: 'https://www.bps.go.id';
+                if ($domainId === '0000' && str_contains(mb_strtolower($title), 'inflasi')) {
                     $officialUrl = 'https://sirusa.web.bps.go.id/metadata/indikator/45453';
                 }
 
-                $sourceId = 'BPS-IND-' . $varId;
-                $snippet = "Indikator resmi BPS: {$title}. Periode: {$period}, Nilai: {$val} {$unit}. Sumber: {$dataSource}";
+                $sourceId = 'BPS-IND-' . $domainId . '-' . $varId;
+                $snippet = "Indikator resmi BPS {$domainName}: {$title}. Periode: {$period}, Nilai: {$val} {$unit}. Sumber: {$dataSource}";
 
                 $this->collectedSources[$sourceId] = [
-                    'title' => $title . ' (' . $period . ')',
+                    'title' => $title . ' — ' . $domainName . ' (' . $period . ')',
                     'url' => $officialUrl,
                     'snippet' => $snippet,
                 ];
 
                 $sources[] = new RetrievedSource(
                     sourceId: $sourceId,
-                    title: $title . ' — ' . $period,
+                    title: $title . ' — ' . $domainName . ' (' . $period . ')',
                     url: $officialUrl,
                     content: $content,
                     score: 1.0,
@@ -176,19 +272,19 @@ class BpsAgent
     }
 
     /**
-     * Look up live publications from BPS WebAPI
+     * Look up live publications from BPS WebAPI for specific domain.
      */
-    private function lookupPublications(string $question): array
+    private function lookupPublications(string $question, string $domainId, string $domainName, string $domainUrl): array
     {
         // Extract clean search keyword
-        $cleanQ = preg_replace('/(apa|itu|bagaimana|cara|cari|lihat|tampilkan|daftar|publikasi|bps|tentang|terbaru|data|info|informasi|dan|di|indonesia|tolong|mohon|seputar)/i', ' ', $question);
+        $cleanQ = preg_replace('/(apa|itu|bagaimana|cara|cari|lihat|tampilkan|daftar|publikasi|bps|tentang|terbaru|data|info|informasi|dan|di|indonesia|provinsi|kabupaten|kota|tahun|tolong|mohon|seputar|sulawesi|tengah|jawa|barat|timur|utara|selatan|dki|jakarta)/i', ' ', $question);
         $cleanQ = trim(preg_replace('/\s+/', ' ', $cleanQ));
         if ($cleanQ === '' || mb_strlen($cleanQ) < 3) {
             $cleanQ = 'Statistik';
         }
 
         $resp = $this->apiClient->get('list/model/publication', [
-            'domain' => '0000',
+            'domain' => $domainId,
             'keyword' => $cleanQ,
             'page' => 1,
         ]);
@@ -202,10 +298,11 @@ class BpsAgent
                 $pdfUrl = $pub['pdf'] ?? null;
                 $rlDate = $pub['rl_date'] ?? null;
 
-                $content = "Judul Publikasi Resmi BPS: {$title}\n";
+                $content = "Judul Publikasi Resmi BPS {$domainName}: {$title}\n";
                 if ($rlDate) {
                     $content .= "Tanggal Rilis Resmi: {$rlDate}\n";
                 }
+                $content .= "Wilayah: {$domainName}\n";
                 $content .= "Abstraksi / Ringkasan: " . strip_tags($abstract) . "\n";
                 if ($pdfUrl) {
                     $content .= "Tautan Unduh Dokumen PDF Resmi: {$pdfUrl}\n";
@@ -213,15 +310,15 @@ class BpsAgent
 
                 $sourceId = (string) $pubId;
                 $this->collectedSources[$sourceId] = [
-                    'title' => $title,
-                    'url' => $pdfUrl ?? 'https://www.bps.go.id/id/publication',
+                    'title' => $title . ' (' . $domainName . ')',
+                    'url' => $pdfUrl ?? $domainUrl,
                     'snippet' => mb_substr(strip_tags($abstract), 0, 160) . '...',
                 ];
 
                 $sources[] = new RetrievedSource(
                     sourceId: $sourceId,
-                    title: $title,
-                    url: $pdfUrl ?? 'https://www.bps.go.id/id/publication',
+                    title: $title . ' — ' . $domainName,
+                    url: $pdfUrl ?? $domainUrl,
                     content: $content,
                     score: 0.95,
                     sourceStatus: 'OFFICIAL_BPS_API',
