@@ -1,0 +1,54 @@
+{
+  "name": "BPS AI Assistant — Asisten Statistik Publik",
+  "short_name": "BPS AI",
+  "description": "Asisten Cerdas Statistik Publik Resmi Badan Pusat Statistik se-Indonesia",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#F8FAFC",
+  "theme_color": "#0077A6",
+  "orientation": "portrait-primary",
+  "categories": ["productivity", "education", "utilities"],
+  "icons": [
+    {
+      "src": "/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/icon-192.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/icon-512.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Tanya Inflasi",
+      "short_name": "Inflasi",
+      "description": "Informasi dan konsep inflasi resmi BPS",
+      "url": "/?q=Apa+itu+inflasi",
+      "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Data Penduduk",
+      "short_name": "Penduduk",
+      "description": "Data kependudukan dan proyeksi BPS",
+      "url": "/?q=Data+penduduk+Sulawesi+Tengah+2025",
+      "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192" }]
+    }
+  ]
+}

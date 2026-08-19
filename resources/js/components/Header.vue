@@ -19,11 +19,24 @@
 
       <!-- Action Nav Buttons -->
       <div class="flex items-center gap-1 sm:gap-1.5 shrink-0">
+        <!-- Install App Button (PWA) -->
+        <button 
+          v-if="isInstallable && !isEmbedded"
+          @click="installApp"
+          class="text-xs font-semibold bg-blue-50 hover:bg-blue-100 text-[#0077A6] border border-blue-200/80 flex items-center gap-1 px-2 sm:px-2.5 py-1.5 rounded-lg transition-colors cursor-pointer animate-pulse"
+          title="Install Aplikasi BPS AI ke Perangkat"
+        >
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+          </svg>
+          <span class="text-[11px] sm:text-xs">Install App</span>
+        </button>
+
         <!-- New Chat Button -->
         <button 
           v-if="hasMessages"
           @click="$emit('reset')"
-          class="text-xs font-semibold text-slate-700 hover:text-[#0077A6] flex items-center gap-1 px-2 sm:px-2.5 py-1.5 rounded-lg hover:bg-slate-100 transition-colors"
+          class="text-xs font-semibold text-slate-700 hover:text-[#0077A6] flex items-center gap-1 px-2 sm:px-2.5 py-1.5 rounded-lg hover:bg-slate-100 transition-colors cursor-pointer"
           title="Mulai percakapan baru"
         >
           <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -35,7 +48,7 @@
         <!-- About Button -->
         <button 
           @click="showAboutModal = true"
-          class="text-[11px] sm:text-xs font-medium text-slate-600 hover:text-[#0077A6] px-2 sm:px-2.5 py-1.5 rounded-lg hover:bg-slate-100 transition-colors"
+          class="text-[11px] sm:text-xs font-medium text-slate-600 hover:text-[#0077A6] px-2 sm:px-2.5 py-1.5 rounded-lg hover:bg-slate-100 transition-colors cursor-pointer"
         >
           Tentang
         </button>
@@ -43,7 +56,7 @@
         <!-- Help Button -->
         <button 
           @click="showHelpModal = true"
-          class="text-[11px] sm:text-xs font-medium text-slate-600 hover:text-[#0077A6] px-2 sm:px-2.5 py-1.5 rounded-lg hover:bg-slate-100 transition-colors"
+          class="text-[11px] sm:text-xs font-medium text-slate-600 hover:text-[#0077A6] px-2 sm:px-2.5 py-1.5 rounded-lg hover:bg-slate-100 transition-colors cursor-pointer"
         >
           Bantuan
         </button>
@@ -70,11 +83,19 @@
           Asisten resmi berbasis AI untuk menelusuri data statistik resmi, definisi indikator, publikasi, metodologi, dan layanan Badan Pusat Statistik di seluruh Indonesia.
         </p>
         <div class="bg-blue-50/70 border border-blue-100 rounded-xl p-2.5 text-[11px] text-slate-700 space-y-1 mb-4">
-          <div class="font-semibold text-[#0077A6]">Keunggulan:</div>
+          <div class="font-semibold text-[#0077A6]">Fitur & Keunggulan:</div>
           <div>• Data langsung dari <strong>BPS WebAPI</strong> (549 Wilayah).</div>
-          <div>• Rujukan terverifikasi ke portal resmi BPS & SIRuSa.</div>
+          <div>• Terintegrasi dengan <strong>Portal PPID BPS</strong> & SIRuSa.</div>
+          <div>• Mendukung <strong>PWA (Progressive Web App)</strong> untuk instalasi langsung.</div>
         </div>
-        <div class="flex justify-end">
+        <div class="flex justify-end gap-2">
+          <button 
+            v-if="isInstallable && !isEmbedded"
+            @click="installApp; showAboutModal = false;" 
+            class="bg-blue-50 hover:bg-blue-100 text-[#0077A6] border border-blue-200 text-xs font-semibold px-3 py-2 rounded-lg transition-colors cursor-pointer"
+          >
+            Install Aplikasi
+          </button>
           <button @click="showAboutModal = false" class="bg-[#0077A6] hover:bg-[#005F85] text-white text-xs font-semibold px-4 py-2 rounded-lg transition-colors cursor-pointer">
             Tutup
           </button>
@@ -108,6 +129,10 @@
             <div class="font-semibold text-slate-900">2. Data Daerah & Publikasi:</div>
             "Data penduduk Sulawesi Tengah 2026", "Tampilkan publikasi kependudukan"
           </div>
+          <div class="p-2 bg-slate-50 border border-slate-200 rounded-lg text-slate-700">
+            <div class="font-semibold text-slate-900">3. Kelembagaan & Pejabat:</div>
+            "Siapa Kepala BPS Pusat?", "Alamat kantor BPS Kota Palu"
+          </div>
         </div>
         <div class="flex justify-end">
           <button @click="showHelpModal = false" class="bg-[#0077A6] hover:bg-[#005F85] text-white text-xs font-semibold px-4 py-2 rounded-lg transition-colors cursor-pointer">
@@ -121,6 +146,7 @@
 
 <script setup>
 import { ref } from 'vue';
+import { usePwa } from '../pwa';
 
 defineProps({
   hasMessages: {
@@ -134,6 +160,8 @@ defineProps({
 });
 
 defineEmits(['reset']);
+
+const { isInstallable, installApp } = usePwa();
 
 const showAboutModal = ref(false);
 const showHelpModal = ref(false);
