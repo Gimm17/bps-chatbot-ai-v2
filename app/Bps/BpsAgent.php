@@ -8,6 +8,7 @@ use App\Ai\ChatResult;
 use App\Ai\PromptBuilder;
 use App\Rag\RetrievedSource;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 
 class BpsAgent
 {
@@ -89,7 +90,11 @@ class BpsAgent
             $domainName = $resolvedDomain['domain_name'] ?? 'Indonesia (Pusat)';
             $domainUrl = $resolvedDomain['domain_url'] ?? 'https://www.bps.go.id';
 
-            // 1. Search Live BPS API Indicators for target domain
+            // 1. Search Live BPS Publications for target domain (prioritize publications when year is specific like 2025/2024)
+            $pubSources = $this->lookupPublications($question, $domainId, $domainName, $domainUrl);
+            $evidenceSources = array_merge($evidenceSources, $pubSources);
+
+            // 2. Search Live BPS API Indicators for target domain
             $indicatorSources = $this->lookupLiveIndicators($question, $domainId, $domainName, $domainUrl);
             $evidenceSources = array_merge($evidenceSources, $indicatorSources);
 
@@ -98,10 +103,6 @@ class BpsAgent
                 $natSources = $this->lookupLiveIndicators($question, '0000', 'Nasional', 'https://www.bps.go.id');
                 $evidenceSources = array_merge($evidenceSources, $natSources);
             }
-
-            // 2. Search Live BPS Publications for target domain
-            $pubSources = $this->lookupPublications($question, $domainId, $domainName, $domainUrl);
-            $evidenceSources = array_merge($evidenceSources, $pubSources);
 
             // 3. Search BPS Domains if navigation intent
             if ($intent === 'navigation' || str_contains(mb_strtolower($question), 'provinsi') || str_contains(mb_strtolower($question), 'daerah')) {
@@ -192,6 +193,108 @@ class BpsAgent
     }
 
     /**
+     * Look up live publications from BPS WebAPI for specific domain.
+     */
+    private function lookupPublications(string $question, string $domainId, string $domainName, string $domainUrl): array
+    {
+        // Extract root topic keyword for robust BPS WebAPI keyword search
+        $lowerQ = mb_strtolower($question);
+        $cleanQ = 'Statistik';
+
+        $topics = [
+            'kependudukan' => ['penduduk', 'kependudukan', 'populasi', 'sensus'],
+            'inflasi' => ['inflasi', 'ihk', 'harga'],
+            'kemiskinan' => ['miskin', 'kemiskinan', 'gini'],
+            'ketenagakerjaan' => ['pengangguran', 'tpt', 'tenaga kerja', 'kerja', 'sakernas', 'upah'],
+            'pdrb' => ['pdrb', 'pdb', 'ekonomi', 'pertumbuhan'],
+            'ekspor' => ['ekspor', 'impor', 'perdagangan'],
+            'pertanian' => ['tani', 'pertanian', 'panen'],
+            'pariwisata' => ['wisata', 'pariwisata', 'hotel'],
+        ];
+
+        foreach ($topics as $primaryKeyword => $matchers) {
+            foreach ($matchers as $m) {
+                if (str_contains($lowerQ, $m)) {
+                    $cleanQ = $primaryKeyword;
+                    break 2;
+                }
+            }
+        }
+
+        $resp = $this->apiClient->get('list/model/publication', [
+            'domain' => $domainId,
+            'keyword' => $cleanQ,
+            'page' => 1,
+        ]);
+
+        $sources = [];
+        if ($resp->isOk && !empty($resp->rows)) {
+            // Extract requested year if any (e.g. 2025, 2024, 2023)
+            preg_match('/\b(20\d{2})\b/', $question, $yearMatch);
+            $targetYear = $yearMatch[1] ?? null;
+
+            // Sort publications prioritizing target year
+            $rows = $resp->rows;
+            if ($targetYear) {
+                usort($rows, function ($a, $b) use ($targetYear) {
+                    $aHas = str_contains($a['title'] ?? '', $targetYear) ? 1 : 0;
+                    $bHas = str_contains($b['title'] ?? '', $targetYear) ? 1 : 0;
+                    return $bHas <=> $aHas;
+                });
+            }
+
+            foreach (array_slice($rows, 0, 3) as $pub) {
+                $pubId = $pub['pub_id'] ?? $pub['id'] ?? ('PUB-' . uniqid());
+                $title = $pub['title'] ?? 'Publikasi BPS';
+                $abstract = $pub['abstract'] ?? 'Publikasi statistik resmi Badan Pusat Statistik.';
+                $pdfUrl = $pub['pdf'] ?? null;
+                $rlDate = $pub['rl_date'] ?? null;
+
+                // Construct exact BPS Portal Publication HTML URL
+                $portalUrl = $domainUrl;
+                if (!empty($rlDate) && !empty($pubId) && !empty($title)) {
+                    $parts = explode('-', $rlDate);
+                    if (count($parts) === 3) {
+                        $slug = Str::slug($title);
+                        $base = rtrim($domainUrl, '/');
+                        $portalUrl = "{$base}/id/publication/{$parts[0]}/{$parts[1]}/{$parts[2]}/{$pubId}/{$slug}.html";
+                    }
+                }
+
+                $content = "Buku Publikasi Resmi BPS {$domainName}: {$title}\n";
+                if ($rlDate) {
+                    $content .= "Tanggal Rilis Resmi: {$rlDate}\n";
+                }
+                $content .= "Wilayah: {$domainName}\n";
+                $content .= "Halaman Resmi Web Portal BPS: {$portalUrl}\n";
+                if ($pdfUrl) {
+                    $content .= "Tautan Unduh Dokumen PDF Resmi: {$pdfUrl}\n";
+                }
+                $content .= "Abstraksi / Ringkasan Isi Publikasi:\n" . strip_tags($abstract) . "\n";
+
+                $sourceId = (string) $pubId;
+                $this->collectedSources[$sourceId] = [
+                    'title' => $title . ' — ' . $domainName,
+                    'url' => $portalUrl ?: ($pdfUrl ?: $domainUrl),
+                    'snippet' => "Publikasi resmi BPS {$domainName}: {$title} (Rilis: {$rlDate}). Memuat data tabel kependudukan dan proyeksi resmi. " . mb_substr(strip_tags($abstract), 0, 120) . '...',
+                ];
+
+                $sources[] = new RetrievedSource(
+                    sourceId: $sourceId,
+                    title: $title . ' — ' . $domainName,
+                    url: $portalUrl ?: ($pdfUrl ?: $domainUrl),
+                    content: $content,
+                    score: $targetYear && str_contains($title, $targetYear) ? 1.0 : 0.95,
+                    sourceStatus: 'OFFICIAL_BPS_API',
+                    category: 'publication'
+                );
+            }
+        }
+
+        return $sources;
+    }
+
+    /**
      * Look up live indicators from BPS WebAPI for specific domain.
      */
     private function lookupLiveIndicators(string $question, string $domainId, string $domainName, string $domainUrl): array
@@ -232,7 +335,7 @@ class BpsAgent
                 $period = $ind['periode'] ?? '';
                 $dataSource = $ind['data_source'] ?? ("Badan Pusat Statistik (BPS) " . $domainName);
 
-                $content = "Indikator Resmi BPS Wilayah {$domainName}: {$title}\n";
+                $content = "Indikator Utama BPS Wilayah {$domainName}: {$title}\n";
                 if ($name) {
                     $content .= "Deskripsi / Angka Resmi: {$name}\n";
                 }
@@ -261,68 +364,9 @@ class BpsAgent
                     title: $title . ' — ' . $domainName . ' (' . $period . ')',
                     url: $officialUrl,
                     content: $content,
-                    score: 1.0,
+                    score: 0.9,
                     sourceStatus: 'OFFICIAL_BPS_API',
                     category: 'indicator'
-                );
-            }
-        }
-
-        return $sources;
-    }
-
-    /**
-     * Look up live publications from BPS WebAPI for specific domain.
-     */
-    private function lookupPublications(string $question, string $domainId, string $domainName, string $domainUrl): array
-    {
-        // Extract clean search keyword
-        $cleanQ = preg_replace('/(apa|itu|bagaimana|cara|cari|lihat|tampilkan|daftar|publikasi|bps|tentang|terbaru|data|info|informasi|dan|di|indonesia|provinsi|kabupaten|kota|tahun|tolong|mohon|seputar|sulawesi|tengah|jawa|barat|timur|utara|selatan|dki|jakarta)/i', ' ', $question);
-        $cleanQ = trim(preg_replace('/\s+/', ' ', $cleanQ));
-        if ($cleanQ === '' || mb_strlen($cleanQ) < 3) {
-            $cleanQ = 'Statistik';
-        }
-
-        $resp = $this->apiClient->get('list/model/publication', [
-            'domain' => $domainId,
-            'keyword' => $cleanQ,
-            'page' => 1,
-        ]);
-
-        $sources = [];
-        if ($resp->isOk && !empty($resp->rows)) {
-            foreach (array_slice($resp->rows, 0, 3) as $pub) {
-                $pubId = $pub['pub_id'] ?? $pub['id'] ?? ('PUB-' . uniqid());
-                $title = $pub['title'] ?? 'Publikasi BPS';
-                $abstract = $pub['abstract'] ?? 'Publikasi statistik resmi Badan Pusat Statistik.';
-                $pdfUrl = $pub['pdf'] ?? null;
-                $rlDate = $pub['rl_date'] ?? null;
-
-                $content = "Judul Publikasi Resmi BPS {$domainName}: {$title}\n";
-                if ($rlDate) {
-                    $content .= "Tanggal Rilis Resmi: {$rlDate}\n";
-                }
-                $content .= "Wilayah: {$domainName}\n";
-                $content .= "Abstraksi / Ringkasan: " . strip_tags($abstract) . "\n";
-                if ($pdfUrl) {
-                    $content .= "Tautan Unduh Dokumen PDF Resmi: {$pdfUrl}\n";
-                }
-
-                $sourceId = (string) $pubId;
-                $this->collectedSources[$sourceId] = [
-                    'title' => $title . ' (' . $domainName . ')',
-                    'url' => $pdfUrl ?? $domainUrl,
-                    'snippet' => mb_substr(strip_tags($abstract), 0, 160) . '...',
-                ];
-
-                $sources[] = new RetrievedSource(
-                    sourceId: $sourceId,
-                    title: $title . ' — ' . $domainName,
-                    url: $pdfUrl ?? $domainUrl,
-                    content: $content,
-                    score: 0.95,
-                    sourceStatus: 'OFFICIAL_BPS_API',
-                    category: 'publication'
                 );
             }
         }
