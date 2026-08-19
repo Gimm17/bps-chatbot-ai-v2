@@ -1,0 +1,139 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    /* Brand Colors */
+    --bps-blue: #00ADEF;
+    --bps-orange: #F7941D;
+    --bps-green: #8CC63E;
+
+    /* Accessible Primary Theme */
+    --primary: #0077a6;
+    --primary-hover: #005f85;
+    --primary-light: #e8f8fe;
+    --primary-container: #0077a6;
+    --on-primary: #ffffff;
+
+    /* Surface & Background */
+    --bg-main: #f8fafc;
+    --surface: #ffffff;
+    --surface-low: #f1f5f9;
+    --surface-ai: #ffffff;
+    --surface-user: #e8f8fe;
+    --surface-orange: #fff5e8;
+    --surface-green: #f2f9e9;
+    --surface-error: #fef3f2;
+
+    /* Text Colors */
+    --text-primary: #0f172a;
+    --text-secondary: #475569;
+    --text-muted: #64748b;
+
+    /* Borders & Outlines */
+    --border-color: #e2e8f0;
+    --border-focus: #00adef;
+
+    /* Shadows */
+    --shadow-subtle: 0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.03);
+    --shadow-card: 0 4px 12px rgba(15, 23, 42, 0.06);
+    --shadow-float: 0 12px 32px rgba(0, 87, 134, 0.12);
+
+    /* Radii */
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+    --radius-xl: 24px;
+  }
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background-color: var(--bg-main);
+  color: var(--text-primary);
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Markdown Rendering in AI responses */
+.ai-markdown {
+  line-height: 1.65;
+  color: #1e293b;
+  font-size: 0.975rem;
+}
+.ai-markdown p {
+  margin-bottom: 0.85rem;
+}
+.ai-markdown p:last-child {
+  margin-bottom: 0;
+}
+.ai-markdown ul {
+  list-style-type: disc;
+  padding-left: 1.35rem;
+  margin-bottom: 0.85rem;
+}
+.ai-markdown ol {
+  list-style-type: decimal;
+  padding-left: 1.35rem;
+  margin-bottom: 0.85rem;
+}
+.ai-markdown li {
+  margin-bottom: 0.35rem;
+}
+.ai-markdown strong {
+  font-weight: 600;
+  color: #0f172a;
+}
+.ai-markdown h1, .ai-markdown h2, .ai-markdown h3, .ai-markdown h4 {
+  font-weight: 700;
+  color: #0f172a;
+  margin-top: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+.ai-markdown table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+  font-size: 0.875rem;
+}
+.ai-markdown th, .ai-markdown td {
+  border: 1px solid #e2e8f0;
+  padding: 8px 12px;
+  text-align: left;
+}
+.ai-markdown th {
+  background-color: #f8fafc;
+  font-weight: 600;
+}
+.ai-markdown code {
+  background-color: #f1f5f9;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: ui-monospace, monospace;
+  font-size: 0.85em;
+}
+
+/* Animation keyframes */
+@keyframes pulse-subtle {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.7; transform: scale(0.98); }
+}
+.animate-pulse-subtle {
+  animation: pulse-subtle 2s infinite ease-in-out;
+}
