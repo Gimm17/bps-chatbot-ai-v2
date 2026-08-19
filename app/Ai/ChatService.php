@@ -61,10 +61,10 @@ class ChatService
         }
 
         // Step 2: Attempt BPS Live API Agent (if enabled and applicable)
-        if ($this->shouldUseBpsAgent()) {
+        if ($this->shouldUseBpsAgent() && $decision->intent !== 'institutional_profile') {
             try {
                 $bpsResult = $this->bpsAgent?->run($message, $decision->intent);
-                if ($bpsResult !== null) {
+                if ($bpsResult !== null && $bpsResult->status === 'answered') {
                     $collectedSources = $this->bpsAgent?->getCollectedSources() ?? [];
                     $citations = Citation::fromBpsSources($collectedSources, $bpsResult->citationSourceIds);
 

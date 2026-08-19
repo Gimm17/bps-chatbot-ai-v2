@@ -38,6 +38,7 @@ class ScopeGuard
         'metadata', 'sirusa', 'romantik', 'satu data indonesia', 'sdi',
         'pst', 'pelayanan statistik terpadu', 'konsultasi data', 'data mikro',
         'provinsi', 'kabupaten', 'kota', 'kecamatan', 'desa', 'kelurahan', 'domain',
+        'ketua', 'kepala', 'pimpinan', 'pejabat', 'ppid', 'struktur', 'organisasi', 'visi', 'misi', 'tugas', 'fungsi', 'sejarah', 'kantor', 'alamat', 'daryanto', 'amalia',
     ];
 
     private const PROVINCE_PATTERNS = [
@@ -155,6 +156,10 @@ class ScopeGuard
 
         if (preg_match('/\b(layanan|pst|konsultasi|beli|pembelian|tarif|kantor|buka|tutup|pelayanan)\b/i', $lower)) {
             return 'bps_service';
+        }
+
+        if (preg_match('/\b(ketua|kepala|pimpinan|pejabat|ppid|struktur|organisasi|visi|misi|tugas|fungsi|sejarah|alamat|kontak|siapa)\b/i', $lower)) {
+            return 'institutional_profile';
         }
 
         if (preg_match('/\b(website|web|portal|link|tautan|alamat|cari\s+data|menu)\b/i', $lower)) {
