@@ -1,0 +1,116 @@
+<?xml version="1.0" ?>
+<mxfile host="app.diagrams.net" version="21.0.0">
+  <diagram id="usecase_diag" name="Use Case Diagram BPS AI">
+    <mxGraphModel dx="1400" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1500" pageHeight="1000" background="#F8FAFC" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <mxCell id="100" value="&lt;font style='font-size: 18px;'&gt;&lt;b&gt;USE CASE DIAGRAM — BPS AI ASSISTANT V2&lt;/b&gt;&lt;/font&gt;&lt;br&gt;&lt;font style='font-size: 12px; color: #64748B;'&gt;Interaksi Aktor (Pengguna Publik, Admin/Petugas PST, Portal Host Eksternal) dengan Sistem dan API Penyedia Data&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#0093DD;strokeWidth=2;align=center;shadow=1;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="40" y="20" width="1420" height="60"/>
+        </mxCell>
+        <mxCell id="1" value="&lt;b&gt;Masyarakat Umum /&lt;br&gt;Peneliti / Mahasiswa&lt;/b&gt;&lt;br&gt;&lt;i&gt;(Public User)&lt;/i&gt;" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fillColor=#0093DD;strokeColor=#0077A6;fontColor=#1F2937;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="80" y="260" width="60" height="110"/>
+        </mxCell>
+        <mxCell id="2" value="&lt;b&gt;Website Eksternal /&lt;br&gt;Portal OPD Pemda&lt;/b&gt;&lt;br&gt;&lt;i&gt;(Host Site)&lt;/i&gt;" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fillColor=#EB891B;strokeColor=#D97706;fontColor=#1F2937;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="80" y="620" width="60" height="110"/>
+        </mxCell>
+        <mxCell id="10" value="&lt;b&gt;SISTEM BPS AI ASSISTANT V2&lt;/b&gt;" style="swimlane;html=1;startSize=30;horizontal=1;fillColor=#FFFFFF;strokeColor=#0093DD;strokeWidth=2;fontColor=#0093DD;fontSize=14;fontStyle=1;collapsible=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="260" y="110" width="880" height="830"/>
+        </mxCell>
+        <mxCell id="3" value="&lt;b&gt;BPS WebAPI Resmi&lt;/b&gt;&lt;br&gt;&lt;i&gt;(549 Wilayah BPS)&lt;/i&gt;" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fillColor=#68B92E;strokeColor=#4E8C22;fontColor=#1F2937;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1260" y="260" width="60" height="110"/>
+        </mxCell>
+        <mxCell id="4" value="&lt;b&gt;AI Model Provider&lt;/b&gt;&lt;br&gt;&lt;i&gt;(OpenRouter / Gemini)&lt;/i&gt;" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fillColor=#68B92E;strokeColor=#4E8C22;fontColor=#1F2937;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1260" y="520" width="60" height="110"/>
+        </mxCell>
+        <mxCell id="5" value="&lt;b&gt;Petugas PST /&lt;br&gt;Admin BPS&lt;/b&gt;" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fillColor=#0093DD;strokeColor=#0077A6;fontColor=#1F2937;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1260" y="750" width="60" height="110"/>
+        </mxCell>
+        <mxCell id="20" value="&lt;b&gt;UC-01: Konsultasi Data Statistik Makro&lt;/b&gt;&lt;br&gt;(Inflasi, PDRB, Kemiskinan, TPT)" style="ellipse;whiteSpace=wrap;html=1;fillColor=#EBF7FD;strokeColor=#0093DD;fontColor=#1F2937;fontStyle=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="320" y="160" width="280" height="60"/>
+        </mxCell>
+        <mxCell id="21" value="&lt;b&gt;UC-02: Mencari &amp; Unduh Publikasi PDF&lt;/b&gt;&lt;br&gt;(Katalog Buku BPS 549 Daerah)" style="ellipse;whiteSpace=wrap;html=1;fillColor=#EBF7FD;strokeColor=#0093DD;fontColor=#1F2937;fontStyle=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="320" y="240" width="280" height="60"/>
+        </mxCell>
+        <mxCell id="22" value="&lt;b&gt;UC-03: Menanyakan Profil PPID &amp; Pejabat&lt;/b&gt;&lt;br&gt;(Pimpinan BPS RI, Sulteng, Palu)" style="ellipse;whiteSpace=wrap;html=1;fillColor=#EBF7FD;strokeColor=#0093DD;fontColor=#1F2937;fontStyle=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="320" y="320" width="280" height="60"/>
+        </mxCell>
+        <mxCell id="23" value="&lt;b&gt;UC-04: Menginstal Aplikasi PWA (1-Click)&lt;/b&gt;&lt;br&gt;(Homescreen Android, iOS, PC)" style="ellipse;whiteSpace=wrap;html=1;fillColor=#EBF7FD;strokeColor=#0093DD;fontColor=#1F2937;fontStyle=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="320" y="400" width="280" height="60"/>
+        </mxCell>
+        <mxCell id="24" value="&lt;b&gt;UC-05: Menyematkan Widget Floating&lt;/b&gt;&lt;br&gt;(Cloud Bubble Script embed.js)" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FEF6EB;strokeColor=#EB891B;fontColor=#1F2937;fontStyle=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="320" y="480" width="280" height="60"/>
+        </mxCell>
+        <mxCell id="25" value="&lt;b&gt;UC-06: Memberikan Feedback Respons&lt;/b&gt;&lt;br&gt;(Helpful / Not Helpful Rating)" style="ellipse;whiteSpace=wrap;html=1;fillColor=#EBF7FD;strokeColor=#0093DD;fontColor=#1F2937;fontStyle=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="320" y="560" width="280" height="60"/>
+        </mxCell>
+        <mxCell id="26" value="&lt;b&gt;&lt;&lt;include&gt;&gt; Filter Keamanan ScopeGuard&lt;/b&gt;&lt;br&gt;(Prompt Injection, Sapaan, Scope)" style="ellipse;whiteSpace=wrap;html=1;fillColor=#F0F9EA;strokeColor=#68B92E;fontColor=#1F2937;fontStyle=0;dashed=1;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="720" y="200" width="280" height="60"/>
+        </mxCell>
+        <mxCell id="27" value="&lt;b&gt;&lt;&lt;include&gt;&gt; Tarik Data WebAPI / PPID&lt;/b&gt;&lt;br&gt;(Domain Resolver &amp; Citation Binding)" style="ellipse;whiteSpace=wrap;html=1;fillColor=#F0F9EA;strokeColor=#68B92E;fontColor=#1F2937;fontStyle=0;dashed=1;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="720" y="330" width="280" height="60"/>
+        </mxCell>
+        <mxCell id="28" value="&lt;b&gt;&lt;&lt;include&gt;&gt; Sintesis Jawaban LLM&lt;/b&gt;&lt;br&gt;(Multi-Key OpenRouter Failover)" style="ellipse;whiteSpace=wrap;html=1;fillColor=#F0F9EA;strokeColor=#68B92E;fontColor=#1F2937;fontStyle=0;dashed=1;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="720" y="460" width="280" height="60"/>
+        </mxCell>
+        <mxCell id="29" value="&lt;b&gt;&lt;&lt;extend&gt;&gt; Ekstraksi PDF Asinkron&lt;/b&gt;&lt;br&gt;(IngestPublicationJob Background)" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FEF6EB;strokeColor=#EB891B;fontColor=#1F2937;fontStyle=0;dashed=1;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="720" y="600" width="280" height="60"/>
+        </mxCell>
+        <mxCell id="30" value="&lt;b&gt;UC-11: Monitoring Telemetri &amp; Log Sesi&lt;/b&gt;&lt;br&gt;(Evaluasi Kualitas Respons &amp; Akurasi)" style="ellipse;whiteSpace=wrap;html=1;fillColor=#F1F5F9;strokeColor=#64748B;fontColor=#1F2937;fontStyle=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="480" y="720" width="280" height="60"/>
+        </mxCell>
+        <mxCell id="31" value="&lt;b&gt;UC-12: Pembaruan Korpus PPID &amp; Pejabat&lt;/b&gt;&lt;br&gt;(Update Pejabat Struktural Baru)" style="ellipse;whiteSpace=wrap;html=1;fillColor=#F1F5F9;strokeColor=#64748B;fontColor=#1F2937;fontStyle=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="780" y="800" width="280" height="60"/>
+        </mxCell>
+        <mxCell id="401" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#0093DD;strokeWidth=1.5;fontColor=#1F2937;fontSize=10;dashed=0;" edge="1" source="1" target="20" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="402" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#0093DD;strokeWidth=1.5;fontColor=#1F2937;fontSize=10;dashed=0;" edge="1" source="1" target="21" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="403" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#0093DD;strokeWidth=1.5;fontColor=#1F2937;fontSize=10;dashed=0;" edge="1" source="1" target="22" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="404" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#0093DD;strokeWidth=1.5;fontColor=#1F2937;fontSize=10;dashed=0;" edge="1" source="1" target="23" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="405" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#0093DD;strokeWidth=1.5;fontColor=#1F2937;fontSize=10;dashed=0;" edge="1" source="1" target="25" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="406" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#0093DD;strokeWidth=1.5;fontColor=#1F2937;fontSize=10;dashed=0;" edge="1" source="2" target="24" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="407" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#0093DD;strokeWidth=1.5;fontColor=#1F2937;fontSize=10;dashed=0;" edge="1" source="27" target="3" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="408" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#0093DD;strokeWidth=1.5;fontColor=#1F2937;fontSize=10;dashed=0;" edge="1" source="28" target="4" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="409" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#0093DD;strokeWidth=1.5;fontColor=#1F2937;fontSize=10;dashed=0;" edge="1" source="5" target="30" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="410" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#0093DD;strokeWidth=1.5;fontColor=#1F2937;fontSize=10;dashed=0;" edge="1" source="5" target="31" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="411" value="&lt;&lt;include&gt;&gt;" style="edgeStyle=orthogonalEdgeStyle;dashed=1;strokeColor=#68B92E;fontColor=#68B92E;" edge="1" source="20" target="26" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="412" value="&lt;&lt;include&gt;&gt;" style="edgeStyle=orthogonalEdgeStyle;dashed=1;strokeColor=#68B92E;fontColor=#68B92E;" edge="1" source="20" target="27" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="413" value="&lt;&lt;include&gt;&gt;" style="edgeStyle=orthogonalEdgeStyle;dashed=1;strokeColor=#68B92E;fontColor=#68B92E;" edge="1" source="20" target="28" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="414" value="&lt;&lt;include&gt;&gt;" style="edgeStyle=orthogonalEdgeStyle;dashed=1;strokeColor=#68B92E;fontColor=#68B92E;" edge="1" source="21" target="27" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="415" value="&lt;&lt;extend&gt;&gt;" style="edgeStyle=orthogonalEdgeStyle;dashed=1;strokeColor=#EB891B;fontColor=#EB891B;" edge="1" source="21" target="29" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="416" value="&lt;&lt;include&gt;&gt;" style="edgeStyle=orthogonalEdgeStyle;dashed=1;strokeColor=#68B92E;fontColor=#68B92E;" edge="1" source="22" target="27" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
