@@ -1,0 +1,95 @@
+<?xml version="1.0" ?>
+<mxfile host="app.diagrams.net" version="21.0.0">
+  <diagram id="db_schema_diag" name="Database Schema ERD">
+    <mxGraphModel dx="1400" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="900" background="#F8FAFC" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <mxCell id="100" value="&lt;font style='font-size: 18px;'&gt;&lt;b&gt;ENTITY RELATIONSHIP DIAGRAM (ERD) &amp; DATABASE SCHEMA — BPS AI ASSISTANT V2&lt;/b&gt;&lt;/font&gt;&lt;br&gt;&lt;font style='font-size: 12px; color: #64748B;'&gt;Struktur Tabel Percakapan, Feedback Pengguna, Indeks Publikasi PDF, Korpus Pengetahuan, dan Antrean Sistem&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#0093DD;strokeWidth=2;align=center;shadow=1;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="40" y="20" width="1320" height="60"/>
+        </mxCell>
+        <mxCell id="1" value="&lt;b&gt;conversations&lt;/b&gt;&lt;br&gt;&lt;i&gt;(Penyimpanan Riwayat Percakapan &amp; Status)&lt;/i&gt;&lt;hr&gt;
++ &lt;b&gt;id&lt;/b&gt; : BIGINT [PK, AutoInc]&lt;br&gt;
+* &lt;b&gt;session_id&lt;/b&gt; : VARCHAR(255) [INDEX]&lt;br&gt;
+* &lt;b&gt;role&lt;/b&gt; : VARCHAR(20) [user, assistant]&lt;br&gt;
+* &lt;b&gt;content&lt;/b&gt; : LONGTEXT&lt;br&gt;
+o &lt;b&gt;citations&lt;/b&gt; : JSON [Nullable]&lt;br&gt;
+* &lt;b&gt;status&lt;/b&gt; : VARCHAR(50) [answered, clarification, no_evidence, out_of_scope]&lt;br&gt;
+* &lt;b&gt;created_at&lt;/b&gt; : TIMESTAMP&lt;br&gt;
+* &lt;b&gt;updated_at&lt;/b&gt; : TIMESTAMP" style="shape=swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;fillColor=#EBF7FD;strokeColor=#0093DD;fontColor=#1F2937;align=left;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="120" width="340" height="230"/>
+        </mxCell>
+        <mxCell id="2" value="&lt;b&gt;feedback&lt;/b&gt;&lt;br&gt;&lt;i&gt;(Evaluasi &amp; Kepuasan Pengguna)&lt;/i&gt;&lt;hr&gt;
++ &lt;b&gt;id&lt;/b&gt; : BIGINT [PK, AutoInc]&lt;br&gt;
+* &lt;b&gt;request_id&lt;/b&gt; : VARCHAR(255) [INDEX, Nullable]&lt;br&gt;
+* &lt;b&gt;rating&lt;/b&gt; : VARCHAR(20) [helpful, not_helpful]&lt;br&gt;
+o &lt;b&gt;comment&lt;/b&gt; : TEXT [Nullable]&lt;br&gt;
+* &lt;b&gt;created_at&lt;/b&gt; : TIMESTAMP&lt;br&gt;
+* &lt;b&gt;updated_at&lt;/b&gt; : TIMESTAMP" style="shape=swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;fillColor=#FEF6EB;strokeColor=#EB891B;fontColor=#1F2937;align=left;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="480" y="120" width="320" height="180"/>
+        </mxCell>
+        <mxCell id="3" value="&lt;b&gt;publication_indexes&lt;/b&gt;&lt;br&gt;&lt;i&gt;(Katalog Publikasi &amp; Ekstraksi Tabel PDF)&lt;/i&gt;&lt;hr&gt;
++ &lt;b&gt;id&lt;/b&gt; : VARCHAR(255) [PK - BPS pub_id]&lt;br&gt;
+* &lt;b&gt;domain_id&lt;/b&gt; : VARCHAR(50) [INDEX, e.g. 7200, 0000, 7271]&lt;br&gt;
+* &lt;b&gt;domain_name&lt;/b&gt; : VARCHAR(255) [Nama Provinsi / KabKota]&lt;br&gt;
+* &lt;b&gt;title&lt;/b&gt; : VARCHAR(255) [INDEX, Judul Publikasi]&lt;br&gt;
+o &lt;b&gt;rl_date&lt;/b&gt; : DATE [INDEX, Tanggal Rilis]&lt;br&gt;
+o &lt;b&gt;pdf_url&lt;/b&gt; : TEXT [URL Unduh PDF Asli BPS]&lt;br&gt;
+o &lt;b&gt;portal_url&lt;/b&gt; : TEXT [URL Halaman Detail BPS Web]&lt;br&gt;
+o &lt;b&gt;file_path&lt;/b&gt; : VARCHAR(255) [Local Storage Path PDF]&lt;br&gt;
+o &lt;b&gt;extracted_text&lt;/b&gt; : MEDIUMTEXT [Teks &amp; Tabel Ekstraksi]&lt;br&gt;
+o &lt;b&gt;abstract&lt;/b&gt; : TEXT [Ringkasan Eksekutif]&lt;br&gt;
+* &lt;b&gt;page_count&lt;/b&gt; : INT [Default: 0]&lt;br&gt;
+* &lt;b&gt;file_size_kb&lt;/b&gt; : INT [Default: 0]&lt;br&gt;
+* &lt;b&gt;status&lt;/b&gt; : VARCHAR(50) [pending, processing, completed, failed]&lt;br&gt;
+* &lt;b&gt;created_at&lt;/b&gt; : TIMESTAMP&lt;br&gt;
+* &lt;b&gt;updated_at&lt;/b&gt; : TIMESTAMP" style="shape=swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;fillColor=#EBF7FD;strokeColor=#0093DD;fontColor=#1F2937;align=left;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="880" y="120" width="380" height="370"/>
+        </mxCell>
+        <mxCell id="4" value="&lt;b&gt;knowledge_documents (Virtual / Markdown Corpus)&lt;/b&gt;&lt;br&gt;&lt;i&gt;(Repositori PPID, Profil Pejabat, SIRuSa)&lt;/i&gt;&lt;hr&gt;
++ &lt;b&gt;doc_id&lt;/b&gt; : VARCHAR(100) [PK, e.g. SRC-DEMO-016]&lt;br&gt;
+* &lt;b&gt;title&lt;/b&gt; : VARCHAR(255) [Judul Rujukan Dokumen]&lt;br&gt;
+* &lt;b&gt;category&lt;/b&gt; : VARCHAR(50) [ppid, organization, concept, service]&lt;br&gt;
+* &lt;b&gt;satker_id&lt;/b&gt; : VARCHAR(50) [7200, 7271, 0000]&lt;br&gt;
+* &lt;b&gt;satker_name&lt;/b&gt; : VARCHAR(255) [BPS Sulteng, BPS Palu, BPS RI]&lt;br&gt;
+* &lt;b&gt;verified_official&lt;/b&gt; : BOOLEAN [True/False - Resmi BPS]&lt;br&gt;
+o &lt;b&gt;source_url&lt;/b&gt; : TEXT [URL Portal Resmi PPID / SIRuSa]&lt;br&gt;
+* &lt;b&gt;content_markdown&lt;/b&gt; : LONGTEXT [Struktur Pejabat &amp; Kontak]&lt;br&gt;
+* &lt;b&gt;last_updated&lt;/b&gt; : DATE" style="shape=swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;fillColor=#F0F9EA;strokeColor=#68B92E;fontColor=#1F2937;align=left;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="420" width="360" height="260"/>
+        </mxCell>
+        <mxCell id="5" value="&lt;b&gt;jobs (Laravel Background Queue)&lt;/b&gt;&lt;br&gt;&lt;i&gt;(Antrean Ekstraksi Asinkron PDF Publikasi)&lt;/i&gt;&lt;hr&gt;
++ &lt;b&gt;id&lt;/b&gt; : BIGINT [PK, AutoInc]&lt;br&gt;
+* &lt;b&gt;queue&lt;/b&gt; : VARCHAR(255) [INDEX, default]&lt;br&gt;
+* &lt;b&gt;payload&lt;/b&gt; : LONGTEXT [IngestPublicationJob serialized]&lt;br&gt;
+* &lt;b&gt;attempts&lt;/b&gt; : TINYINT [Percobaan Eksekusi]&lt;br&gt;
+o &lt;b&gt;reserved_at&lt;/b&gt; : INT [Nullable]&lt;br&gt;
+* &lt;b&gt;available_at&lt;/b&gt; : INT&lt;br&gt;
+* &lt;b&gt;created_at&lt;/b&gt; : INT" style="shape=swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;fillColor=#F8FAFC;strokeColor=#64748B;fontColor=#1F2937;align=left;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="480" y="420" width="340" height="200"/>
+        </mxCell>
+        <mxCell id="6" value="&lt;b&gt;cache (Application Cache &amp; Session State)&lt;/b&gt;&lt;br&gt;&lt;i&gt;(Penyimpanan Sementara Data API &amp; Token Limits)&lt;/i&gt;&lt;hr&gt;
++ &lt;b&gt;key&lt;/b&gt; : VARCHAR(255) [PK, e.g. bps_domain_7200, rate_limit_ip]&lt;br&gt;
+* &lt;b&gt;value&lt;/b&gt; : MEDIUMTEXT [Serialized Cache Data]&lt;br&gt;
+* &lt;b&gt;expiration&lt;/b&gt; : INT [Unix Timestamp Expiration]" style="shape=swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;fillColor=#F8FAFC;strokeColor=#64748B;fontColor=#1F2937;align=left;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="880" y="530" width="380" height="150"/>
+        </mxCell>
+        <mxCell id="301" value="1 : 0..1 (Session Rating)" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#0093DD;strokeWidth=2;fontColor=#1F2937;fontSize=11;" edge="1" source="1" target="2" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="302" value="0..* : 1 (Cites Knowledge)" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#0093DD;strokeWidth=2;fontColor=#1F2937;fontSize=11;" edge="1" source="1" target="4" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="303" value="0..* : 1 (Cites Publication)" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#0093DD;strokeWidth=2;fontColor=#1F2937;fontSize=11;" edge="1" source="1" target="3" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="304" value="1 : 0..1 (Dispatched Job)" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#0093DD;strokeWidth=2;fontColor=#1F2937;fontSize=11;" edge="1" source="3" target="5" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="305" value="1 : 0..1 (Cached Payload)" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#0093DD;strokeWidth=2;fontColor=#1F2937;fontSize=11;" edge="1" source="3" target="6" parent="1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
