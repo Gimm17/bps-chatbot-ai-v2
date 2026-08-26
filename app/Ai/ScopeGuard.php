@@ -202,4 +202,80 @@ class ScopeGuard
 
         return $missing;
     }
+
+    // -------------------------------------------------------------------------
+    // Public helpers — called by ChatService for conversation memory resolution
+    // -------------------------------------------------------------------------
+
+    /**
+     * Returns true if the given text contains a recognisable geography entity.
+     */
+    public function hasGeographyEntity(string $lower): bool
+    {
+        foreach (self::PROVINCE_PATTERNS as $geo) {
+            if (str_contains($lower, $geo)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Returns true if the given text contains a recognisable period/year entity.
+     */
+    public function hasPeriodEntity(string $lower): bool
+    {
+        foreach (self::PERIOD_PATTERNS as $pattern) {
+            if (preg_match($pattern, $lower)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Extract the first geography entity found in a text string.
+     * Returns the matched entity string, or null if none found.
+     */
+    public function extractGeographyFromText(string $lower): ?string
+    {
+        // Prefer longer/more specific matches (e.g. "sulawesi tengah" before "indonesia")
+        $sorted = self::PROVINCE_PATTERNS;
+        usort($sorted, fn ($a, $b) => strlen($b) - strlen($a));
+
+        foreach ($sorted as $geo) {
+            if (str_contains($lower, $geo)) {
+                // Capitalise properly for readability in enriched prompt
+                return mb_convert_case($geo, MB_CASE_TITLE, 'UTF-8');
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * Extract the first year or period keyword from a text string.
+     * Returns the matched string (e.g. "2024", "2025", "terbaru"), or null.
+     */
+    public function extractPeriodFromText(string $lower): ?string
+    {
+        // Year patterns first (most specific)
+        if (preg_match('/\b(19\d{2}|20\d{2})\b/', $lower, $m)) {
+            return $m[1];
+        }
+
+        // Named period keywords
+        if (preg_match('/\b(terbaru|terkini|sekarang|bulan\s+ini|bulan\s+lalu|tahun\s+ini|tahun\s+lalu|terakhir|saat\s+ini)\b/i', $lower, $m)) {
+            return $m[1];
+        }
+
+        // Month names
+        if (preg_match('/\b(januari|februari|maret|april|mei|juni|juli|agustus|september|oktober|november|desember)\b/i', $lower, $m)) {
+            return $m[1];
+        }
+
+        return null;
+    }
 }

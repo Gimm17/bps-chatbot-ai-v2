@@ -34,8 +34,10 @@ class ChatController extends Controller
 
         $message = (string) $request->input('message');
         $conversationId = $request->input('conversationId');
+        // Grab the last N turns of history sent by the frontend
+        $history = $request->input('history', []);
 
-        $chatResponse = $this->chatService->handle($message, $conversationId);
+        $chatResponse = $this->chatService->handle($message, $conversationId, $history);
 
         $httpCode = match ($chatResponse->status) {
             'provider_error' => 503,

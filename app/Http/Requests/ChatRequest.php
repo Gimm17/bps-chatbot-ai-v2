@@ -16,9 +16,13 @@ class ChatRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'message' => ['required', 'string', 'min:1', 'max:2000'],
-            'conversationId' => ['nullable', 'string', 'max:100'],
-            'locale' => ['nullable', 'string', 'max:10'],
+            'message'            => ['required', 'string', 'min:1', 'max:2000'],
+            'conversationId'     => ['nullable', 'string', 'max:100'],
+            'locale'             => ['nullable', 'string', 'max:10'],
+            // Conversation history for multi-turn context memory (max 20 turns)
+            'history'            => ['nullable', 'array', 'max:20'],
+            'history.*.role'     => ['required_with:history', 'string', 'in:user,assistant'],
+            'history.*.content'  => ['required_with:history', 'string', 'max:4000'],
         ];
     }
 

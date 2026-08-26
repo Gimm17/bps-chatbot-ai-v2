@@ -100,7 +100,7 @@ const scrollToBottom = () => {
 const handleSendMessage = async (userText) => {
   if (!userText || loading.value) return;
 
-  // Add User Message
+  // Add User Message to local state
   messages.value.push({
     role: 'user',
     content: userText
@@ -117,6 +117,21 @@ const handleSendMessage = async (userText) => {
   }, 1500);
 
   try {
+    // Build conversation history to send (last 10 turns, skip current message which hasn't gotten a response yet)
+    // We send pairs: user + assistant. Last item in messages is the user msg we just added, so slice before it.
+    const allMessages = messages.value.slice(0, -1); // exclude the just-added user msg
+    const history = allMessages
+      .filter(m => m.role === 'user' || m.role === 'assistant')
+      .map(m => ({
+        role: m.role,
+        // For assistant messages, send only the answer text (not clarificationQuestion or metadata)
+        content: m.role === 'assistant'
+          ? (m.answer || m.clarificationQuestion || m.content || '')
+          : (m.content || '')
+      }))
+      .filter(m => m.content.trim().length > 0)
+      .slice(-10); // max 10 turns
+
     const response = await fetch('/api/chat', {
       method: 'POST',
       headers: {
@@ -124,7 +139,8 @@ const handleSendMessage = async (userText) => {
         'Accept': 'application/json',
       },
       body: JSON.stringify({
-        message: userText
+        message: userText,
+        history: history
       })
     });
 
