@@ -133,84 +133,104 @@
       </div>
     </div>
 
-    <!-- About Modal -->
-    <div v-if="showAboutModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs">
-      <div class="bg-white rounded-2xl max-w-sm sm:max-w-md w-full p-5 shadow-2xl border border-[#E2E8F0] animate-in fade-in zoom-in duration-150">
-        <div class="flex justify-between items-start mb-3">
-          <div class="flex items-center gap-2.5">
-            <div class="w-8 h-8 rounded-lg bg-[#EBF7FD] text-[#0093DD] flex items-center justify-center">
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-              </svg>
+    <!-- Modals Teleported to Body -->
+    <Teleport to="body">
+      <!-- About Modal -->
+      <div 
+        v-if="showAboutModal" 
+        class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs animate-in fade-in duration-150"
+        @click.self="showAboutModal = false"
+      >
+        <div class="bg-white rounded-2xl max-w-sm sm:max-w-md w-full p-5 shadow-2xl border border-[#E2E8F0] animate-in fade-in zoom-in-95 duration-150 relative">
+          <div class="flex justify-between items-start mb-3">
+            <div class="flex items-center gap-2.5">
+              <div class="w-8 h-8 rounded-lg bg-[#EBF7FD] text-[#0093DD] flex items-center justify-center shrink-0">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+              </div>
+              <h3 class="text-base font-bold text-[#1F2937]">Tentang BPS AI Assistant</h3>
             </div>
-            <h3 class="text-base font-bold text-[#1F2937]">Tentang BPS AI Assistant</h3>
+            <button @click="showAboutModal = false" class="text-[#64748B] hover:text-[#1F2937] p-1 rounded-lg hover:bg-slate-100 transition-colors cursor-pointer" title="Tutup">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+            </button>
           </div>
-          <button @click="showAboutModal = false" class="text-[#64748B] hover:text-[#1F2937] p-1 cursor-pointer">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
-          </button>
-        </div>
-        <p class="text-xs text-[#4B5563] leading-relaxed mb-3">
-          Asisten resmi berbasis AI untuk menelusuri data statistik resmi, definisi indikator, publikasi, metodologi, dan layanan Badan Pusat Statistik di seluruh Indonesia.
-        </p>
-        <div class="bg-[#EBF7FD]/70 border border-[#0093DD]/20 rounded-xl p-2.5 text-[11px] text-[#1F2937] space-y-1 mb-4">
-          <div class="font-semibold text-[#0093DD]">Fitur & Keunggulan:</div>
-          <div>• Data langsung dari <strong>BPS WebAPI</strong> (549 Wilayah).</div>
-          <div>• Terintegrasi dengan <strong>Portal PPID BPS</strong> & SIRuSa.</div>
-          <div>• Mendukung <strong>PWA (Progressive Web App)</strong> untuk instalasi langsung.</div>
-        </div>
-        <div class="flex justify-end gap-2">
-          <button 
-            v-if="isInstallable && !isEmbedded"
-            @click="installApp(); showAboutModal = false;" 
-            class="bg-[#EBF7FD] hover:bg-[#d8f0fb] text-[#0093DD] border border-[#0093DD]/30 text-xs font-semibold px-3 py-2 rounded-lg transition-colors cursor-pointer"
-          >
-            Install Aplikasi
-          </button>
-          <button @click="showAboutModal = false" class="bg-[#0093DD] hover:bg-[#007bbd] text-white text-xs font-semibold px-4 py-2 rounded-lg transition-colors cursor-pointer shadow-xs">
-            Tutup
-          </button>
+          <p class="text-xs text-[#4B5563] leading-relaxed mb-3">
+            Asisten resmi berbasis AI untuk menelusuri data statistik resmi, definisi indikator, publikasi, metodologi, dan layanan Badan Pusat Statistik di seluruh Indonesia.
+          </p>
+          <div class="bg-[#EBF7FD]/70 border border-[#0093DD]/20 rounded-xl p-3 text-[11.5px] text-[#1F2937] space-y-1.5 mb-4">
+            <div class="font-semibold text-[#0093DD]">Fitur & Keunggulan:</div>
+            <div class="flex items-center gap-1.5 text-slate-700">
+              <span class="w-1.5 h-1.5 rounded-full bg-[#0093DD] shrink-0"></span>
+              <span>Data langsung dari <strong>BPS WebAPI</strong> (549 Wilayah).</span>
+            </div>
+            <div class="flex items-center gap-1.5 text-slate-700">
+              <span class="w-1.5 h-1.5 rounded-full bg-[#EB891B] shrink-0"></span>
+              <span>Terintegrasi dengan <strong>Portal PPID BPS</strong> & SIRuSa.</span>
+            </div>
+            <div class="flex items-center gap-1.5 text-slate-700">
+              <span class="w-1.5 h-1.5 rounded-full bg-[#68B92E] shrink-0"></span>
+              <span>Mendukung <strong>PWA (Progressive Web App)</strong> untuk instalasi langsung.</span>
+            </div>
+          </div>
+          <div class="flex justify-end gap-2">
+            <button 
+              v-if="isInstallable && !isEmbedded"
+              @click="installApp(); showAboutModal = false;" 
+              class="bg-[#EBF7FD] hover:bg-[#d8f0fb] text-[#0093DD] border border-[#0093DD]/30 text-xs font-semibold px-3 py-2 rounded-lg transition-colors cursor-pointer"
+            >
+              Install Aplikasi
+            </button>
+            <button @click="showAboutModal = false" class="bg-[#0093DD] hover:bg-[#007bbd] text-white text-xs font-semibold px-4 py-2 rounded-lg transition-colors cursor-pointer shadow-xs">
+              Tutup
+            </button>
+          </div>
         </div>
       </div>
-    </div>
 
-    <!-- Help Modal -->
-    <div v-if="showHelpModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs">
-      <div class="bg-white rounded-2xl max-w-sm sm:max-w-md w-full p-5 shadow-2xl border border-[#E2E8F0] animate-in fade-in zoom-in duration-150">
-        <div class="flex justify-between items-start mb-3">
-          <div class="flex items-center gap-2.5">
-            <div class="w-8 h-8 rounded-lg bg-[#FEF6EB] text-[#EB891B] flex items-center justify-center">
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-              </svg>
+      <!-- Help Modal -->
+      <div 
+        v-if="showHelpModal" 
+        class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs animate-in fade-in duration-150"
+        @click.self="showHelpModal = false"
+      >
+        <div class="bg-white rounded-2xl max-w-sm sm:max-w-md w-full p-5 shadow-2xl border border-[#E2E8F0] animate-in fade-in zoom-in-95 duration-150 relative">
+          <div class="flex justify-between items-start mb-3">
+            <div class="flex items-center gap-2.5">
+              <div class="w-8 h-8 rounded-lg bg-[#FEF6EB] text-[#EB891B] flex items-center justify-center shrink-0">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+              </div>
+              <h3 class="text-base font-bold text-[#1F2937]">Panduan Pertanyaan</h3>
             </div>
-            <h3 class="text-base font-bold text-[#1F2937]">Panduan Pertanyaan</h3>
+            <button @click="showHelpModal = false" class="text-[#64748B] hover:text-[#1F2937] p-1 rounded-lg hover:bg-slate-100 transition-colors cursor-pointer" title="Tutup">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+            </button>
           </div>
-          <button @click="showHelpModal = false" class="text-[#64748B] hover:text-[#1F2937] p-1 cursor-pointer">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
-          </button>
-        </div>
-        <p class="text-xs text-[#4B5563] mb-2.5">Contoh pertanyaan statistik:</p>
-        <div class="space-y-1.5 mb-4 text-[11px]">
-          <div class="p-2 bg-[#F8FAFC] border border-[#E2E8F0] rounded-lg text-[#1F2937]">
-            <div class="font-semibold text-[#1F2937]">1. Konsep Statistik:</div>
-            "Apa itu inflasi?", "Jelaskan konsep PDRB", "Apa itu TPT?"
+          <p class="text-xs text-[#4B5563] mb-2.5">Contoh pertanyaan statistik yang dapat diajukan:</p>
+          <div class="space-y-2 mb-4 text-[11.5px]">
+            <div class="p-2.5 bg-[#F8FAFC] border border-[#E2E8F0] rounded-xl text-[#1F2937]">
+              <div class="font-bold text-[#0093DD] mb-0.5">1. Konsep & Metodologi Statistik:</div>
+              <p class="text-[#64748B] leading-tight">"Apa itu inflasi?", "Jelaskan konsep PDRB", "Apa itu TPT?"</p>
+            </div>
+            <div class="p-2.5 bg-[#F8FAFC] border border-[#E2E8F0] rounded-xl text-[#1F2937]">
+              <div class="font-bold text-[#EB891B] mb-0.5">2. Data Daerah & Publikasi:</div>
+              <p class="text-[#64748B] leading-tight">"Data penduduk Sulawesi Tengah 2026", "Tampilkan publikasi kependudukan"</p>
+            </div>
+            <div class="p-2.5 bg-[#F8FAFC] border border-[#E2E8F0] rounded-xl text-[#1F2937]">
+              <div class="font-bold text-[#68B92E] mb-0.5">3. Kelembagaan & Pejabat:</div>
+              <p class="text-[#64748B] leading-tight">"Siapa Kepala BPS Pusat?", "Alamat kantor BPS Kota Palu"</p>
+            </div>
           </div>
-          <div class="p-2 bg-[#F8FAFC] border border-[#E2E8F0] rounded-lg text-[#1F2937]">
-            <div class="font-semibold text-[#1F2937]">2. Data Daerah & Publikasi:</div>
-            "Data penduduk Sulawesi Tengah 2026", "Tampilkan publikasi kependudukan"
+          <div class="flex justify-end">
+            <button @click="showHelpModal = false" class="bg-[#0093DD] hover:bg-[#007bbd] text-white text-xs font-semibold px-4 py-2 rounded-lg transition-colors cursor-pointer shadow-xs">
+              Mengerti
+            </button>
           </div>
-          <div class="p-2 bg-[#F8FAFC] border border-[#E2E8F0] rounded-lg text-[#1F2937]">
-            <div class="font-semibold text-[#1F2937]">3. Kelembagaan & Pejabat:</div>
-            "Siapa Kepala BPS Pusat?", "Alamat kantor BPS Kota Palu"
-          </div>
-        </div>
-        <div class="flex justify-end">
-          <button @click="showHelpModal = false" class="bg-[#0093DD] hover:bg-[#007bbd] text-white text-xs font-semibold px-4 py-2 rounded-lg transition-colors cursor-pointer shadow-xs">
-            Mengerti
-          </button>
         </div>
       </div>
-    </div>
+    </Teleport>
   </header>
 </template>
 
