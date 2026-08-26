@@ -80,11 +80,11 @@ svg {
 .ai-markdown {
   line-height: 1.6;
   color: #1F2937;
-  font-size: 0.935rem;
+  font-size: 0.875rem; /* was 0.935rem (~15px), reduced by 1px to 14px */
 }
 @media (min-width: 640px) {
   .ai-markdown {
-    font-size: 1.05rem;
+    font-size: 0.9875rem; /* was 1.05rem (~16.8px), reduced by 1px to 15.8px */
     line-height: 1.75;
   }
 }
@@ -118,21 +118,38 @@ svg {
   margin-top: 1.2rem;
   margin-bottom: 0.5rem;
 }
-.ai-markdown h3 {
+.ai-markdown h1 {
   font-size: 1.15rem;
+}
+.ai-markdown h2 {
+  font-size: 1.05rem;
+}
+.ai-markdown h3 {
+  font-size: 0.95rem; /* was 16px mobile / 18.4px desktop, reduced by 1px */
+}
+@media (min-width: 640px) {
+  .ai-markdown h1 {
+    font-size: 1.35rem;
+  }
+  .ai-markdown h2 {
+    font-size: 1.2rem;
+  }
+  .ai-markdown h3 {
+    font-size: 1.0875rem; /* was 1.15rem (~18.4px), reduced by 1px to ~17.4px */
+  }
 }
 .ai-markdown table {
   width: 100%;
   border-collapse: collapse;
   margin: 1rem 0;
-  font-size: 0.875rem;
+  font-size: 0.8125rem; /* was 0.875rem (14px), reduced by 1px to 13px */
   display: block;
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
 }
 @media (min-width: 640px) {
   .ai-markdown table {
-    font-size: 0.95rem;
+    font-size: 0.8875rem; /* was 0.95rem (~15.2px), reduced by 1px to 14.2px */
     display: table;
   }
 }
@@ -152,7 +169,7 @@ svg {
   padding: 2px 6px;
   border-radius: 4px;
   font-family: ui-monospace, monospace;
-  font-size: 0.88em;
+  font-size: 0.82em; /* was 0.88em, reduced by 1px to ~12.2px / ~13.8px */
   color: #1F2937;
 }
 .ai-markdown a {

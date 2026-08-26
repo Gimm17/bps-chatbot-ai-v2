@@ -3,7 +3,7 @@
     <!-- 1. USER MESSAGE -->
     <div v-if="message.role === 'user'" class="flex justify-end w-full">
       <div class="bg-[#EBF7FD] text-[#1F2937] border border-[#0093DD]/25 rounded-2xl rounded-tr-xs px-3.5 sm:px-5 py-2.5 sm:py-3.5 max-w-[90%] sm:max-w-[78%] shadow-2xs">
-        <p class="text-[13.5px] sm:text-[15.5px] leading-relaxed whitespace-pre-wrap break-words">{{ message.content }}</p>
+        <p class="text-[12.5px] sm:text-[14.5px] leading-relaxed whitespace-pre-wrap break-words">{{ message.content }}</p>
       </div>
     </div>
 
