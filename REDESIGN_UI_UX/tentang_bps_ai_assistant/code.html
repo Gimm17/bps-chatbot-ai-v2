@@ -1,0 +1,135 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1.0" name="viewport"><style>@layer base { html, body { margin: 0; padding: 0; } body { overscroll-behavior: none; } main > :first-child { margin-top: 0 !important; } main > :last-child { margin-bottom: 0 !important; } } ::-webkit-scrollbar { display: none; }</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "primary-fixed-dim": "#a8c8ff", "on-error": "#ffffff", "on-primary-fixed-variant": "#004689", "inverse-primary": "#a8c8ff", "on-secondary-container": "#632c00", "on-tertiary": "#ffffff", "surface-container-highest": "#dae2fd", "on-primary-container": "#b7d0ff", "tertiary-fixed-dim": "#ffb68f", "surface": "#faf8ff", "on-secondary-fixed": "#321300", "surface-container-lowest": "#ffffff", "primary-fixed": "#d5e3ff", "on-surface-variant": "#424751", "tertiary": "#6e2e00", "surface-tint": "#125eaf", "outline": "#727783", "on-error-container": "#93000a", "primary": "#00417f", "tertiary-fixed": "#ffdbca", "inverse-surface": "#283044", "on-surface": "#131b2e", "surface-container": "#eaedff", "surface-container-low": "#f2f3ff", "secondary": "#984700", "inverse-on-surface": "#eef0ff", "surface-variant": "#dae2fd", "secondary-container": "#fe852b", "surface-container-high": "#e2e7ff", "on-secondary": "#ffffff", "outline-variant": "#c2c6d3", "background": "#faf8ff", "tertiary-container": "#934000", "secondary-fixed": "#ffdbc8", "on-tertiary-fixed-variant": "#773200", "error": "#ba1a1a", "error-container": "#ffdad6", "on-background": "#131b2e", "on-tertiary-fixed": "#331200", "on-tertiary-container": "#ffc2a3", "on-primary-fixed": "#001b3c", "on-primary": "#ffffff", "surface-dim": "#d2d9f4", "on-secondary-fixed-variant": "#743500", "surface-bright": "#faf8ff", "secondary-fixed-dim": "#ffb68a", "primary-container": "#0058a9" }, "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, "spacing": { "2xl": "48px", "sm": "12px", "base": "4px", "xl": "32px", "container-max": "1200px", "md": "16px", "gutter": "24px", "lg": "24px", "xs": "8px" }, "fontFamily": { "body-md": ["Plus Jakarta Sans"], "body-lg": ["Plus Jakarta Sans"], "label-md": ["Plus Jakarta Sans"], "headline-md": ["Plus Jakarta Sans"], "headline-xl": ["Plus Jakarta Sans"], "label-sm": ["Plus Jakarta Sans"], "headline-lg-mobile": ["Plus Jakarta Sans"], "headline-lg": ["Plus Jakarta Sans"] }, "fontSize": { "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }], "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }], "label-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600" }], "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }], "headline-xl": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700" }], "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "500" }], "headline-lg-mobile": ["28px", { "lineHeight": "36px", "fontWeight": "700" }], "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700" }] } } } }</script><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"></head><body class="bg-surface font-body-md text-on-surface"><header class="fixed top-0 w-full z-50 bg-surface/90 backdrop-blur-md shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-16 max-w-container-max mx-auto px-lg flex items-center justify-between"><div class="flex items-center gap-xl"><img src="https://lh3.googleusercontent.com/aida/AEtjO1UU9a1jcVld5rnu8nnKXT2iCvfpMIftvOepBcnFqcv99dOWJ3IuoolRBMAKadxnUWvXPc_9NALmiIDOXim4Ovu1zR4xrAqnGG2tI1G6SyxVQbHl3cdt_OB9vKr_keCPtaE30ebOLX3UfuOSaRuSoRqYiFP3GMAkF_AQu7Tw8d0K42xPW5khVbr91QNcE-dJK_Ny7RjY1HlZCoNxvPL7Ojrjc9dWYLGwPDLXLR61e-zl9qTeou5D4Kr3HCc" class="h-8 w-8 object-contain" alt="BPS Logo"><span class="font-headline-md text-headline-md text-primary tracking-tight">BPS AI Assistant</span><nav class="hidden md:flex items-center gap-lg" data-active-classes="text-primary font-bold"><a aria-current="page" class="transition-colors text-primary font-bold" data-path="dashboard" href="#">Dashboard</a><a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" data-path="databases" href="#">Databases</a><a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" data-path="publications" href="#">Publications</a></nav></div><div class="flex items-center gap-md"><button class="p-xs text-on-surface-variant hover:bg-surface-variant rounded-full transition-all"><span class="material-symbols-outlined">notifications</span></button><button class="p-xs text-on-surface-variant hover:bg-surface-variant rounded-full transition-all"><span class="material-symbols-outlined">settings</span></button><div class="ml-base border-l border-outline-variant h-6"></div><img alt="Profile" class="w-8 h-8 rounded-full object-cover ml-base ring-2 ring-primary-container/20" src="https://lh3.googleusercontent.com/aida/AEtjO1Wm7xkezi09OzVCNslLRkZ19AGwg0mgnZZakwWdA9cq64bwN63I3wxgkxFouHCK7FFXGxAD7_BEXbHD1_CNySxQeLP5yDhN2WSFKqx4Z7uPOo_0eQpJh5GL-lIwalJ2suCKdsF5lVJfoA6wKBIRxbqk39IH9Q_i2glnu-BEdZo94URkTbwihXF7FAnLzW4GvizEISy2-1d8Kfn94l9DqXf-Ufrsi4ad4qqbyy-UzvVdC3M2Nl3irN9t5IIkw7tgmJbIEvahVb7pB3g"></div></div></header><main class="w-full pt-16 min-h-screen"><div class="flex flex-col w-full">
+<!-- Hero Section -->
+<section class="w-full relative overflow-hidden bg-surface py-2xl md:py-32">
+<div class="absolute inset-0 z-0">
+<div class="absolute top-[-10%] right-[-5%] w-[40%] h-[60%] bg-primary-fixed-dim/20 rounded-full blur-3xl"></div>
+<div class="absolute bottom-[-20%] left-[-10%] w-[50%] h-[50%] bg-tertiary-fixed-dim/20 rounded-full blur-3xl"></div>
+</div>
+<div class="max-w-container-max mx-auto px-lg relative z-10 flex flex-col items-center text-center">
+<div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-surface-container-high border-outline-variant/30 mb-8 shadow-sm">
+<span class="material-symbols-outlined text-primary text-sm">info</span>
+<span class="font-label-md text-label-md text-on-surface-variant">Layanan Resmi Statistik Nasional</span>
+</div>
+<h1 class="font-headline-xl text-headline-xl text-on-surface mb-6 max-w-3xl">
+        Tentang <span class="text-primary relative inline-block">BPS AI Assistant<svg class="absolute -bottom-2 left-0 w-full h-3 text-secondary-container" preserveAspectRatio="none" viewBox="0 0 100 10"><path d="M0 5 Q 50 10 100 5" fill="none" stroke="currentColor" stroke-width="2"></path></svg></span>
+</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl leading-relaxed">
+        BPS AI Assistant adalah layanan resmi dari Badan Pusat Statistik (BPS) Indonesia. Kami merancang asisten ini untuk membantu Anda menavigasi, memahami, dan mengakses jutaan data statistik nasional dengan mudah dan akurat.
+      </p>
+</div>
+</section>
+<!-- Process Section: Bagaimana Jawaban Dibuat? -->
+<section class="w-full bg-surface-container-low py-xl md:py-24">
+<div class="max-w-container-max mx-auto px-lg">
+<div class="flex flex-col md:flex-row justify-between items-end mb-12 border-b border-outline-variant/30 pb-6">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Bagaimana Jawaban Dibuat?</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-2">Proses transparan di balik setiap respons yang Anda terima.</p>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-md md:gap-lg relative group">
+<!-- Connecting Line (Desktop Only) -->
+<div class="hidden lg:block absolute top-[68px] left-[12%] right-[12%] h-[2px] bg-gradient-to-r from-transparent via-outline-variant to-transparent z-0"></div>
+<!-- Step 1 -->
+<div class="relative z-10 bg-surface rounded-2xl p-6 shadow-sm border border-outline-variant/20 transition-transform duration-300 hover:-translate-y-2 hover:shadow-md hover:border-primary/30 flex flex-col items-center text-center">
+<div class="w-16 h-16 rounded-full bg-surface-container-highest flex items-center justify-center mb-6 shadow-inner ring-4 ring-surface">
+<span class="material-symbols-outlined text-primary text-[28px]">chat_bubble_outline</span>
+</div>
+<h3 class="font-headline-md text-[20px] leading-[28px] text-on-surface mb-3">Pertanyaan Anda</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Anda mengajukan pertanyaan terkait data atau konsep statistik.</p>
+</div>
+<!-- Step 2 -->
+<div class="relative z-10 bg-surface rounded-2xl p-6 shadow-sm border border-outline-variant/20 transition-transform duration-300 hover:-translate-y-2 hover:shadow-md hover:border-primary/30 flex flex-col items-center text-center">
+<div class="w-16 h-16 rounded-full bg-primary-fixed flex items-center justify-center mb-6 shadow-inner ring-4 ring-surface">
+<span class="material-symbols-outlined text-on-primary-fixed text-[28px]">search</span>
+</div>
+<h3 class="font-headline-md text-[20px] leading-[28px] text-on-surface mb-3">Pencarian BPS</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">AI mencari di arsip resmi BPS, publikasi, dan dataset terverifikasi.</p>
+</div>
+<!-- Step 3 -->
+<div class="relative z-10 bg-surface rounded-2xl p-6 shadow-sm border border-outline-variant/20 transition-transform duration-300 hover:-translate-y-2 hover:shadow-md hover:border-primary/30 flex flex-col items-center text-center">
+<div class="w-16 h-16 rounded-full bg-secondary-fixed flex items-center justify-center mb-6 shadow-inner ring-4 ring-surface">
+<span class="material-symbols-outlined text-on-secondary-fixed text-[28px]">memory</span>
+</div>
+<h3 class="font-headline-md text-[20px] leading-[28px] text-on-surface mb-3">Sintesis AI</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Informasi disintesis menjadi jawaban yang mudah dipahami.</p>
+</div>
+<!-- Step 4 -->
+<div class="relative z-10 bg-surface rounded-2xl p-6 shadow-sm border border-outline-variant/20 transition-transform duration-300 hover:-translate-y-2 hover:shadow-md hover:border-primary/30 flex flex-col items-center text-center overflow-hidden">
+<div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary to-secondary"></div>
+<div class="w-16 h-16 rounded-full bg-[#e6f4ea] flex items-center justify-center mb-6 shadow-inner ring-4 ring-surface">
+<span class="material-symbols-outlined text-[#137333] text-[28px]">verified_user</span>
+</div>
+<h3 class="font-headline-md text-[20px] leading-[28px] text-on-surface mb-3">Transparansi</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Jawaban disajikan bersama tautan sitasi ke sumber data asli.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Features Section: Apa yang Bisa Dilakukan? -->
+<section class="w-full bg-surface py-xl md:py-24">
+<div class="max-w-container-max mx-auto px-lg">
+<h2 class="font-headline-lg text-headline-lg text-on-surface mb-12">Apa yang Bisa Dilakukan?</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-md md:gap-lg">
+<!-- Feature 1 -->
+<div class="bg-surface-container rounded-2xl p-8 flex items-start gap-6 hover:bg-surface-container-highest transition-colors group">
+<div class="w-12 h-12 shrink-0 rounded-full bg-secondary-fixed-dim/20 flex items-center justify-center group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-secondary-container">school</span>
+</div>
+<div>
+<h3 class="font-headline-md text-[20px] leading-[28px] text-on-surface mb-2">Penjelasan Konsep</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Membantu menjelaskan istilah teknis seperti Inflasi, PDB, atau Indeks Gini dengan bahasa yang sederhana.</p>
+</div>
+</div>
+<!-- Feature 2 -->
+<div class="bg-surface-container rounded-2xl p-8 flex items-start gap-6 hover:bg-surface-container-highest transition-colors group">
+<div class="w-12 h-12 shrink-0 rounded-full bg-primary-fixed-dim/20 flex items-center justify-center group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-primary">menu_book</span>
+</div>
+<div>
+<h3 class="font-headline-md text-[20px] leading-[28px] text-on-surface mb-2">Pencarian Publikasi</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Menemukan laporan dan publikasi spesifik berdasarkan tahun, daerah, atau topik tertentu.</p>
+</div>
+</div>
+<!-- Feature 3 -->
+<div class="bg-surface-container rounded-2xl p-8 flex items-start gap-6 hover:bg-surface-container-highest transition-colors group">
+<div class="w-12 h-12 shrink-0 rounded-full bg-primary-fixed-dim/20 flex items-center justify-center group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-primary">dataset</span>
+</div>
+<div>
+<h3 class="font-headline-md text-[20px] leading-[28px] text-on-surface mb-2">Akses Data Sensus</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Menyajikan ringkasan hasil sensus penduduk, pertanian, maupun ekonomi dalam format ringkas.</p>
+</div>
+</div>
+<!-- Feature 4 -->
+<div class="bg-surface-container rounded-2xl p-8 flex items-start gap-6 hover:bg-surface-container-highest transition-colors group">
+<div class="w-12 h-12 shrink-0 rounded-full bg-secondary-fixed-dim/20 flex items-center justify-center group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-secondary-container">insights</span>
+</div>
+<div>
+<h3 class="font-headline-md text-[20px] leading-[28px] text-on-surface mb-2">Indikator Terkini</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Menampilkan angka rilis terbaru untuk indikator makroekonomi dan sosial krusial.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Warning Section -->
+<section class="w-full bg-surface-container-low py-xl">
+<div class="max-w-container-max mx-auto px-lg">
+<div class="bg-secondary-fixed-dim/10 border-l-4 border-secondary-container rounded-r-xl p-6 md:p-8 flex flex-col md:flex-row gap-6 items-start relative overflow-hidden">
+<div class="absolute inset-0 bg-gradient-to-r from-secondary-fixed/20 to-transparent opacity-50 pointer-events-none"></div>
+<span class="material-symbols-outlined text-secondary-container text-3xl shrink-0 mt-1 relative z-10">error</span>
+<div class="relative z-10">
+<h3 class="font-headline-md text-headline-md text-on-surface mb-2">Penting untuk Diketahui</h3>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+            Meskipun AI Assistant dirancang untuk memberikan jawaban yang akurat berdasarkan sumber resmi, sistem ini dapat membuat kesalahan. Kami sangat menyarankan agar Anda selalu memverifikasi informasi melalui tautan sitasi sumber data yang disertakan pada setiap jawaban sebelum menggunakannya untuk keperluan akademis atau pengambilan keputusan.
+          </p>
+</div>
+</div>
+</div>
+</section>
+</div></main><footer class="w-full bg-surface-container-low py-xl"><div class="max-w-container-max mx-auto px-lg flex flex-col md:flex-row justify-between items-center gap-md"><span class="font-label-sm text-label-sm text-on-surface-variant">© 2024 BPS AI Assistant. Government-Affiliated Statistical Intelligence.</span><div class="flex gap-lg"><a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary" href="#">Privacy Policy</a><a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary" href="#">Accessibility</a><a class="font-label-sm text-label-sm text-on-surface-variant hover:text-primary" href="#">Help Desk</a></div></div></footer>
+
+</body></html>
