@@ -1,5 +1,5 @@
 <template>
-  <div class="h-[100dvh] max-h-[100dvh] w-full flex flex-col bg-[#F8FAFC] overflow-hidden select-text">
+  <div class="h-[100dvh] max-h-[100dvh] w-full flex flex-col bg-[#FAF8FF] overflow-hidden select-text">
     <!-- 1. Top Fixed Header (Shrink-0) -->
     <Header 
       class="shrink-0" 
@@ -31,21 +31,17 @@
         />
 
         <!-- Loading Indicator -->
-        <div v-if="loading" class="flex items-start gap-2.5 w-full py-1.5">
-          <div class="w-7 h-7 rounded-xl bg-gradient-to-br from-[#00ADEF] to-[#0077A6] text-white flex items-center justify-center shrink-0 shadow-2xs mt-0.5 animate-pulse">
-            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <rect x="3" y="11" width="18" height="10" rx="2"/>
-              <circle cx="12" cy="5" r="2"/>
-              <path d="M12 7v4"/>
-            </svg>
+        <div v-if="loading" class="flex items-start gap-2.5 sm:gap-3.5 w-full py-1.5 animate-in fade-in">
+          <div class="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-[#0058A9] text-white flex items-center justify-center shrink-0 shadow-2xs mt-0.5 animate-pulse">
+            <span class="material-symbols-outlined text-[18px] sm:text-[20px]" style="font-variation-settings: 'FILL' 1;">smart_toy</span>
           </div>
-          <div class="bg-white border border-slate-200 rounded-2xl px-3.5 py-2.5 shadow-2xs flex items-center gap-2 text-xs text-slate-600">
+          <div class="bg-white border border-[#DAE2FD] rounded-2xl px-4 py-2.5 shadow-2xs flex items-center gap-2.5 text-xs text-[#424751]">
             <div class="flex space-x-1">
-              <div class="w-1.5 h-1.5 bg-[#00ADEF] rounded-full animate-bounce"></div>
-              <div class="w-1.5 h-1.5 bg-[#00ADEF] rounded-full animate-bounce [animation-delay:0.2s]"></div>
-              <div class="w-1.5 h-1.5 bg-[#00ADEF] rounded-full animate-bounce [animation-delay:0.4s]"></div>
+              <div class="w-1.5 h-1.5 bg-[#0058A9] rounded-full animate-bounce"></div>
+              <div class="w-1.5 h-1.5 bg-[#0058A9] rounded-full animate-bounce [animation-delay:0.2s]"></div>
+              <div class="w-1.5 h-1.5 bg-[#0058A9] rounded-full animate-bounce [animation-delay:0.4s]"></div>
             </div>
-            <span class="font-medium text-slate-700">{{ loadingStatusText }}</span>
+            <span class="font-semibold text-[#131B2E]">{{ loadingStatusText }}</span>
           </div>
         </div>
       </div>
@@ -107,30 +103,28 @@ const handleSendMessage = async (userText) => {
   });
 
   loading.value = true;
-  loadingStatusText.value = 'Mencari sumber data BPS...';
+  loadingStatusText.value = 'Mencari data resmi BPS...';
   scrollToBottom();
 
   const timer = setTimeout(() => {
     if (loading.value) {
-      loadingStatusText.value = 'Menyusun jawaban resmi...';
+      loadingStatusText.value = 'Menyusun jawaban terverifikasi...';
     }
   }, 1500);
 
   try {
-    // Build conversation history to send (last 10 turns, skip current message which hasn't gotten a response yet)
-    // We send pairs: user + assistant. Last item in messages is the user msg we just added, so slice before it.
-    const allMessages = messages.value.slice(0, -1); // exclude the just-added user msg
+    // Build conversation history (max 10 turns)
+    const allMessages = messages.value.slice(0, -1);
     const history = allMessages
       .filter(m => m.role === 'user' || m.role === 'assistant')
       .map(m => ({
         role: m.role,
-        // For assistant messages, send only the answer text (not clarificationQuestion or metadata)
         content: m.role === 'assistant'
           ? (m.answer || m.clarificationQuestion || m.content || '')
           : (m.content || '')
       }))
       .filter(m => m.content.trim().length > 0)
-      .slice(-10); // max 10 turns
+      .slice(-10);
 
     const response = await fetch('/api/chat', {
       method: 'POST',

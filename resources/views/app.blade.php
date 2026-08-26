@@ -21,14 +21,15 @@
     <link rel="icon" type="image/png" sizes="192x192" href="/icons/icon-192.png">
     <link rel="shortcut icon" href="/icons/icon-192.png">
     
-    <!-- Fonts -->
+    <!-- Fonts: Plus Jakarta Sans & Material Symbols -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
     
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="bg-[#F8FAFC] text-[#1F2937] antialiased selection:bg-[#0093DD]/20 selection:text-[#0093DD]">
+<body class="bg-[#FAF8FF] text-[#131B2E] font-sans antialiased selection:bg-[#0058A9]/20 selection:text-[#0058A9]">
     <div id="app"></div>
 </body>
 </html>

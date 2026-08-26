@@ -2,40 +2,50 @@
 
 @layer base {
   :root {
-    /* Brand Colors (New Palette) */
-    --bps-blue: #0093DD;
-    --bps-orange: #EB891B;
-    --bps-green: #68B92E;
+    /* Brand Colors (BPS Institutional Intelligence) */
+    --bps-blue: #0058A9;
+    --bps-blue-dark: #00417F;
+    --bps-orange: #FE852B;
+    --bps-orange-dark: #984700;
+    --bps-green: #137333;
 
-    /* Semantic Primary Theme */
-    --primary: #0093DD;
-    --primary-hover: #007bbd;
-    --primary-light: #EBF7FD;
-    --primary-container: #0093DD;
+    /* Theme Primary */
+    --primary: #0058A9;
+    --primary-container: #00417F;
+    --primary-fixed: #D5E3FF;
+    --primary-fixed-dim: #A8C8FF;
     --on-primary: #FFFFFF;
+    --on-primary-fixed: #001B3C;
 
-    /* Secondary & Accent */
-    --secondary: #EB891B;
-    --secondary-light: #FEF6EB;
-    --accent-green: #68B92E;
-    --accent-green-light: #F0F9EA;
+    /* Theme Secondary */
+    --secondary: #984700;
+    --secondary-container: #FE852B;
+    --secondary-fixed: #FFDBC8;
+    --secondary-fixed-dim: #FFB68A;
+    --on-secondary: #FFFFFF;
+    --on-secondary-container: #632C00;
 
-    /* Surface & Background */
-    --bg-main: #F8FAFC;
-    --surface: #FFFFFF;
-    --surface-low: #F1F5F9;
-    --surface-ai: #FFFFFF;
-    --surface-user: #EBF7FD;
-    --surface-error: #FEF2F2;
+    /* Surfaces & Containers */
+    --surface: #FAF8FF;
+    --surface-dim: #D2D9F4;
+    --surface-bright: #FAF8FF;
+    --surface-container-lowest: #FFFFFF;
+    --surface-container-low: #F2F3FF;
+    --surface-container: #EAEDFF;
+    --surface-container-high: #E2E7FF;
+    --surface-container-highest: #DAE2FD;
 
     /* Text Colors */
-    --text-primary: #1F2937;
-    --text-secondary: #4B5563;
-    --text-muted: #64748B;
+    --on-surface: #131B2E;
+    --on-surface-variant: #424751;
+    --outline: #727783;
+    --outline-variant: #C2C6D3;
 
-    /* Borders & Outlines */
-    --border-color: #E2E8F0;
-    --border-focus: #0093DD;
+    /* Semantic States */
+    --error: #BA1A1A;
+    --error-container: #FFDAD6;
+    --on-error: #FFFFFF;
+    --on-error-container: #93000A;
   }
 }
 
@@ -44,11 +54,31 @@ html, body {
   padding: 0;
   width: 100%;
   min-height: 100vh;
-  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  background-color: #F8FAFC;
-  color: #1F2937;
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background-color: #FAF8FF;
+  color: #131B2E;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
+}
+
+/* Material Symbols icon support */
+.material-symbols-outlined {
+  font-family: 'Material Symbols Outlined';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 20px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+  vertical-align: middle;
 }
 
 /* Guard against unconstrained SVGs */
@@ -69,22 +99,38 @@ svg {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: #CBD5E1;
+  background: #C2C6D3;
   border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #94A3B8;
+  background: #727783;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 /* Markdown Rendering in AI responses */
 .ai-markdown {
-  line-height: 1.6;
-  color: #1F2937;
-  font-size: 0.875rem; /* was 0.935rem (~15px), reduced by 1px to 14px */
+  line-height: 1.65;
+  color: #131B2E;
+  font-size: 0.875rem; /* 14px */
 }
 @media (min-width: 640px) {
   .ai-markdown {
-    font-size: 0.9875rem; /* was 1.05rem (~16.8px), reduced by 1px to 15.8px */
+    font-size: 0.9875rem; /* 15.8px */
     line-height: 1.75;
   }
 }
@@ -109,12 +155,12 @@ svg {
   margin-bottom: 0.35rem;
 }
 .ai-markdown strong {
-  font-weight: 600;
-  color: #1F2937;
+  font-weight: 700;
+  color: #131B2E;
 }
 .ai-markdown h1, .ai-markdown h2, .ai-markdown h3, .ai-markdown h4 {
   font-weight: 700;
-  color: #1F2937;
+  color: #131B2E;
   margin-top: 1.2rem;
   margin-bottom: 0.5rem;
 }
@@ -125,7 +171,7 @@ svg {
   font-size: 1.05rem;
 }
 .ai-markdown h3 {
-  font-size: 0.95rem; /* was 16px mobile / 18.4px desktop, reduced by 1px */
+  font-size: 0.95rem;
 }
 @media (min-width: 640px) {
   .ai-markdown h1 {
@@ -135,49 +181,51 @@ svg {
     font-size: 1.2rem;
   }
   .ai-markdown h3 {
-    font-size: 1.0875rem; /* was 1.15rem (~18.4px), reduced by 1px to ~17.4px */
+    font-size: 1.0875rem;
   }
 }
 .ai-markdown table {
   width: 100%;
   border-collapse: collapse;
   margin: 1rem 0;
-  font-size: 0.8125rem; /* was 0.875rem (14px), reduced by 1px to 13px */
+  font-size: 0.8125rem; /* 13px */
   display: block;
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
 }
 @media (min-width: 640px) {
   .ai-markdown table {
-    font-size: 0.8875rem; /* was 0.95rem (~15.2px), reduced by 1px to 14.2px */
+    font-size: 0.8875rem; /* 14.2px */
     display: table;
   }
 }
 .ai-markdown th, .ai-markdown td {
-  border: 1px solid #E2E8F0;
+  border: 1px solid #E2E7FF;
   padding: 8px 12px;
   text-align: left;
   white-space: normal;
 }
 .ai-markdown th {
-  background-color: #F8FAFC;
-  font-weight: 600;
-  color: #1F2937;
+  background-color: #F2F3FF;
+  font-weight: 700;
+  color: #131B2E;
 }
 .ai-markdown code {
-  background-color: #F1F5F9;
+  background-color: #EAEDFF;
   padding: 2px 6px;
   border-radius: 4px;
   font-family: ui-monospace, monospace;
-  font-size: 0.82em; /* was 0.88em, reduced by 1px to ~12.2px / ~13.8px */
-  color: #1F2937;
+  font-size: 0.82em;
+  color: #00417F;
+  font-weight: 600;
 }
 .ai-markdown a {
-  color: #0093DD;
+  color: #0058A9;
   text-decoration: underline;
   text-underline-offset: 2px;
   word-break: break-all;
+  font-weight: 600;
 }
 .ai-markdown a:hover {
-  color: #007bbd;
+  color: #00417F;
 }
