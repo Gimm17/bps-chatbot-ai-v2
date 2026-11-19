@@ -8,8 +8,8 @@
 
 <table>
   <tr>
-    <td width="50%"><img src="docs/screenshots/live-home.webp" alt="BPS AI Assistant Home" /></td>
-    <td width="50%"><img src="docs/screenshots/live-chat.webp" alt="BPS AI Cited Answer" /></td>
+    <td width="50%"><img src="DOCS/screenshots/live-home.webp" alt="BPS AI Assistant Home" /></td>
+    <td width="50%"><img src="DOCS/screenshots/live-chat.webp" alt="BPS AI Cited Answer" /></td>
   </tr>
 </table>
 
